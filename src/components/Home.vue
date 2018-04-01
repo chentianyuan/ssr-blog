@@ -1,6 +1,6 @@
 <template>
   <div id='homePage'>
-      首页
+      首页aaaaaaaaaaa
   </div>
 </template>
 
@@ -9,3 +9,10 @@ export default {
   
 }
 </script>
+
+<style lang="less" scoped>
+  #homePage{
+   color: green; 
+   font-size: 24px;
+  }
+</style>
