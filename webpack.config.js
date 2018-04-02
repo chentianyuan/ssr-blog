@@ -11,6 +11,7 @@ module.exports = {
     output: {
         path: path.join(__dirname,'/dist'),
         filename: 'bundle.js',
+        publicPath:'/',
         // 或者使用clean-webpack-plugin,处理生成的[hash].hot-update.js/json文件
         hotUpdateChunkFilename: 'hot/hot-update.js',
 		hotUpdateMainFilename: 'hot/hot-update.json'
@@ -30,6 +31,10 @@ module.exports = {
                 test: /\.less$/,
                 type: 'javascript/auto',
                 use: ['vue-style-loader','css-loader','postcss-loader','less-loader']
+            },{
+                // 图片打包
+                test: /\.(?:jpg|png|gif)$/,
+                loader: 'url-loader?limit=8192&name=static/[name].[hash:6].[ext]'
             }
         ]
     },
@@ -53,7 +58,7 @@ module.exports = {
         // vuejs包含两种使用方式，standalone和runtime-only，runtime-only不包含template编译
         // NPM包默认导出的是runtime-only build.因此为了要使用独立构建，在webpack配置中需要添加下面的代码
         alias: {
-            'vue$': 'vue/dist/vue.esm.js'
+            'vue$': 'vue/dist/vue.min.js'
         }
     },
     devtool:'source-map'
