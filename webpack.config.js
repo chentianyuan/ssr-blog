@@ -2,6 +2,8 @@
 const path = require('path')
 const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const PrerenderSpaPlugin = require('prerender-spa-plugin')
+const Renderer = PrerenderSpaPlugin.PuppeteerRenderer
 
 module.exports = {
     mode: process.env.NODE_ENV,
@@ -45,13 +47,39 @@ module.exports = {
             template: path.resolve(__dirname,'index.html'),
             filename: 'index.html',
             inject: 'body'
+        }),
+        new PrerenderSpaPlugin({
+            staticDir: path.join(__dirname,'./dist'),
+            indexPath: path.join(__dirname, 'dist', 'index.html'),
+            routes: ['/','/hot','/find'],
+            // 定时捕获
+            renderer: new Renderer({
+                renderAfterTime: 5000
+            })
+                // 监听到自定事件时捕获
+                // document.dispatchEvent(new Event('custom-post-render-event'))
+                // captureAfterDocumentEvent: 'custom-post-render-event',
+
+                // 查询到指定元素时捕获
+                // captureAfterElementExists: '#content',
+
         })
     ],
     devServer: {
         contentBase: path.resolve(__dirname,'./dist'),
         port: 8080,
         // 页面热更新(局部)，而不是整体刷新
-        hot: true
+        hot: true,
+        // history模式返回所需
+        historyApiFallback: true,
+        proxy: {
+            '/api': {
+                target: 'https://www.apiopen.top/satinApi',
+                // rewrite
+                pathRewrite: {'^/api' : ''},
+                changeOrigin: true
+            }
+        }
     },
     resolve:{
         extensions: ['*', '.js', '.vue', '.json'],

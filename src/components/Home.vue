@@ -34,25 +34,18 @@ export default {
   components:{
     navBar,Foot
   },
-  created(){
-    if(this.$route.path === '/findNews'){
-      this.changeNav(1)
-    }else{
-      this.changeNav(0)
+  watch:{
+    '$route':function(){
+      this.setNavbom()
     }
+  },
+  created(){
+    this.setNavbom()
   },
   methods:{
     changeNav(index){
+      this.initP = true                
       this.activeNav = index
-      if(!this.firstTime){
-        this.initP = true      
-      }else{
-        this.firstTime = false
-      }
-      this.$nextTick(()=>{
-        var left = document.querySelector(".active-item").getBoundingClientRect().left 
-        document.querySelector(".nav-border").style.left = `${left}px`
-      })
       var route =  this.$route
       if(route.path !== '/findNews' && index === 1){
         this.$router.push({path:'/findNews'})
@@ -60,6 +53,18 @@ export default {
       if((route.path !== '/' || route.path !== '/hotNews') && index === 0){
         this.$router.push({path:'/hotNews'})
       }
+    },
+    setNavbom(){
+      // 路由 --> activeNav --> navBottom
+      if(this.$route.path === '/findNews'){
+        this.activeNav = 1
+      }else{
+        this.activeNav = 0
+      }
+      this.$nextTick(()=>{
+        var left = document.querySelector(".active-item").getBoundingClientRect().left 
+        document.querySelector(".nav-border").style.left = `${left}px`
+      })
     }
   }
 }
