@@ -1,10 +1,14 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import home from '../components/Home.vue'
-import hot from '../components/page/hot.vue'
-import find from '../components/page/find.vue'
-import article from '../components/page/article.vue'
-// 懒加载优化(待做)
+// import home from '../components/Home.vue'
+// import hot from '../components/page/hot.vue'
+// import find from '../components/page/find.vue'
+// import article from '../components/page/article.vue'
+const home = () => import('../components/Home.vue')
+const hot = () => import('../components/page/hot.vue')
+const find = () => import('../components/page/find.vue')
+const article = () => import('../components/page/article.vue')
+// 懒加载优化
 
 Vue.use(Router)
 

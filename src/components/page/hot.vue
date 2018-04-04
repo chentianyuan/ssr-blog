@@ -1,5 +1,17 @@
 <template>
-  <section class="hot">  
+  <section class="hot">
+      <aside>
+        <span>这里是测试文本</span>    
+        <span>这里是测试文本</span>    
+        <span>这里是测试文本</span>    
+        <span>这里是测试文本</span>    
+        <span>这里是测试文本</span>    
+        <span>这里是测试文本</span>    
+        <span>这里是测试文本</span>    
+        <span>这里是测试文本</span>    
+        <span>这里是测试文本</span>    
+        <span>这里是测试文本</span>    
+      </aside>  
       <ul>
           <li class="hot-item" v-for="item in dataList" @click="hotArticle(item.path)">
             <img class="hot-img" :src="item.pngSrc"/>
@@ -80,5 +92,14 @@ export default {
               margin-bottom: 0.2rem;
           }
       } 
+      aside{
+          display: flex;
+          flex-wrap: wrap;
+          span{
+              flex-basis: 50%;
+              font-size: 0.14rem;
+              text-align: center;
+          }
+      }
     }
 </style>

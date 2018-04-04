@@ -32,9 +32,16 @@ export default {
         for(var i = 0 ; i < 1 ; i++){
             this.$http.get('/api?type=1&page=1').then(res=>{
                 res.data.data.forEach(val => {
-                    this.dataList.push({til:val.name,pngSrc:val.bimageuri,path:val.type,content:val.text})
+                    if(val.bimageuri){
+                        this.dataList.push({til:val.name,pngSrc:val.bimageuri,path:val.type,content:val.text})
+                    }else{
+                        this.dataList.push({til:val.name,pngSrc:require('../../static/avatar.png'),path:val.type,content:val.text})                        
+                    }
                 });
                 this.dataList.reverse()
+                setTimeout(() => {
+                    document.dispatchEvent(new Event('custom-post-render-event'))
+                }, 0);
             })
         }
     },

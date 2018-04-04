@@ -47,16 +47,16 @@ export default {
       this.initP = true                
       this.activeNav = index
       var route =  this.$route
-      if(route.path !== '/findNews' && index === 1){
-        this.$router.push({path:'/findNews'})
+      if(route.path !== '/findNews/' && route.path !== '/findNews' && index === 1){
+        this.$router.push({path:'/findNews/'})
       }
-      if((route.path !== '/' || route.path !== '/hotNews') && index === 0){
-        this.$router.push({path:'/hotNews'})
+      if((route.path !== '/' || route.path !== '/hotNews/' || route.path !== '/hotNews') && index === 0){
+        this.$router.push({path:'/hotNews/'})
       }
     },
     setNavbom(){
       // 路由 --> activeNav --> navBottom
-      if(this.$route.path === '/findNews'){
+      if(this.$route.path === '/findNews/' || this.$route.path === '/findNews'){
         this.activeNav = 1
       }else{
         this.activeNav = 0

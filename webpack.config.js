@@ -2,6 +2,7 @@
 const path = require('path')
 const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const CleanWebpackPlugin = require('clean-webpack-plugin')
 const PrerenderSpaPlugin = require('prerender-spa-plugin')
 const Renderer = PrerenderSpaPlugin.PuppeteerRenderer
 
@@ -42,6 +43,7 @@ module.exports = {
     },
     plugins: [
         new webpack.HotModuleReplacementPlugin(),
+        new CleanWebpackPlugin(['dist']),
         new HtmlWebpackPlugin({
             // 使用的入口模板
             template: path.resolve(__dirname,'index.html'),
@@ -51,14 +53,14 @@ module.exports = {
         new PrerenderSpaPlugin({
             staticDir: path.join(__dirname,'./dist'),
             indexPath: path.join(__dirname, 'dist', 'index.html'),
-            routes: ['/','/hot','/find'],
+            routes: ['/','/hotNews','/findNews'],
             // 定时捕获
             renderer: new Renderer({
-                renderAfterTime: 5000
-            })
+                // renderAfterTime: 5000,
                 // 监听到自定事件时捕获
+                captureAfterDocumentEvent: 'custom-post-render-event'
+            })
                 // document.dispatchEvent(new Event('custom-post-render-event'))
-                // captureAfterDocumentEvent: 'custom-post-render-event',
 
                 // 查询到指定元素时捕获
                 // captureAfterElementExists: '#content',

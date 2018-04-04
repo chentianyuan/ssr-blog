@@ -1,5 +1,5 @@
 <template>
-  <div id="prerenderWrap">
+  <div id="app">
       <router-view></router-view>
   </div>
 </template>
@@ -19,4 +19,10 @@ export default {
   a{
     text-decoration: none;
   }
+  @media screen and (max-width: 375px){
+    html,body{
+      font-size: 100px !important;
+    }
+  }
 </style>
+ 
