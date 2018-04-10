@@ -3,6 +3,8 @@ const path = require('path')
 const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
+const ExtractTextWebpackPlugin = require('extract-text-webpack-plugin')
+const lessExtract = new ExtractTextWebpackPlugin('css/less.css')
 const PrerenderSpaPlugin = require('prerender-spa-plugin')
 const Renderer = PrerenderSpaPlugin.PuppeteerRenderer
 
@@ -33,7 +35,9 @@ module.exports = {
             },{
                 test: /\.less$/,
                 type: 'javascript/auto',
-                use: ['vue-style-loader','css-loader','postcss-loader','less-loader']
+                use: lessExtract.extract({
+                    use: ['vue-style-loader','css-loader','postcss-loader','less-loader']
+                })
             },{
                 // 图片打包
                 test: /\.(?:jpg|png|gif)$/,
@@ -56,15 +60,13 @@ module.exports = {
             routes: ['/','/hotNews','/findNews'],
             // 定时捕获
             renderer: new Renderer({
-                // renderAfterTime: 5000,
+                renderAfterTime: 1000
                 // 监听到自定事件时捕获
-                captureAfterDocumentEvent: 'custom-post-render-event'
-            })
-                // document.dispatchEvent(new Event('custom-post-render-event'))
-
+                // captureAfterDocumentEvent: 'custom-post-render-event',
+                // headless: true
                 // 查询到指定元素时捕获
                 // captureAfterElementExists: '#content',
-
+            })
         })
     ],
     devServer: {

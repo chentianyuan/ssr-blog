@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router/routes'
-import axios from 'axios'
+import axios from 'axios/index'
 
 Vue.prototype.$http = axios
 
