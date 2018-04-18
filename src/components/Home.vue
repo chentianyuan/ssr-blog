@@ -13,7 +13,7 @@
       <router-view></router-view>
       <Foot>
         <div>
-          prerender测试
+          {{ssrState}}prerender测试{{text}}
         </div>
       </Foot>
   </div>
@@ -23,6 +23,12 @@
 import navBar from './common/navBar'
 import Foot from './common/foot'
 export default {
+  asyncData({store,route}){
+    return Promise.all([
+      store.dispatch('fetchTextAction'),
+      store.dispatch('fetchSSRAction')
+    ])
+  },
   data(){
     return{
       navItems: [{itemName:'沸点'},{itemName:'发现'}],
@@ -33,6 +39,14 @@ export default {
   },
   components:{
     navBar,Foot
+  },
+  computed:{
+    text(){
+      return this.$store.state.testText
+    },
+    ssrState(){
+      return this.$store.state.makeSSR
+    }
   },
   watch:{
     '$route':function(){
@@ -62,8 +76,8 @@ export default {
         this.activeNav = 0
       }
       this.$nextTick(()=>{
-        var left = document.querySelector(".active-item").getBoundingClientRect().left 
-        document.querySelector(".nav-border").style.left = `${left}px`
+        // var left = document.querySelector(".active-item").getBoundingClientRect().left 
+        // document.querySelector(".nav-border").style.left = `${left}px`
       })
     }
   }

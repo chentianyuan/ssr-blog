@@ -4,9 +4,11 @@
   "description": "预渲染测试",
   "main": "index.js",
   "scripts": {
-    "start": "webpack-dev-server --open --mode production",
-    "build": "webpack --mode production",
-    "dev": "webpack --watch --mode development"
+    "dev": "node server",
+    "start": "cross-env NODE_ENV=production node server",
+    "build": "rimraf dist && npm run build:client && npm run build:server",
+    "build:client": "cross-env NODE_ENV=production webpack --config ./webpack.client.config.js --progress --hide-modules",
+    "build:server": "cross-env NODE_ENV=production webpack --config ./webpack.server.config.js --progress --hide-modules"
   },
   "keywords": [],
   "author": "c",
@@ -30,10 +32,13 @@
   "dependencies": {
     "axios": "^0.18.0",
     "babel-loader": "^7.1.4",
+    "cross-env": "^5.1.4",
     "css-loader": "^0.28.11",
     "less-loader": "^4.1.0",
     "postcss-loader": "^2.1.3",
     "vue-loader": "^14.2.2",
-    "vue-style-loader": "^4.1.0"
+    "vue-server-renderer": "^2.5.16",
+    "vue-style-loader": "^4.1.0",
+    "vuex": "^3.0.1"
   }
 }
