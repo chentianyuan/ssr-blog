@@ -19,6 +19,7 @@ module.exports = {
     output: {
         path: path.join(__dirname,'/dist'),
         filename: '[name]-[chunkhash].js', // 防缓存
+        // publicPath处理静态资源时转为绝对路径
         publicPath: '/dist',
         // 或者使用clean-webpack-plugin,处理生成的[hash].hot-update.js/json文件
         // hotUpdateChunkFilename: 'hot/hot-update.js',
@@ -44,6 +45,7 @@ module.exports = {
             },{
                 // 图片打包
                 test: /\.(?:jpg|png|gif)$/,
+                // 此时的name决定图片打包后的路径
                 loader: 'url-loader?limit=8192&name=/static/[name].[hash:6].[ext]',
                 // options:{
                 //     publicPath: '/dist'

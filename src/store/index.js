@@ -9,7 +9,8 @@ export default function createStore(){
     return new Vuex.Store({
         state: {
             testText:'啊楼哈',
-            makeSSR:'yes'
+            makeSSR:'yes',
+            dataList: []            
         },
         // getters,
         mutations,

@@ -8,11 +8,11 @@ export default function (context){
         const { app, router, store } = createApp()
         // 传入当前执行上下文中的url
         router.push(context.url)
-        console.log(context.url)
         // 该方法把一个回调排队，在路由完成初始导航时调用，这意味着它可以解析所有的异步进入钩子和路由初始化相关联的异步组件。
         router.onReady(()=>{
             // 返回目标位置或是当前路由匹配的组件数组（是数组的定义/构造类，不是实例）
             // 这里匹配了所有路由位置
+            console.log(context.url)
             const matchedComponents = router.getMatchedComponents()
             if(!matchedComponents.length){
                 return reject({code:404})
