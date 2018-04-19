@@ -20,7 +20,6 @@ export default {
     },
     computed:{
         dataList(){
-            console.log(this.$store.state.dataList)
             return this.$store.state.dataList
         }
     },

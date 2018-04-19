@@ -2,9 +2,9 @@ import createApp from './index'
 
 const {app,store,router} = createApp()
 
-if(window.__INITIAL__STATE__){
+if(window.__INITIAL_STATE__){
     // 将store替换为context.initialState
-    store.replaceState(window.__INITIAL__STATE__)
+    store.replaceState(window.__INITIAL_STATE__)
 }
 
 router.onReady(()=>{
@@ -24,7 +24,6 @@ router.onReady(()=>{
             // 嵌套路由，或者只是各个组件的不同组合方式
             return next()
         }
-
         Promise.all(activated.map(component=>{
             if(component.asyncData){
                 return component.asyncData({store,route:to})

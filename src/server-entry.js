@@ -12,7 +12,6 @@ export default function (context){
         router.onReady(()=>{
             // 返回目标位置或是当前路由匹配的组件数组（是数组的定义/构造类，不是实例）
             // 这里匹配了所有路由位置
-            console.log(context.url)
             const matchedComponents = router.getMatchedComponents()
             if(!matchedComponents.length){
                 return reject({code:404})
