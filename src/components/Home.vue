@@ -13,7 +13,9 @@
       <router-view></router-view>
       <Foot>
         <div>
-          {{ssrState}}prerender测试{{text}}
+          <p>{{ssrState}}</p>
+            SSR切换
+          <p>{{text}}</p>
         </div>
       </Foot>
   </div>
@@ -76,8 +78,10 @@ export default {
         this.activeNav = 0
       }
       this.$nextTick(()=>{
-        // var left = document.querySelector(".active-item").getBoundingClientRect().left 
-        // document.querySelector(".nav-border").style.left = `${left}px`
+        if(document){
+          var left = document.querySelector(".active-item").getBoundingClientRect().left 
+          document.querySelector(".nav-border").style.left = `${left}px`
+        }
       })
     }
   }

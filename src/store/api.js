@@ -32,7 +32,7 @@ export function fetchNews(){
                 return ret
             }],
             data: {
-                // "showapi_timestamp": formatterDateTime(),
+                "showapi_timestamp": formatterDateTime(),
                 "showapi_appid": 61452, //这里需要改成自己的appid
                 "showapi_sign": '3215b32f963d43e4b2669722efa06614',  //这里需要改成自己的应用的密钥secret
                 "page":1,
