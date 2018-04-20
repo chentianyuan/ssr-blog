@@ -35,7 +35,7 @@
 从以上也可以看出，index.js必须作为一个工厂函数，导出一个生成vue实例的函数，并且包含store，router这些在入口中使用到的实例。
 ##### 五，热更新做了什么？
 **setup-dev-server.js导出一个接收express实例和处理index.html和server-bundle.js的函数。**
-1. 生产模式下，依赖`webpack-dev-middleware`执行代码监听并热更新打包，依赖`webpack-hot-middleware`执行页面热更新。
+1. 开发模式下，依赖`webpack-dev-middleware`执行代码监听并热更新打包，依赖`webpack-hot-middleware`执行页面热更新。
 2. 导出内存中的打包好的index.html和server-bundle.js。***在server.js入口，通过vue-server-renderer整合模板和服务端入口。***
 ### 官方文档，很多地方值得深究和细细推究，写了个小demo便于学习吧。
 > 如果你依赖由组件生命周期钩子函数填充的上下文数据，则不建议使用流式传输模式。😂😂😂
