@@ -1,6 +1,6 @@
 <template>
     <header class='navBar'>
-        <slot></slot>
+        <slot name="bar"></slot>
     </header>
 </template>
 

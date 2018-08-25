@@ -21,17 +21,17 @@ export default new Router({
             path:'/',
             component:home,
             children:[{
-                path:'',
-                component:hot,
-                alias:'hotNews'
+                path: '',
+                component: hot,
+                alias: 'hotNews'
             },{
-                path:'findNews',
-                component:find
+                path: 'findNews',
+                component: find
             }]
         },{
-            name:'article',
-            path:'/article/:articleId',
-            component:article
+            name: 'article',
+            path: '/article/:articleId',
+            component: article
         }
     ]
 })

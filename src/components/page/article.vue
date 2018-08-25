@@ -1,20 +1,20 @@
 <template>
   <section class="art-content">
-      {{this.article.title}}
+      {{ this.article.title }}
   </section>
 </template>
 
 <script>
 export default {
-    name:'article',
-    data(){
-        return{
-            article:{
+    name: 'article',
+    data () {
+        return {
+            article: {
 
             }
         }
     },
-    created(){
+    created () {
         this.article.title = `这篇是文章${this.$route.params.articleId}`
     }
 }

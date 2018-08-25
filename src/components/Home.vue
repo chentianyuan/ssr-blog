@@ -2,20 +2,21 @@
   <div class='homePage'>
       <navBar>
         <nav class='nav-til'>
-          <a :class="activeNav == key?'nav-item active-item':'nav-item'" 
+          <a :class="activeNav == key? 'nav-item active-item' : 'nav-item'" 
              href="javascript:" 
-             v-for="(item,key) in navItems"
+             v-for="(item, key) in navItems"
+             :key="key"
              @click="changeNav(key)"
           >{{item.itemName}}</a>
-          <span :class="initP?'nav-border init':'nav-border'"></span>
+          <span :class="initP ? 'nav-border init' : 'nav-border'"></span>
         </nav>
       </navBar>
       <router-view></router-view>
       <Foot>
         <div>
-          <p>{{ssrState}}</p>
+          <p>{{ ssrState }}</p>
             SSR切换
-          <p>{{text}}</p>
+          <p>{{ text }}</p>
         </div>
       </Foot>
   </div>
@@ -25,60 +26,60 @@
 import navBar from './common/navBar'
 import Foot from './common/foot'
 export default {
-  asyncData({store,route}){
+  asyncData({ store,route }) {
     return Promise.all([
       store.dispatch('fetchTextAction'),
       store.dispatch('fetchSSRAction')
     ])
   },
-  data(){
-    return{
-      navItems: [{itemName:'沸点'},{itemName:'发现'}],
+  data () {
+    return {
+      navItems: [{itemName:'沸点'}, {itemName:'发现'}],
       activeNav: 0,
       initP: false,
       firstTime: true
     }
   },
   components:{
-    navBar,Foot
+    navBar, Foot
   },
   computed:{
-    text(){
+    text () {
       return this.$store.state.testText
     },
-    ssrState(){
+    ssrState () {
       return this.$store.state.makeSSR
     }
   },
-  watch:{
-    '$route':function(){
+  watch: {
+    '$route': function () {
       this.setNavbom()
     }
   },
-  created(){
+  created () {
     this.setNavbom()
   },
-  methods:{
-    changeNav(index){
+  methods: {
+    changeNav (index) {
       this.initP = true                
       this.activeNav = index
       var route =  this.$route
       if(route.path !== '/findNews/' && route.path !== '/findNews' && index === 1){
-        this.$router.push({path:'/findNews/'})
+        this.$router.push({ path:'/findNews/' })
       }
       if((route.path !== '/' || route.path !== '/hotNews/' || route.path !== '/hotNews') && index === 0){
-        this.$router.push({path:'/hotNews/'})
+        this.$router.push({ path:'/hotNews/' })
       }
     },
-    setNavbom(){
+    setNavbom () {
       // 路由 --> activeNav --> navBottom
       if(this.$route.path === '/findNews/' || this.$route.path === '/findNews'){
         this.activeNav = 1
       }else{
         this.activeNav = 0
       }
-      this.$nextTick(()=>{
-        if(document){
+      this.$nextTick(() => {
+        if (document) {
           var left = document.querySelector(".active-item").getBoundingClientRect().left 
           document.querySelector(".nav-border").style.left = `${left}px`
         }

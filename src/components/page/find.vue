@@ -1,11 +1,11 @@
 <template>
   <section class="hot">  
       <ul>
-          <li class="hot-item" v-for="item in dataList" @click="hotArticle(item.path)">
+          <li class="hot-item" v-for="(item, key) in dataList" :key="key" @click="hotArticle(item.path)">
             <img class="hot-img" :src="item.pngSrc"/>
             <div class="hot-word">
-                <a class="hot-til">{{item.til}}</a>
-                <p class="hot-content">{{item.content}}</p>
+                <a class="hot-til">{{ item.til }}</a>
+                <p class="hot-content">{{ item.content }}</p>
             </div>
           </li>
       </ul>
@@ -15,19 +15,19 @@
 <script>
 export default {
     name:'find',
-    asyncData({store,route}){
+    asyncData({ store, route }){
         return store.dispatch('fetchSSRNews')
     },
-    computed:{
-        dataList(){
+    computed: {
+        dataList () {
             return this.$store.state.dataList
         }
     },
-    methods:{
-        hotArticle(path){
+    methods: {
+        hotArticle (path) {
             // this.$router.push({path:`/article/${path}`,params:{articleId:path}})
             // params可以用来传参，也可以用于路由跳转
-            this.$router.push({name:'article',params:{articleId:path}})
+            this.$router.push({ name: 'article', params: { articleId:path }})
             // 而query只是写在路由中的查询参数，无法用于路由跳转
         }
     }

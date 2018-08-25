@@ -16,7 +16,7 @@ router.onReady(()=>{
         const prevMatched = router.getMatchedComponents(from)
         // 此时渲染的肯定不是首屏的路由了,如果有些组件已经渲染且数据预取过
         let diffed = false
-        const activated = matched.filter((c,i)=>{
+        const activated = matched.filter((c, i)=>{
             // 返回未被匹配的组件
             return diffed || (diffed = (prevMatched[i] !== c))
         })
@@ -24,11 +24,11 @@ router.onReady(()=>{
             // 嵌套路由，或者只是各个组件的不同组合方式
             return next()
         }
-        Promise.all(activated.map(component=>{
-            if(component.asyncData){
-                return component.asyncData({store,route:to})
+        Promise.all(activated.map(component => {
+            if (component.asyncData) {
+                return component.asyncData({store, route: to})
             }
-        })).then(()=>{
+        })).then(() => {
             // 停止加载指示器
             next()
         }).catch(next)

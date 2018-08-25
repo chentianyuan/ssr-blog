@@ -4,13 +4,13 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const path = require('path')
 
 
-const config = Object.assign({},base,{
+const config = Object.assign({}, base, {
     // hk使用了firebase实时性云数据库，这里先不使用
     // 通过配置DefinePlugin，那么这里面的标识就相当于全局变量，你的业务代码可以直接使用配置的标识。
     // 其实这里通过 DefinePlugin 来指定生产环境后，以便在压缩时可以让 UglifyJS 自动删除代码块内的警告语句。
     entry: {
         // 默认为客户端入口
-        index: path.join(__dirname,'./src/client-entry.js')
+        index: path.join(__dirname, './src/client-entry.js')
     },
     plugins: (base.plugins || []).concat([
         new webpack.DefinePlugin({

@@ -11,7 +11,7 @@ const isProd = process.env.NODE_ENV === 'production'
 
 
 module.exports = {
-    mode: isProd ? 'production':'development',
+    mode: isProd ? 'production' : 'development',
     output: {
         path: path.join(__dirname,'/dist'),
         filename: '[name]-[chunkhash].js', // 防缓存
@@ -36,7 +36,7 @@ module.exports = {
                 test: /\.less$/,
                 type: 'javascript/auto',
                 use: lessExtract.extract({
-                    use: ['vue-style-loader','css-loader','postcss-loader','less-loader']
+                    use: ['vue-style-loader', 'css-loader', 'postcss-loader', 'less-loader']
                 })
             },{
                 // 图片打包

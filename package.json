@@ -1,14 +1,15 @@
 {
   "name": "prerendertest",
   "version": "1.0.0",
-  "description": "预渲染测试",
+  "description": "SSR/blog",
   "main": "index.js",
   "scripts": {
     "dev": "node server",
     "start": "cross-env NODE_ENV=production node server",
     "build": "rimraf dist && npm run build:client && npm run build:server",
     "build:client": "cross-env NODE_ENV=production webpack --config ./webpack.client.config.js --progress --hide-modules",
-    "build:server": "cross-env NODE_ENV=production webpack --config ./webpack.server.config.js --progress --hide-modules"
+    "build:server": "cross-env NODE_ENV=production webpack --config ./webpack.server.config.js --progress --hide-modules",
+    "lint": "eslint --ext .js,.vue src"
   },
   "keywords": [],
   "author": "c",
@@ -16,11 +17,14 @@
   "devDependencies": {
     "babel-plugin-syntax-dynamic-import": "^6.18.0",
     "clean-webpack-plugin": "^0.1.19",
+    "eslint": "^5.4.0",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-vue": "^4.7.1",
     "extract-text-webpack-plugin": "^3.0.2",
     "file-loader": "^1.1.11",
     "html-webpack-plugin": "^3.1.0",
     "less": "^3.0.1",
-    "prerender-spa-plugin": "^3.0.0",
     "url-loader": "^1.0.1",
     "vue": "^2.5.16",
     "vue-router": "^3.0.1",

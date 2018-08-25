@@ -1,6 +1,3 @@
-import Vue from 'vue'
-import App from './App.vue'
-import createStore from './store'
 import createApp from './index'
 
 export default function (context){
