@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-      <router-view></router-view>
+    <router-view></router-view>
   </div>
 </template>
 
@@ -12,17 +12,17 @@ export default {
 </script>
 
 <style lang="less">
-  *{
-    padding:0;
-    margin:0;
+*{
+  padding:0;
+  margin:0;
+}
+a{
+  text-decoration: none;
+}
+@media screen and (max-width: 375px){
+  html,body{
+    font-size: 100px !important;
   }
-  a{
-    text-decoration: none;
-  }
-  @media screen and (max-width: 375px){
-    html,body{
-      font-size: 100px !important;
-    }
-  }
+}
 </style>
  

@@ -1,4 +1,3 @@
-// import createApp from './src';
 
 const isProd = process.env.NODE_ENV === 'production'
 const fs = require('fs')

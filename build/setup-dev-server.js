@@ -2,11 +2,9 @@ const path = require('path')
 const webpack = require('webpack')
 const MFS = require('memory-fs')
 
-
 // 导出的clientConfig已经是merge了base.config的配置项
 const clientConfig = require('./webpack.client.config')
 const serverConfig = require('./webpack.server.config')
-// const baseConfig = require('./webpack.base.config')
 
 // 服务端commonjs规范，接收一个express实例，和其他选项对象
 module.exports = function setupDevServer(app, opts){
@@ -56,17 +54,10 @@ module.exports = function setupDevServer(app, opts){
     // 必须引入该模块，得到服务端文件系统
     const mfs = new MFS()
     const outputPath = path.join(serverConfig.output.path, serverConfig.output.filename)
-    console.log(outputPath)
     serverCompiler.outputFileSystem = mfs
     serverCompiler.watch({}, (err, stats) => {
         if (err) throw err
         stats = stats.toJson()
-        stats.errors.forEach(err => {
-            console.error(err)
-        })
-        stats.warnings.forEach(err => {
-            console.warn(err)
-        })
         // 服务端渲染 具体实现函数在 server.js 中的createRenderer
         // 从内存中获取出 server-bundle.js 文件
         // 通过该 server-bundle.js 去生成renderer

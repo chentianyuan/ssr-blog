@@ -5,15 +5,14 @@ import actions from './actions'
 // import getters from './getters'
 
 Vue.use(Vuex)
-export default function createStore(){
-    return new Vuex.Store({
-        state: {
-            testText:'啊楼哈',
-            makeSSR:'yes',
-            dataList: []            
-        },
-        // getters,
-        mutations,
-        actions
-    })
+const { store } = Vuex
+export default function createStore () {
+	return new store({
+		state: {
+			userInfo: {}
+		},
+		// getters,
+		mutations,
+		actions
+	})
 }

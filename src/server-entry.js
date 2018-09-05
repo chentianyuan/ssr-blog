@@ -28,5 +28,4 @@ export default function (context){
     })
     // context为服务端的执行上下文
     // entry-server在服务端执行，入口理应为一个函数
-    
 }
