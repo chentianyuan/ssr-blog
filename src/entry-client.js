@@ -1,4 +1,4 @@
-import createApp from './index'
+import createApp from './index.js'
 
 const {app,store,router} = createApp()
 

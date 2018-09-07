@@ -5,9 +5,9 @@ import actions from './actions'
 // import getters from './getters'
 
 Vue.use(Vuex)
-const { store } = Vuex
+const { Store } = Vuex
 export default function createStore () {
-	return new store({
+	return new Store({
 		state: {
 			userInfo: {}
 		},

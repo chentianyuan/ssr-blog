@@ -1,28 +1,27 @@
 const webpack = require('webpack')
 const base = require('./webpack.base.config')
-// const HtmlWebpackPlugin = require('html-webpack-plugin')
+const VueSSRServerPlugin = require('vue-server-renderer/server-plugin')
+const nodeExternals = require('webpack-node-externals')
 
 module.exports = Object.assign({}, base, {
-    target: 'node',
-    devtool: false,
-    entry: './src/server-entry.js',
-    output: Object.assign({}, base.output, {
-        // 输出路径更名
-        filename: 'server-bundle.js',
-        // 指定模块机制，服务端无法使用ES6的import机制
-        libraryTarget: 'commonjs2'
-    }),
-    //外部依赖，不需要打包进 server-bundle.js
-    externals: Object.keys(require('./package.json').dependencies),
-    plugins: [
-        new webpack.DefinePlugin({
-            'process.env.NODE_ENV': JSON.stringify("process.env.NODE_ENV || 'production'")
-        }),
-        // new HtmlWebpackPlugin({
-        //     // 使用的入口模板
-        //     template: path.resolve(__dirname,'index.template.html'),
-        //     filename: 'index.html',
-        //     inject: 'body'
-        // })
-    ]
+	target: 'node',
+	devtool: '#source-map',
+	entry: './src/entry-server.js',
+	output: {
+		// 输出路径更名
+		filename: 'server-bundle.js',
+		// 指定模块机制，服务端无法使用ES6的模块机制
+		libraryTarget: 'commonjs2'
+	},
+	//外部依赖，不需要打包进 server-bundle.js
+	externals: nodeExternals({
+		// do not externalize CSS files in case we need to import it from a dep
+		whitelist: [/\.css$/]
+	}),
+	plugins: [
+		new webpack.DefinePlugin({
+			'process.env.NODE_ENV': JSON.stringify("process.env.NODE_ENV || 'production'")
+		}),
+		new VueSSRServerPlugin()
+	]
 })

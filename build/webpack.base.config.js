@@ -1,7 +1,5 @@
 
 const path = require('path')
-const webpack = require('webpack')
-// const CleanWebpackPlugin = require('clean-webpack-plugin')
 const ExtractTextWebpackPlugin = require('extract-text-webpack-plugin')
 const lessExtract = new ExtractTextWebpackPlugin('css/less.css')
 // const PrerenderSpaPlugin = require('prerender-spa-plugin')
@@ -13,7 +11,7 @@ const isProd = process.env.NODE_ENV === 'production'
 module.exports = {
     mode: isProd ? 'production' : 'development',
     output: {
-        path: path.join(__dirname,'/dist'),
+        path: path.resolve(__dirname,'../dist'),
         filename: '[name]-[chunkhash].js', // 防缓存
         // publicPath处理静态资源时转为绝对路径
         publicPath: '/dist/',
@@ -67,29 +65,14 @@ module.exports = {
         //     })
         // })
     ],
-    // devServer: {
-    //     contentBase: path.resolve(__dirname,'./dist'),
-    //     port: 8080,
-    //     // 页面热更新(局部)，而不是整体刷新
-    //     hot: true,
-    //     // history模式返回所需
-    //     historyApiFallback: true,
-    //     proxy: {
-    //         '/api': {
-    //             target: 'https://www.apiopen.top/satinApi',
-    //             // rewrite
-    //             pathRewrite: {'^/api' : ''},
-    //             changeOrigin: true
-    //         }
-    //     }
-    // },
     resolve:{
         extensions: ['*', '.js', '.vue', '.json'],
         // vuejs包含两种使用方式，standalone和runtime-only，runtime-only不包含template编译
         // NPM包默认导出的是runtime-only build.因此为了要使用独立构建，在webpack配置中需要添加下面的代码
         alias: {
-            'vue$': 'vue/dist/vue.min.js'
+            '@': path.resolve(__dirname, '../src')
+            // 'vue$': 'vue/dist/vue.min.js'
         }
     },
-    devtool:'source-map'
+    devtool:'cheap-source-map'
 }

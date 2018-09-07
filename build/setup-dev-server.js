@@ -13,7 +13,8 @@ module.exports = function setupDevServer(app, opts){
     clientConfig.output.filename = '[name].js'
     // 需要HMR的加持，实现模块热更新
     clientConfig.plugins.push(
-        new webpack.HotModuleReplacementPlugin()
+        new webpack.HotModuleReplacementPlugin(),
+        new webpack.NoEmitOnErrorsPlugin()
     )
 
     // webpack编译器
@@ -23,7 +24,7 @@ module.exports = function setupDevServer(app, opts){
     const devMiddleware = require('webpack-dev-middleware')(clientCompiler, {
         // webpack-dev-middleware提供的publicPath需与webpack打包配置的publicPath保持一致，才能达到对比判断资源是否修改的功能。
         publicPath: clientConfig.output.publicPath,
-        stats:{
+        stats: {
             colors: true,
             chunks: false
         }
@@ -33,10 +34,11 @@ module.exports = function setupDevServer(app, opts){
     app.use(devMiddleware)
 
     clientCompiler.plugin('done', () => {
+        console.log('done')
         // 读取index.html,并解析
         // 获取devmiddleware对应的文件系统，已不是默认的本地文件系统
         const fs = devMiddleware.fileSystem
-        const filePath = path.join(clientConfig.output.path, 'index.html')
+        const filePath = path.join(clientConfig.output.path, 'index.template.html')
         if (fs.existsSync(filePath)) {
             const index = fs.readFileSync(filePath, 'utf-8')
             // 传入打包后的模板
@@ -46,23 +48,24 @@ module.exports = function setupDevServer(app, opts){
     })
 
     // 热更新中间件，对已编译的前端文件监听并热更新
-    app.use(require('webpack-hot-middleware')(clientCompiler))
+    app.use(require('webpack-hot-middleware')(clientCompiler, { heartbeat: 5000 }))
 
     // 监听和更新服务端渲染
     // 服务端编译
     const serverCompiler = webpack(serverConfig)
     // 必须引入该模块，得到服务端文件系统
     const mfs = new MFS()
-    const outputPath = path.join(serverConfig.output.path, serverConfig.output.filename)
+    const outputPath = path.join(clientConfig.output.path, 'vue-ssr-server-bundle.json')
     serverCompiler.outputFileSystem = mfs
     serverCompiler.watch({}, (err, stats) => {
         if (err) throw err
         stats = stats.toJson()
+        if (stats.errors.length) return
         // 服务端渲染 具体实现函数在 server.js 中的createRenderer
         // 从内存中获取出 server-bundle.js 文件
         // 通过该 server-bundle.js 去生成renderer
         // opts 中的 bundleUpdated 和 indexUpdated 函数一个返回html模板，一个返回bundle.js
-        opts.bundleUpdated(mfs.readFileSync(outputPath, 'utf-8'))
+        opts.bundleUpdated(JSON.parse(mfs.readFileSync(outputPath, 'utf-8')))
     })
 }
 
