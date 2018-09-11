@@ -6,23 +6,21 @@
 
 <script>
 export default {
-  name:'app'
+  name: 'app',
   // 页面容器
+  data () {
+    return {}
+  }
 }
 </script>
 
-<style lang="less">
-*{
-  padding:0;
-  margin:0;
+<style>
+@import './static/a.less';
+* {
+  padding: 0;
+  margin: 0;
 }
-a{
+a {
   text-decoration: none;
 }
-@media screen and (max-width: 375px){
-  html,body{
-    font-size: 100px !important;
-  }
-}
 </style>
- 

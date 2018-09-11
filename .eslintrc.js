@@ -1,10 +1,18 @@
 module.exports = {
-  // 使用airbnb提供的规范
+  root: true,
+  parserOptions: {
+    parser: 'babel-eslint'
+  },
+  // 使用standard提供的规范
   // 使用eslint-plugin-vue插件检测
-  extends: [ 'plugin:vue/essential', 'airbnb-base' ],
+  extends: [ 'plugin:vue/essential', 'standard' ],
   rules: {
     // 在这里可以添加自定义规则
-    // 比如
-    'no-console': process.env.NODE_ENV === 'production' ? 'on' : 'off'
+    // 'no-console': process.env.NODE_ENV === 'production' ? 'on' : 'off',
+    // allow async-await
+    'generator-star-spacing': 'off',
+    // allow debugger during development
+    'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
+    'prefer-promise-reject-errors': 'off'
   }
 }

@@ -6,7 +6,7 @@
 
 <script>
 export default {
-  asyncData({ store, route }) {
+  asyncData ({ store, route }) {
     return {}
   }
 }

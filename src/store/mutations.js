@@ -1,5 +1,5 @@
 export default {
-	setNews (state) {
-		state.dataList = []
-	}
+  setNews (state) {
+    state.dataList = []
+  }
 }

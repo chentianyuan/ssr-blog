@@ -7,12 +7,12 @@ import actions from './actions'
 Vue.use(Vuex)
 const { Store } = Vuex
 export default function createStore () {
-	return new Store({
-		state: {
-			userInfo: {}
-		},
-		// getters,
-		mutations,
-		actions
-	})
+  return new Store({
+    state: {
+      userInfo: {}
+    },
+    // getters,
+    mutations,
+    actions
+  })
 }

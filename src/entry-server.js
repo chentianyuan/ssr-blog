@@ -3,13 +3,12 @@ import createApp from './index.js'
 export default function (context) {
   return new Promise((resolve, reject) => {
     const { app, router, store } = createApp()
-
     // 该方法把一个回调排队，在路由完成初始导航时调用，这意味着它可以解析所有的异步进入钩子和路由初始化相关联的异步组件。
     router.onReady(() => {
+      let url = context.url
       // 返回目标位置或是当前路由匹配的组件数组（是数组的定义/构造类，不是实例）
       // 这里匹配了所有路由位置
       const matchedComponents = router.getMatchedComponents(router.match(url))
-      console.log(router.match(url), matchedComponents, '---------')
       if (!matchedComponents.length) {
         return reject({ code: 404 })
       }

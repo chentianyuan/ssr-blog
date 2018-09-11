@@ -1,6 +1,18 @@
 {
     "presets":[
-        ["es2015","stage-0"]
+        ["es2015", {
+          "modules": false
+        }],
+        "stage-0"
     ],
-    "plugins":["syntax-dynamic-import"]
+    "plugins":[
+      [
+        "syntax-dynamic-import",
+        "component",
+        {
+          "libraryName": "element-ui",
+          "styleLibraryName": "theme-chalk"
+        }
+      ]
+    ]
 }

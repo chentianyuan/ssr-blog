@@ -20,6 +20,8 @@ module.exports = function setupDevServer(app, opts){
     // webpack编译器
     const clientCompiler = webpack(clientConfig)
 
+    const outputPath = path.join(clientConfig.output.path, 'vue-ssr-server-bundle.json')
+
     // 对已编译的前端文件监听打包
     const devMiddleware = require('webpack-dev-middleware')(clientCompiler, {
         // webpack-dev-middleware提供的publicPath需与webpack打包配置的publicPath保持一致，才能达到对比判断资源是否修改的功能。
@@ -43,7 +45,9 @@ module.exports = function setupDevServer(app, opts){
             const index = fs.readFileSync(filePath, 'utf-8')
             // 传入打包后的模板
             // 也就是webpack.client.config.js通过html plugin打包出的html躯壳，注入了打包后的客户端脚本index.js
+
             opts.indexUpdated(index)
+            opts.bundleUpdated(JSON.parse(mfs.readFileSync(outputPath, 'utf-8')))
         }
     })
 
@@ -55,9 +59,9 @@ module.exports = function setupDevServer(app, opts){
     const serverCompiler = webpack(serverConfig)
     // 必须引入该模块，得到服务端文件系统
     const mfs = new MFS()
-    const outputPath = path.join(clientConfig.output.path, 'vue-ssr-server-bundle.json')
     serverCompiler.outputFileSystem = mfs
     serverCompiler.watch({}, (err, stats) => {
+        console.log('watch')
         if (err) throw err
         stats = stats.toJson()
         if (stats.errors.length) return

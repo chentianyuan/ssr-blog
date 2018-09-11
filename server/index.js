@@ -3,6 +3,7 @@ const isProd = process.env.NODE_ENV === 'production'
 const fs = require('fs')
 const path = require('path')
 const express = require('express')
+const favicon = require('serve-favicon')
 
 const resolve = file => path.resolve(__dirname, file)
 const app = express()
@@ -13,9 +14,9 @@ let renderer
 
 if (isProd) {
 	var bundle = fs.readFileSync(resolve('./dist/vue-ssr-server-bundle.json'), 'utf-8')
-	indexHTML = fs.readFileSync(resolve('./index.template.html'), 'utf-8')
 	// 传入带有<!--vue-ssr-outlet-->插槽的模板和打包好的服务端文件，创建renderer
-	renderer = require('vue-server-renderer').createBundleRenderer(bundle, {
+  indexHTML = fs.readFileSync(resolve('../index.template.html'), 'utf-8')
+  renderer = require('vue-server-renderer').createBundleRenderer(bundle, {
 		template: indexHTML
 	})
 } else {
@@ -42,11 +43,11 @@ const serve = (path, cache) => express.static(resolve(path), {
 // 带有/favicon.ico结尾的绝对路径转到./dist/static/avatar.0c85f1.png下
 if (isProd) {
 } else {
-	// 开发模式下，资源缓存在根目录内存中，不用再指向dist
-	app.use('/favicon.ico', serve('./static/avatar.0c85f1.png'))
-	app.use('/static', serve('./dist/static'))
+	// 开发模式下，资源缓存在根目录内存中，不用再指向dist，由webpack-middle-ware提供
+	// favicon接收一段buffer或者String
+	app.use(favicon(resolve('../src/static/avatar.png')))
+	app.use('/static', serve('./dist/static', false))
 }
-// app.use(express.static('dist'))
 
 app.get('*', (req, res) => {
 	if (!renderer) {
@@ -59,16 +60,14 @@ app.get('*', (req, res) => {
 	}
 	// context注入
 	// const App = createApp(context)
-	console.log('进入路由')
 	res.setHeader('Content-Type', 'text/html')
 	renderer.renderToString(context, (err, html) => {
-		console.log(err, html)
 		if (err) {
 			console.error(err);
 			res.status(500).end('服务器内部错误');
 			return;
 		}
-		res.end(html);
+		res.end(html, 'utf-8');
 	})
 })
 
