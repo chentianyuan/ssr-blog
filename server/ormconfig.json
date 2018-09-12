@@ -1,0 +1,27 @@
+{
+  "type": "mongodb",
+  "host": "localhost",
+  "port": 27017,
+  "username": "",
+  "password": "",
+  "database": "blog_test",
+  "synchronize": true,
+  "logging": false,
+  "extra": {
+    "charset": "utf8mb4_unicode_ci"
+  },
+  "entities": [
+    "src/entities/**/*.ts"
+  ],
+  "migrations": [
+    "src/migration/**/*.ts"
+  ],
+  "subscribers": [
+    "src/subscriber/**/*.ts"
+  ],
+  "cli": {
+    "entitiesDir": "entities",
+    "migrationsDir": "migration",
+    "subscribersDir": "subscriber"
+  }
+}
