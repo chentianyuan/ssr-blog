@@ -6,9 +6,11 @@ import routerModules from './modules'
 
 Vue.use(Router)
 
-export default new Router({
-  mode: 'history',
-  routes: [
-    ...routerModules
-  ]
-})
+export function createRouter () {
+  return new Router({
+    mode: 'history',
+    routes: [
+      ...routerModules
+    ]
+  })
+}

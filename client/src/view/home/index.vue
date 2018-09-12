@@ -1,7 +1,7 @@
 <template>
-  <div class="page-home">
+  <el-container class="page-home">
     <el-button type="success">成功按钮</el-button>
-  </div>
+  </el-container>
 </template>
 
 <script>
@@ -12,13 +12,11 @@ export default {
     ])
   },
   mounted () {
-    console.log(123)
   }
 }
 </script>
 
 <style>
 .page-home {
-  background-color: aquamarine;
 }
 </style>

@@ -9,7 +9,7 @@ if (window.__INITIAL_STATE__) {
 
 router.onReady(() => {
   // 路由已经resolve
-  // 确保所有异步组件都 resolve
+  // 组件跳转
   router.beforeResolve((to, from, next) => {
     // 返回目标位置或是当前路由匹配的组件数组,会匹配同个路由下的多个组件
     const matched = router.getMatchedComponents(to)
@@ -36,3 +36,4 @@ router.onReady(() => {
 })
 // 挂载
 app.$mount('#app')
+window.gvm = app

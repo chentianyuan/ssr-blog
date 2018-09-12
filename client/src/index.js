@@ -1,17 +1,20 @@
 import Vue from 'vue'
 import App from './App'
-import router from './router/route'
-import axios from 'axios'
 import createStore from './store/index'
-import { Button, Select } from 'element-ui'
+import element from 'element-ui'
+import 'element-ui/lib/theme-chalk/index.css'
+import customPlugin from './plugins/index'
+import { createRouter } from './router/route'
 
-Vue.prototype.$http = axios
+Vue.use(element)
 
-Vue.use(Button)
-Vue.use(Select)
-
-export default function createApp () {
+export default function createApp (context) {
+  // 为了避免单例模式，每次服务端渲染都创建一个新的实例
   const store = createStore()
+  const router = createRouter(context)
+
+  Vue.use(customPlugin, { router })
+
   const app = new Vue({
     data () {
       return {
@@ -20,7 +23,7 @@ export default function createApp () {
     },
     router,
     store,
-    render: createElement => createElement(App),
+    render: h => h(App),
     mounted () {
       this.$nextTick(() => {
         this.remSet()

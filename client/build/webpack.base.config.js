@@ -4,9 +4,9 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin')
 // const lessExtract = new ExtractTextWebpackPlugin('css/less.css')
 // const PrerenderSpaPlugin = require('prerender-spa-plugin')
 // const Renderer = PrerenderSpaPlugin.PuppeteerRenderer
+const styleLintPlugin = require('stylelint-webpack-plugin')
 
 const isProd = process.env.NODE_ENV === 'production'
-
 
 module.exports = {
 	mode: isProd ? 'production' : 'development',
@@ -61,7 +61,8 @@ module.exports = {
           use: 'css-loader?minimize',
           fallback: 'vue-style-loader'
 				}) : ['vue-style-loader', 'css-loader', 'postcss-loader', 'less-loader']
-			}, {
+      },
+      {
 				// 图片打包
 				test: /\.(?:jpg|png|gif)$/,
 				// 此时的name决定图片打包后的路径,使用相对路径
@@ -70,27 +71,27 @@ module.exports = {
           limit: 8192,
           name: '[name].[ext]?[hash]'
         }
-			}
+      },
+      {
+        test: /\.(eot|woff|ttf)$/,
+        loader: 'file-loader'
+      }
 		]
-	},
-	plugins: [
-		// new webpack.HotModuleReplacementPlugin(),
-		// new CleanWebpackPlugin(['dist']),
-		// new PrerenderSpaPlugin({
-		//     staticDir: path.join(__dirname,'./dist'),
-		//     indexPath: path.join(__dirname, 'dist', 'index.html'),
-		//     routes: ['/','/hotNews','/findNews'],
-		//     // 定时捕获
-		//     renderer: new Renderer({
-		//         renderAfterTime: 1000
-		//         // 监听到自定事件时捕获
-		//         // captureAfterDocumentEvent: 'custom-post-render-event',
-		//         // headless: true
-		//         // 查询到指定元素时捕获
-		//         // captureAfterElementExists: '#content',
-		//     })
-		// })
-	],
+  },
+  plugins: [
+    new ExtractTextPlugin({
+      filename: '[name].[md5:contenthash:hex:20].css',
+      allChunks: true
+    }),
+    new styleLintPlugin({
+      cache: true,
+      files: ['src/style/*.l?(e|c)ss', 'src/views/**/*.vue', 'src/components/**/*.vue']
+    })
+  ],
+  performance: {
+    maxEntrypointSize: 300000,
+    hints: isProd ? 'warning' : false
+  },
 	resolve: {
 		extensions: ['*', '.js', '.vue', '.json'],
 		// vuejs包含两种使用方式，standalone和runtime-only，runtime-only不包含template编译
