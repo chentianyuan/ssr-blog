@@ -1,15 +1,15 @@
 {
   "version": "3.0.3",
   "compilerOptions": {
-      "lib": ["es5", "es6"],
-      "target": "es6",
-      "module": "commonjs",
-      "moduleResolution": "node",
-      "emitDecoratorMetadata": true,
-      "experimentalDecorators": true,
-      "sourceMap": true
+    "lib": ["es5", "es6"],
+    "target": "es6",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "sourceMap": true
   },
   "exclude": [
-      "node_modules"
+    "node_modules"
   ]
 }
