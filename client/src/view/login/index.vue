@@ -9,8 +9,8 @@
         :rules="loginRules"
         status-icon
       >
-        <el-form-item label="username" prop="user">
-          <el-input v-model="formLabelAlign.user"></el-input>
+        <el-form-item label="username" prop="admin">
+          <el-input v-model="formLabelAlign.admin"></el-input>
         </el-form-item>
         <el-form-item label="password" prop="password">
           <el-input type="password" v-model="formLabelAlign.password" auto-complete="off"></el-input>
@@ -24,6 +24,7 @@
 </template>
 
 <script>
+import api from '../../api'
 export default {
   asyncData ({ store, route }) {
     return {}
@@ -39,11 +40,11 @@ export default {
       ajaxFlag: false,
       labelPosition: 'top',
       formLabelAlign: {
-        user: '',
+        admin: '',
         password: ''
       },
       loginRules: {
-        user: [
+        admin: [
           { validator: validateUser, trigger: 'blur' }
         ],
         password: [
@@ -56,14 +57,36 @@ export default {
     submitForm (formName) {
       if (!this.ajaxFlag) {
         this.$refs[formName].validate(valid => {
+          let tipInfo = {
+            title: '',
+            type: ''
+          }
           if (valid) {
-            this.$notify({ title: '登录成功', type: 'success' })
-            this.$location.to('/')
+            this.Login(tipInfo)
           } else {
-            this.$notify({ title: '请将表单信息填写完整', type: 'error' })
+            tipInfo.title = '请将表单信息填写完整'
+            tipInfo.type = 'warning'
+            this.$notify(tipInfo)
           }
         })
       }
+    },
+    Login (Info) {
+      api.user.getLogin({
+        ...this.formLabelAlign
+      }).then(data => {
+        if (!data.hasError) {
+          Info.title = '登录成功'
+          Info.type = 'success'
+          this.$notify(Info)
+          this.$location.to('/')
+        } else {
+          Info.title = '登录失败'
+          Info.type = 'err'
+          Info.message = data.msg
+          this.$notify(Info)
+        }
+      })
     }
   }
 }

@@ -23,7 +23,7 @@ if (isProd) {
 	})
 } else {
 	// 开发环境
-	// express + webpack-dev-middleware 自定义实现 webpack-dev-server 服务功能
+	// webpack-dev-middleware + webpack-hot-middleware 自定义实现热更新服务功能
   readyPromise = require('../build/setup-dev-server')(
     app,
     templatePath,
@@ -33,11 +33,11 @@ if (isProd) {
   )
 }
 
+// Cache-control缓存
 const serve = (path, cache) => express.static(resolve(path), {
 	maxAge: cache && isProd ? 60 * 60 * 24 * 30 : 0
 })
 
-// 带有/favicon.ico结尾的绝对路径转到./dist/static/avatar.0c85f1.png下
 if (isProd) {
 } else {
 	// 开发模式下，资源缓存在根目录内存中，不用再指向dist，由webpack-middle-ware提供

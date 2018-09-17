@@ -3,7 +3,9 @@ export default [
   {
     path: '/',
     name: '',
-    meta: {},
+    meta: {
+      needAuth: true
+    },
     component: () => import('@/view/home/index.vue')
   }
 ]
