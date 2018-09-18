@@ -1,8 +1,7 @@
 import api from '../setup'
 
-// 用户登录
-export const getLogin = query => {
-  return api.post('/auth/admin', {
+export const getSpeechList = query => {
+  return api.post('/speech/list', {
     ...query
   }).then(res => {
     let { data } = res

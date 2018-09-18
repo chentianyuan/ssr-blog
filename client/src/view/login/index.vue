@@ -25,6 +25,7 @@
 
 <script>
 import api from '../../api'
+import { getQueryString } from '../../util/get-param.js'
 export default {
   asyncData ({ store, route }) {
     return {}
@@ -59,7 +60,9 @@ export default {
         this.$refs[formName].validate(valid => {
           let tipInfo = {
             title: '',
-            type: ''
+            type: '',
+            duration: 2000,
+            position: 'bottom-right'
           }
           if (valid) {
             this.Login(tipInfo)
@@ -78,14 +81,15 @@ export default {
         if (!data.hasError) {
           Info.title = '登录成功'
           Info.type = 'success'
-          this.$notify(Info)
-          this.$location.to('/')
+          // 跳转至首屏进入的页面
+          let url = getQueryString('target')
+          url ? this.$location.to(url) : this.$location.to('/')
         } else {
           Info.title = '登录失败'
           Info.type = 'err'
           Info.message = data.msg
-          this.$notify(Info)
         }
+        this.$notify(Info)
       })
     }
   }
