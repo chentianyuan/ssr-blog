@@ -1,6 +1,7 @@
 // admin实体
 // 所谓实体其实就是用装饰器@Table装饰的一个model。
 import { ObjectIdColumn, ObjectID, Column, Entity  } from 'typeorm'
+import Speech from './Speech'
 
 // 装饰器模式
 @Entity()
@@ -21,4 +22,8 @@ export default class Admin {
   // string若不设置长度会默认给一个255的限制
   @Column({ length: 40 })
   password: string
+
+  // Speech是子文档类型
+  @Column(type => Speech)
+  speechs: Speech[]
 }

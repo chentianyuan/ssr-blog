@@ -13,6 +13,7 @@
     "@decorators/di": "^1.0.2",
     "@types/cookie-parser": "^1.4.1",
     "@types/express": "^4.16.0",
+    "@types/express-session": "^1.15.11",
     "@types/mockjs": "^1.0.1",
     "mockjs": "^1.0.1-beta3",
     "ts-node": "^7.0.1",
@@ -22,6 +23,7 @@
     "@decorators/express": "^2.3.0",
     "cookie-parser": "^1.4.3",
     "express": "^4.16.3",
+    "express-session": "^1.15.6",
     "mongodb": "^3.1.4",
     "reflect-metadata": "^0.1.12",
     "typeorm": "^0.2.7"

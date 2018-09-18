@@ -3,6 +3,7 @@ import * as express from 'express'
 import { createConnection } from 'typeorm'
 import * as bodyParser from 'body-parser'
 import * as cookieParse from 'cookie-parser'
+import session = require('express-session') // 这个...???
 import { attachControllers } from '@decorators/express'
 
 // test
@@ -16,9 +17,36 @@ createConnection().then(async connection => {
   // 这里可以写实体操作相关的代码
   const app = express()
 
+  // CORS跨域配置，不安全，使用nginx代理client请求
+  // app.all('*',(req,res,next)=>{
+  //   res.header('Access-Control-Allow-Origin', '*');
+  //   res.header('Access-Control-Allow-Headers', 'Content-Type, Content-Length, Authorization, Accept, X-Requested-With , yourHeaderFeild');
+  //   res.header('Access-Control-Allow-Methods', 'PUT, POST, GET, DELETE, OPTIONS');
+  //   if (req.method == 'OPTIONS'){
+  //     // 让option请求快速返回
+  //     res.sendStatus(200)
+  //   }
+  //   else {
+  //     next()
+  //   }
+  // })
+
   app.use(bodyParser.json())
   app.use(bodyParser.urlencoded({extended: false}))
   app.use(cookieParse())
+
+  // 没有sessionId的验证，存储在内存中的session将无法验证是哪个用户的session
+  app.use(session({
+    name: '_blogSid_', // cookie名称
+    secret: 'secret', // 对sessionId相关会话进行签名
+    saveUninitialized: false, // 不保存未初始化的会话
+    resave: false, // 是否每次都重新保存会话，建议false
+    cookie: {
+      // 客户端重定向
+      httpOnly: false, // 允许客户端读写cookie
+      maxAge: 1000 * 6 * 3 // 有效时间三分钟
+    }
+  }))
 
   // 注册所有控制器，实现路由控制
   attachControllers(app, controllers)
