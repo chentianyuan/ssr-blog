@@ -20,7 +20,6 @@ import homeMain from './components/homeMain'
 
 export default {
   asyncData ({ store, router }) {
-    console.log(store, '***')
     let payload = [{ text: 'a' }, { text: 'b' }, { text: 'c' }]
     // 触发模块下的actions
     return store.dispatch('speech/GET_SPEECH_LIST', payload)
@@ -38,6 +37,5 @@ export default {
 
 <style>
 .page-home {
-
 }
 </style>

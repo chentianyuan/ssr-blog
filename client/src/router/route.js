@@ -10,7 +10,15 @@ export function createRouter () {
   return new Router({
     mode: 'history',
     routes: [
-      ...routerModules
+      ...routerModules,
+      {
+        path: '/*',
+        name: 'Not-Found',
+        meta: {
+          needAuth: false
+        },
+        component: () => import('@/components/404.vue')
+      }
     ]
   })
 }

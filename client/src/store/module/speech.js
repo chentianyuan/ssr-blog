@@ -1,4 +1,4 @@
-// import api from '../../api'
+import api from '../../api'
 const GET_SPEECH_LIST = 'GET_SPEECH_LIST'
 const SET_SPEECH_LIST = 'SET_SPEECH_LIST'
 
@@ -20,19 +20,22 @@ export default {
   },
   actions: {
     [GET_SPEECH_LIST]: ({ commit }, payload) => {
-      return new Promise((resolve, reject) => {
-        // api.speech.getSpeechList(payload).then(data => {
-        //   // 获取到数据后触发mutation放入state
-        //   commit(SET_SPEECH_LIST, data)
-        // })
-        console.log(payload, 'asdfsdfsd')
-        setTimeout(() => {
-          commit(SET_SPEECH_LIST, [
-            ...payload
-          ])
-          resolve()
-        }, 1000)
+      return api.speech.getSpeechList().then(res => {
+        // 获取到数据后触发mutation放入state
+        // commit(SET_SPEECH_LIST, res.data)
+        if (!res.hasError) {
+          commit(SET_SPEECH_LIST, payload)
+        } else {
+          console.log(res, '~~~~~~~~')
+        }
       })
+      // console.log(api)
+      // setTimeout(() => {
+      //   commit(SET_SPEECH_LIST, [
+      //     ...payload
+      //   ])
+      //   resolve()
+      // }, 1000)
     }
   }
 }

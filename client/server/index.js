@@ -4,13 +4,21 @@ const fs = require('fs')
 const path = require('path')
 const express = require('express')
 const favicon = require('serve-favicon')
+const cookieParser = require('cookie-parser')
 
 const resolve = file => path.resolve(__dirname, file)
 const app = express()
 
+const injectCookies = require('./injectCookies')
 let renderer
 let readyPromise
 const templatePath = resolve('../index.template.html')
+
+process.on('uncaughtException', function (err) {
+  console.log(err, 'ppp');
+}); 
+
+app.use(cookieParser())
 
 if (isProd) {
   const clientManifest = require('../dist/vue-ssr-client-manifest.json')
@@ -49,7 +57,7 @@ if (isProd) {
 const render = (req, res) => {
 	if (!renderer) {
 		return res.end('waiting for compilation... refresh in a moment.')
-	}
+  }
 	const context = {
 		url: req.url,
 		req,
@@ -60,13 +68,16 @@ const render = (req, res) => {
 	res.setHeader('Content-Type', 'text/html')
 	renderer.renderToString(context, (err, html) => {
 		if (err) {
-			console.error(err);
-			res.status(500).end('服务器内部错误');
-			return;
-		}
-		res.end(html, 'utf-8');
+			console.error(err, 'x')
+			res.status(err.code).end(`<blockquote>${err.code} error</blockquote>`)
+			return
+    }
+    // 这里就是所有路由重定向到根页面的地方了，history模式在ssr中的提供静态资源的处理
+		res.end(html, 'utf-8')
 	})
 }
+
+app.use(injectCookies)
 
 app.get('*', isProd ? render : (req, res) => {
   readyPromise.then(() => render(req, res))

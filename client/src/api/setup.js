@@ -2,15 +2,10 @@ import axios from 'axios'
 // 有其他包依赖了http包，所以虽然没有主动去下载这里也可以拿到
 import http from 'http'
 
+let baseURL
 const $http = axios
-const baseURL = '/api'
 const isServer = process.env.VUE_ENV === 'server'
-
-if (isServer) {
-  // TODO: http长连接？
-}
-
-const api = $http.create({
+const options = {
   baseURL,
   timeout: 2000,
   headers: {
@@ -20,7 +15,20 @@ const api = $http.create({
   },
   responseType: 'json',
   httpAgent: new http.Agent({ keepAlive: true })
-})
+}
+
+if (isServer) {
+  // TODO: http长连接？
+  baseURL = 'http://localhost:8088/api'
+
+  global.cookies && Object.assign(options.headers, {
+    'Cookie': global.cookies._blogSid_
+  })
+} else {
+  baseURL = '/api'
+}
+
+const api = $http.create(options)
 
 if (process.env.VUE_ENV === 'client') {
   // 请求拦截
