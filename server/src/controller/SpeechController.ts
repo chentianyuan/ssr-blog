@@ -14,11 +14,16 @@ export default class SpeechController {
   }
 
   // 装饰器直接读取该对应的Controller触发时的回调所获取的值
-  @Post('/speech/findAll')
+  @Post('/speech/list')
   async selectAllSpeech <T>(@Request() req, @Response() res, @Body() body): Promise<T> {
+    let { isLogin, user } = req.session
+    console.log(req.session)
+    console.log(req.session.cookie)
     // ret为service中执行的sql所获取的数据对象
-    if (req.session.isLogin) {
+    if (isLogin) {
+      console.log(isLogin, '已登录')
       const ret: any = await this.speechService.findAllSpeech()
+      // TODO：数据未返回，服务端渲染身份鉴权
       res.json(new SuccessMsg('查询成功', ret))
     } else {
       res.json(new FailedMsg('请先登录', null))

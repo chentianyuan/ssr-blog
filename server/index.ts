@@ -32,7 +32,7 @@ createConnection().then(async connection => {
   // })
 
   app.use(bodyParser.json())
-  app.use(bodyParser.urlencoded({extended: false}))
+  app.use(bodyParser.urlencoded({ extended: false }))
   app.use(cookieParse())
 
   // 没有sessionId的验证，存储在内存中的session将无法验证是哪个用户的session
@@ -44,7 +44,7 @@ createConnection().then(async connection => {
     cookie: {
       // 客户端重定向
       httpOnly: false, // 允许客户端读写cookie
-      maxAge: 1000 * 6 * 3 // 有效时间三分钟
+      maxAge: 1000 * 60 * 3 // 有效时间三十分钟
     }
   }))
 
@@ -53,6 +53,7 @@ createConnection().then(async connection => {
 
   // 404
   app.use(function (req, res, next) {
+    console.log(req, res)
     const err: any = new Error('Not Found')
     err.status = 404
     // 额外传入的参数会在下一个中间件被发现
