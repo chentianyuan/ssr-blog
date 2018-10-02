@@ -9,9 +9,6 @@ export default class AdminDao {
   async findUserAcountByNameAndPwd (admin: string, password: string) {
     // 先通过getRepository方法获取到admin实体
     return await getRep(Admin)
-    // .insertOne({
-    //   admin, password
-    // })
     .findOne({
       admin, password
     })

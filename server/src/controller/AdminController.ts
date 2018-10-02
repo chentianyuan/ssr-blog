@@ -22,7 +22,7 @@ export default class AdminController {
     console.log(ret)
     if (ret) {
       // 写入session信息，内存储存，因为通过了express-session中间件，获取的是当前用户的session
-      req.session.user = ret.admin
+      req.session.admin = ret.admin
       // 之后仅需验证req.isLogin即可
       req.session.isLogin = true
       res.json(new SuccessMsg('登录成功', ret))

@@ -14,8 +14,8 @@ export default class SpeechService {
   }
 
   // 插入数据
-  insertSpeech (admin: string, text: string) {
-    return this.speechDao.insertSpeech(admin, text)
+  insertSpeech ({ admin, speechText, insterTime }) {
+    return this.speechDao.insertSpeech({ admin, speechText, insterTime })
   }
 
   // 返回所有
