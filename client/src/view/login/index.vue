@@ -27,7 +27,7 @@
 import api from '../../api'
 import { getQueryString } from '../../util/get-param.js'
 export default {
-  asyncData ({ store, route }) {
+  asyncData ({ store, route, context }) {
     return {}
   },
   data () {

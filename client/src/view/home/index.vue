@@ -19,10 +19,9 @@ import homeFooter from './components/homeFooter'
 import homeMain from './components/homeMain'
 
 export default {
-  asyncData ({ store, router }) {
-    let payload = [{ text: 'a' }, { text: 'b' }, { text: 'c' }]
+  asyncData ({ store, router, context }) {
     // 触发模块下的actions
-    return store.dispatch('speech/GET_SPEECH_LIST', payload)
+    return store.dispatch('speech/GET_SPEECH_LIST', { context })
   },
   components: {
     homeHeader, homeFooter, homeMain
@@ -37,5 +36,7 @@ export default {
 
 <style>
 .page-home {
+  margin-top: 60px;
+  overflow: hidden;
 }
 </style>

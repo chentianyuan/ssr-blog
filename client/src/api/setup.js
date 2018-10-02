@@ -2,11 +2,10 @@ import axios from 'axios'
 // 有其他包依赖了http包，所以虽然没有主动去下载这里也可以拿到
 import http from 'http'
 
-let baseURL
 const $http = axios
 const isServer = process.env.VUE_ENV === 'server'
-const options = {
-  baseURL,
+let options = {
+  baseURL: isServer ? 'http://localhost:8088/api' : '/api',
   timeout: 2000,
   headers: {
     'Accept': 'application/json',
@@ -17,29 +16,33 @@ const options = {
   httpAgent: new http.Agent({ keepAlive: true })
 }
 
-if (isServer) {
-  // TODO: http长连接？
-  baseURL = 'http://localhost:8088/api'
+// TODO: http长连接？
 
-  global.cookies && Object.assign(options.headers, {
-    'Cookie': global.cookies._blogSid_
-  })
-} else {
-  baseURL = '/api'
-}
+// __VUE_SSR_CONTEXT__是服务端渲染时自动注入的，其上挂载了context对象
+// 主动将鉴权的cookie放入请求头，注意插入格式
+// 也可以用透传的方式传至api中
+// 这种方式需要改善，当runInNewContext设置为false时，每个用户共用同一个global上下文，会共用同一个cookie
+// options.headers['Cookie'] = '_blogSid_=' + global.__VUE_SSR_CONTEXT__.req.cookies._blogSid_ || ''
 
 const api = $http.create(options)
 
-if (process.env.VUE_ENV === 'client') {
-  // 请求拦截
-  api.interceptors.request.use(config => {
-    // 重定向应当发生在请求接口之前
-    return config
-  }, err => Promise.reject(err))
-  // 响应拦截
-  api.interceptors.response.use(config => config, err => Promise.reject(err))
-} else {
-  // server拦截重定向res.redirect
-}
+// 请求拦截
+api.interceptors.request.use(config => {
+  if (isServer && !config.context) {
+    throw new Error('服务端请求必须传入context参数，用于鉴权')
+  }
+
+  // 服务端请求options预设
+  if (isServer) {
+    config.headers['Cookie'] = '_blogSid_=' + config.context.cookies._blogSid_ || ''
+  }
+  // 重定向应当发生在请求接口之前
+  return config
+}, err => Promise.reject(err))
+
+// 响应拦截
+api.interceptors.response.use(config => {
+  return config
+}, err => Promise.reject(err))
 
 export default api

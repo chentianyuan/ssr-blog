@@ -34,6 +34,10 @@ export default {
 .page-home--header {
   width: 100%;
   padding: 0;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 999;
   .page-home--header-wrap {
     .page-home--header-menu {
       padding: 0 20px;

@@ -15,7 +15,7 @@ let readyPromise
 const templatePath = resolve('../index.template.html')
 
 process.on('uncaughtException', function (err) {
-  console.log(err, 'ppp');
+  console.log(err, 'uncaughtException');
 }); 
 
 app.use(cookieParser())
@@ -61,7 +61,8 @@ const render = (req, res) => {
 	const context = {
 		url: req.url,
 		req,
-		res
+    res,
+    cookies: req.cookies
 	}
 	// context注入
 	// const App = createApp(context)

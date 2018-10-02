@@ -15,27 +15,21 @@ export default {
   },
   mutations: {
     [SET_SPEECH_LIST]: (state, payload) => {
-      state.speechList = [ state.speechList, ...payload ]
+      state.speechList = [ ...state.speechList, ...payload ]
     }
   },
   actions: {
-    [GET_SPEECH_LIST]: ({ commit }, payload) => {
-      return api.speech.getSpeechList().then(res => {
+    // actions被触发时只能接受两个参数，一个是全局的$store对象，一个是入参，此处入参携带context对象
+    [GET_SPEECH_LIST]: ({ commit }, params) => {
+      return api.speech.getSpeechList(params.context, {}).then(res => {
+        console.log(res)
         // 获取到数据后触发mutation放入state
-        // commit(SET_SPEECH_LIST, res.data)
         if (!res.hasError) {
-          commit(SET_SPEECH_LIST, payload)
+          commit(SET_SPEECH_LIST, res.data)
         } else {
           console.log(res, '~~~~~~~~')
         }
       })
-      // console.log(api)
-      // setTimeout(() => {
-      //   commit(SET_SPEECH_LIST, [
-      //     ...payload
-      //   ])
-      //   resolve()
-      // }, 1000)
     }
   }
 }
