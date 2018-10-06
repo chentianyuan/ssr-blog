@@ -2,6 +2,8 @@ import { Injectable } from '@decorators/di'
 import { Controller, Response, Body, Post, Get, Request } from '@decorators/express'
 import AdminService from '../service/AdminService'
 import { SuccessMsg, FailedMsg } from '../model/message'
+import { resolve } from 'url';
+import axios from 'axios'
 
 // 注入功能支持
 @Injectable()
@@ -19,7 +21,6 @@ export default class AdminController {
     const { admin, password } = body
     // ret为service中执行的sql所获取的数据对象
     const ret: any = await this.adminService.login(admin, password)
-    console.log(ret)
     if (ret) {
       // 写入session信息，内存储存，因为通过了express-session中间件，获取的是当前用户的session
       req.session.admin = ret.admin
@@ -30,5 +31,15 @@ export default class AdminController {
       res.json(new FailedMsg('用户名或密码输入错误', ret))
     }
     return
+  }
+
+  @Post('/yiyan')
+  async adminYiYan <T>(@Request() req, @Response() res, @Body() body): Promise<T> {
+    await axios.get('https://api.lwl12.com/hitokoto/v1?encode=realjson').then(data => {
+      res.json(new SuccessMsg('查询正常', data.data))
+    }).catch(err => {
+      res.json(new FailedMsg('系统异常', err))
+    })
+    return 
   }
 }
