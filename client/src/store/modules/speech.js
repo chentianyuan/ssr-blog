@@ -1,4 +1,5 @@
-import api from '../../api'
+import api from '@/api'
+
 const GET_SPEECH_LIST = 'GET_SPEECH_LIST'
 const SET_SPEECH_LIST = 'SET_SPEECH_LIST'
 

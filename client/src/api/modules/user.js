@@ -9,3 +9,13 @@ export const getLogin = query => {
     return data
   })
 }
+
+// 一言api
+export const getYiYan = (context, query) => {
+  return api.post('/yiyan', { ...query }, {
+    context
+  }).then(res => {
+    let { data } = res
+    return data
+  })
+}

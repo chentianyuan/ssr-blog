@@ -2,10 +2,11 @@ import Vue from 'vue'
 import App from './App'
 import createStore from './store/index'
 import element from 'element-ui'
-import 'element-ui/lib/theme-chalk/index.css'
 import customPlugin from './plugins/index'
 import { createRouter } from './router/route'
 import Cookies from 'js-cookie'
+import 'element-ui/lib/theme-chalk/index.css'
+
 
 Vue.use(element)
 

@@ -9,6 +9,10 @@
         :rules="loginRules"
         status-icon
       >
+        <el-form-item class="page-login--title">
+          <h2>{{ yiyan.source }}<span>{{ yiyan.author }}</span></h2>
+          <p>{{ yiyan.text }}</p>
+        </el-form-item>
         <el-form-item label="username" prop="admin">
           <el-input v-model="formLabelAlign.admin"></el-input>
         </el-form-item>
@@ -24,11 +28,20 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+import * as user from '@/store/modules/user'
 import api from '../../api'
 import { getQueryString } from '../../util/get-param.js'
 export default {
   asyncData ({ store, route, context }) {
-    return {}
+    return Promise.all([
+      store.dispatch('user/GET_YIYAN_TXT', { context })
+    ])
+  },
+  computed: {
+    ...mapGetters(user.name, [
+      'yiyan'
+    ])
   },
   data () {
     let validateUser = (rule, value, callback) => {
@@ -98,7 +111,10 @@ export default {
 
 <style lang="less">
 .page-login--main {
-  margin: 40% auto;
+  margin: 30% auto;
   max-width: 375px;
+  .page-login--title {
+    text-align: center;
+  }
 }
 </style>

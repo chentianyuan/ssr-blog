@@ -50,6 +50,9 @@ module.exports = {
       }, 
       {
         test: /\.css$/,
+        exclude: [
+          path.resolve(__dirname, "./node_modules/element-ui/lib/theme-chalk/index.css")
+        ],
         use: isProd ? ExtractTextPlugin.extract({
           use: 'css-loader?minimize',
           fallback: 'vue-style-loader'

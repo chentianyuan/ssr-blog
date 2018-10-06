@@ -113,6 +113,7 @@ export default {
 <style lang="less">
 .page-home--main {
   padding: 0 0 20px;
+  height: -webkit-fill-available;
   .page-home--main-input-wrap {
     padding: 20px;
     .input-wrap {

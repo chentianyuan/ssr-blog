@@ -13,7 +13,7 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import * as speech from '@/store/module/speech'
+import * as speech from '@/store/modules/speech'
 import homeHeader from './components/homeHeader'
 import homeFooter from './components/homeFooter'
 import homeMain from './components/homeMain'
@@ -21,7 +21,9 @@ import homeMain from './components/homeMain'
 export default {
   asyncData ({ store, router, context }) {
     // 触发模块下的actions
-    return store.dispatch('speech/GET_SPEECH_LIST', { context })
+    return Promise.all([
+      store.dispatch('speech/GET_SPEECH_LIST', { context })
+    ])
   },
   components: {
     homeHeader, homeFooter, homeMain
