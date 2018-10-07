@@ -1,9 +1,10 @@
 const webpack = require('webpack')
 const base = require('./webpack.base.config')
+const merge = require('webpack-merge')
 const VueSSRServerPlugin = require('vue-server-renderer/server-plugin')
 const nodeExternals = require('webpack-node-externals')
 
-module.exports = Object.assign({}, base, {
+module.exports = merge(base, {
 	target: 'node',
 	devtool: '#source-map',
 	entry: './src/entry-server.js',

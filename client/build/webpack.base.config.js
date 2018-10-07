@@ -55,6 +55,7 @@ module.exports = {
         ],
         use: isProd ? ExtractTextPlugin.extract({
           use: 'css-loader?minimize',
+          // use: ['style-loader', 'css-loader'],
           fallback: 'vue-style-loader'
         }) : ['vue-style-loader', 'css-loader', 'postcss-loader']
       },

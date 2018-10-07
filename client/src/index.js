@@ -6,7 +6,7 @@ import customPlugin from './plugins/index'
 import { createRouter } from './router/route'
 import Cookies from 'js-cookie'
 import 'element-ui/lib/theme-chalk/index.css'
-
+// import './style/base.less'
 
 Vue.use(element)
 
