@@ -1,4 +1,6 @@
 
+// log4js预配置
+require('./log4js')
 const isProd = process.env.NODE_ENV === 'production'
 const fs = require('fs')
 const path = require('path')
@@ -8,15 +10,16 @@ const cookieParser = require('cookie-parser')
 
 const resolve = file => path.resolve(__dirname, file)
 const app = express()
+const generateLog = require('./util/generateLog')
 
-const injectCookies = require('./injectCookies')
+const injectCookies = require('./util/injectCookies')
 let renderer
 let readyPromise
 const templatePath = resolve('../index.template.html')
 
 process.on('uncaughtException', function (err) {
-  console.log(err, 'uncaughtException');
-}); 
+  console.log(err, 'uncaughtException')
+})
 
 app.use(cookieParser())
 
@@ -73,6 +76,10 @@ const render = (req, res) => {
 			res.status(err.code).end(`<blockquote>${err.code} error</blockquote>`)
 			return
     }
+
+    // 在控制台和日志文件中输出日志，正常服务可以使用log4js中间件输出日志
+    generateLog(context)
+
     // 这里就是所有路由重定向到根页面的地方了，history模式在ssr中的提供静态资源的处理
 		res.end(html, 'utf-8')
 	})
