@@ -2,6 +2,7 @@ const webpack = require('webpack')
 const base = require('./webpack.base.config')
 const merge = require('webpack-merge')
 const VueSSRClientPlugin = require('vue-server-renderer/client-plugin')
+// const InsertWebpackPlugin = require('./insert-webpack-plugin')
 
 const clientConfig = merge(base, {
   // hk使用了firebase实时性云数据库，这里先不使用
@@ -60,7 +61,15 @@ const clientConfig = merge(base, {
 })
 
 if(process.env.NODE_ENV === 'production'){
-    // webpack2中配置一些生产环境特打包的优化常用方式
+    // webpack4中配置一些生产环境特打包的优化常用方式
+    // clientConfig.plugins.push(
+    //   new webpack.DllReferencePlugin({
+    //     manifest: require('../public/dll/vendor-manifest.json')
+    //   }),    //将dll插入到VueSSRClientPlugin中
+    //   new InsertWebpackPlugin({
+    //     name: 'dll'
+    //   })
+    // )
 }
 
 module.exports = clientConfig
