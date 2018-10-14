@@ -4,6 +4,10 @@ const webpack = require('webpack')
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 
+// customPlugin
+const Myplugin = require('./plugins/my-plugins')
+const ListenMyPlugin = require('./plugins/listen-my-plugin')
+
 // dll打包单独配置
 let config = {
   mode: 'production',
@@ -28,7 +32,9 @@ let config = {
     }),
     // 压缩打包
     new webpack.NoEmitOnErrorsPlugin(),
-    new BundleAnalyzerPlugin()
+    new BundleAnalyzerPlugin(),
+    new Myplugin("Plugin is instancing."),
+    new ListenMyPlugin()
   ],
   optimization: {
     minimizer: [
