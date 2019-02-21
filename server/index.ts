@@ -44,7 +44,7 @@ createConnection().then(async connection => {
     cookie: {
       // 客户端重定向
       httpOnly: false, // 允许客户端读写cookie
-      maxAge: 1000 * 60 * 3 // 有效时间三十分钟
+      maxAge: 1000 * 60 * 30 // 有效时间三十分钟
     }
   }))
 
