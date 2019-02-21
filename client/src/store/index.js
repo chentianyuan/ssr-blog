@@ -1,16 +1,12 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import speech from './modules/speech'
-import user from './modules/user'
 
 Vue.use(Vuex)
 const { Store } = Vuex
+
 export default function createStore () {
   return new Store({
-    modules: {
-      speech,
-      user
-    },
+    modules: {},
     // 对于模块内部的mutation和getter
     // 接收的第一个参数是模块的局部状态state对象
     // 第二个参数是模块的store对象

@@ -1,14 +1,16 @@
 
 const path = require('path')
-const ExtractTextPlugin = require('extract-text-webpack-plugin')
+const utils = require('./utils')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 // const lessExtract = new ExtractTextWebpackPlugin('css/less.css')
 // const PrerenderSpaPlugin = require('prerender-spa-plugin')
 // const Renderer = PrerenderSpaPlugin.PuppeteerRenderer
 const styleLintPlugin = require('stylelint-webpack-plugin')
+const vueLoaderConfig = require('./vue-loader.conf')
 
 const isProd = process.env.NODE_ENV === 'production'
 
-module.exports = {
+let baseConfig = {
 	mode: isProd ? 'production' : 'development',
 	output: {
 		path: path.resolve(__dirname, '../dist'),
@@ -20,7 +22,7 @@ module.exports = {
 		// hotUpdateMainFilename: 'hot/hot-update.json'
 	},
 	module: {
-    noParse: /es6-promise\.js$/, // avoid webpack shimming process
+    // noParse: /es6-promise\.js$/, // avoid webpack shimming process
 		rules: [
 			{
 				test: /\.(vue|js)$/,
@@ -37,35 +39,13 @@ module.exports = {
 				test: /\.vue$/,
 				type: 'javascript/auto',
         loader: 'vue-loader',
-        options: {
-          compilerOptions: {
-            preserveWhitespace: false
-          }
-        }
+        options: vueLoaderConfig
 			}, {
 				test: /\.js$/,
 				type: 'javascript/auto',
-				loader: 'babel-loader',
+				loader: 'babel-loader?cacheDirectory',
         exclude: /node_modeules/
       }, 
-      {
-        test: /\.css$/,
-        exclude: [
-          path.resolve(__dirname, "./node_modules/element-ui/lib/theme-chalk/index.css")
-        ],
-        use: isProd ? ExtractTextPlugin.extract({
-          use: 'css-loader?minimize',
-          // use: ['style-loader', 'css-loader'],
-          fallback: 'vue-style-loader'
-        }) : ['vue-style-loader', 'css-loader', 'postcss-loader']
-      },
-      {
-				test: /\.less$/,
-				use: isProd ? ExtractTextPlugin.extract({
-          use: 'css-loader?minimize',
-          fallback: 'vue-style-loader'
-				}) : ['vue-style-loader', 'css-loader', 'postcss-loader', 'less-loader']
-      },
       {
 				// 图片打包
 				test: /\.(?:jpg|png|gif)$/,
@@ -79,14 +59,27 @@ module.exports = {
       {
         test: /\.(eot|woff|ttf)$/,
         loader: 'file-loader'
-      }
+      },
+      ...utils.styleLoaders({
+        sourceMap: true,
+        extract: false,
+        usePostCSS: true
+      })
 		]
   },
-  plugins: [
-    new ExtractTextPlugin({
-      filename: '[name].[md5:contenthash:hex:20].css',
-      allChunks: true
-    }),
+  stats: isProd ? {
+    chunks: false,
+    chunkGroups: false,
+    chunkModules: false,
+    cachedAssets: false,
+    modules: false,
+    maxModules: 0
+  } : 'errors-only',
+  plugins: isProd ? [
+    new MiniCssExtractPlugin({
+      filename: `styles/[name].css`
+    })
+  ] : [
     new styleLintPlugin({
       cache: true,
       files: ['src/style/*.l?(e|c)ss', 'src/views/**/*.vue', 'src/components/**/*.vue']
@@ -105,5 +98,7 @@ module.exports = {
 			'vue$': 'vue/dist/vue.min.js'
 		}
 	},
-	devtool: isProd ? false : '#cheap-module-source-map'
+	devtool: isProd ? false : '#eval-source-map'
 }
+
+module.exports = baseConfig

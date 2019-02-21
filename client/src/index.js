@@ -1,14 +1,9 @@
 import Vue from 'vue'
 import App from './App'
 import createStore from './store/index'
-import element from 'element-ui'
 import customPlugin from './plugins/index'
 import { createRouter } from './router/route'
 import Cookies from 'js-cookie'
-import 'element-ui/lib/theme-chalk/index.css'
-// import './style/base.less'
-
-Vue.use(element)
 
 const isServer = process.env.VUE_ENV === 'server'
 

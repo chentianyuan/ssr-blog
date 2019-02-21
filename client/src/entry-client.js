@@ -21,7 +21,7 @@ router.onReady(() => {
       return diffed || (diffed = (prevMatched[i] !== c))
     })
     if (!activated.length) {
-      // 嵌套路由，或者只是各个组件的不同组合方式
+      // 匹配的路由是相同的页面不再执行asyncData
       return next()
     }
     Promise.all(activated.map(component => {
@@ -34,6 +34,7 @@ router.onReady(() => {
     }).catch(next)
   })
 })
+
 // 挂载
 app.$mount('#app')
 window.gvm = app

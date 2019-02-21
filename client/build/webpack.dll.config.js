@@ -8,6 +8,8 @@ const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPl
 const Myplugin = require('./plugins/my-plugins')
 const ListenMyPlugin = require('./plugins/listen-my-plugin')
 
+const InsertPlugin = require('./plugins/Insert-webpack-plugin')
+
 // dll打包单独配置
 let config = {
   mode: 'production',
@@ -32,9 +34,13 @@ let config = {
     }),
     // 压缩打包
     new webpack.NoEmitOnErrorsPlugin(),
-    new BundleAnalyzerPlugin(),
-    new Myplugin("Plugin is instancing."),
-    new ListenMyPlugin()
+    // 分析插件
+    // new BundleAnalyzerPlugin(),
+    // new Myplugin("Plugin is instancing."),
+    // new ListenMyPlugin(),
+    new InsertPlugin({
+      name: 'dll'
+    })
   ],
   optimization: {
     minimizer: [

@@ -11,7 +11,7 @@ export default {
 </script>
 
 <style lang="less">
-@import './style/base.less';
+@import "./style/base.less";
 body {
   overflow: hidden;
 }

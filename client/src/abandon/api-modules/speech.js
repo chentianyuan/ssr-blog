@@ -1,4 +1,4 @@
-import api from '../setup'
+import api from '../../api/setup'
 
 // 获取所有消息
 export const getSpeechList = (context, query) => {
@@ -12,7 +12,6 @@ export const getSpeechList = (context, query) => {
 
 // 插入一条消息
 export const insertSpeech = query => {
-  console.log(query)
   return api.post('/speech/insert', {
     ...query
   }).then(res => {

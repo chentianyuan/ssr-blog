@@ -64,7 +64,6 @@ module.exports = function setupDevServer (app, templatePath, cb) {
   app.use(devMiddleware)
 
   clientCompiler.plugin('done', stats => {
-      console.log('done', '--------')
       // 读取index.html,并解析
       stats = stats.toJson()
       stats.errors.forEach(err => console.error(err))
@@ -81,7 +80,9 @@ module.exports = function setupDevServer (app, templatePath, cb) {
   })
 
   // 热更新中间件，对已编译的前端文件监听并热更新
-  app.use(require('webpack-hot-middleware')(clientCompiler, { heartbeat: 5000 }))
+  app.use(require('webpack-hot-middleware')(clientCompiler, {
+    heartbeat: 5000
+  }))
 
   // 监听和更新服务端渲染
   // 服务端编译
@@ -90,7 +91,6 @@ module.exports = function setupDevServer (app, templatePath, cb) {
   const mfs = new MFS()
   serverCompiler.outputFileSystem = mfs
   serverCompiler.watch({}, (err, stats) => {
-      console.log('watch', '--------')
       if (err) throw err
       stats = stats.toJson()
       if (stats.errors.length) return
@@ -102,5 +102,3 @@ module.exports = function setupDevServer (app, templatePath, cb) {
 
   return readyPromise
 }
-
- 

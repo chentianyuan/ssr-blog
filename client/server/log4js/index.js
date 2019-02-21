@@ -6,6 +6,7 @@ log4js.configure({
   // pm2InstanceVar: 'blog_test'
   // 附加器，有了等级和类别之后决定日志输出到哪里，相当于不同logger的配置options
   appenders: {
+    // 默认appender是type: 'console'
     httpLog: {
       type: 'dateFile',
       // 设置此日志类型,日志类型有类型限制的，以下是几种核心的附加器类型，他们有自己的默认配置
@@ -45,5 +46,6 @@ log4js.configure({
   }
 })
 // 获取日志输出器
-logger = log4js.getLogger()
+// log4js.getLogger(日志类别，若为空，类别为默认default)
+logger = log4js.getLogger('other-catetory')
 module.exports = logger

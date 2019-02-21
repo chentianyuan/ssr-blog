@@ -16,7 +16,7 @@ export default {
   },
   mutations: {
     [SET_SPEECH_LIST]: (state, payload) => {
-      state.speechList = [ ...state.speechList, ...payload ]
+      state.speechList = [ ...payload, ...state.speechList ]
     }
   },
   actions: {

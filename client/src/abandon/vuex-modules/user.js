@@ -11,7 +11,9 @@ export default {
   // 否则每个模块依然属于全局命名空间下的模块，多个模块可以对同一个mutation或action作出相应
   namespaced: true,
   state: {
-    yiyan: '天天向上'
+    yiyan: {
+      text: '天天向上'
+    }
   },
   getters: {
     yiyan: state => state.yiyan

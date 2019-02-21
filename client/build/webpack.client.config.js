@@ -1,9 +1,13 @@
+const path = require('path')
 const webpack = require('webpack')
 const base = require('./webpack.base.config')
 const merge = require('webpack-merge')
 const VueSSRClientPlugin = require('vue-server-renderer/client-plugin')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+
 // const InsertWebpackPlugin = require('./insert-webpack-plugin')
 
+const isProd = process.env.NODE_ENV === 'production'
 const clientConfig = merge(base, {
   // hk使用了firebase实时性云数据库，这里先不使用
   // 通过配置DefinePlugin，那么这里面的标识就相当于全局变量，你的业务代码可以直接使用配置的标识。
@@ -14,49 +18,42 @@ const clientConfig = merge(base, {
   },
   plugins: (base.plugins || []).concat([
       new webpack.DefinePlugin({
-          'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development'),
           'process.env.VUE_ENV': '"client"'
       }),
-      new VueSSRClientPlugin()
-      // new HtmlWebpackPlugin({
-      //     // 使用的入口模板
-      //     template: path.resolve(__dirname, '../index.template.html'),
-      //     filename: 'index.template.html',
-      //     inject: 'body'
-      // })
+      new VueSSRClientPlugin(),
+      new HtmlWebpackPlugin({
+          // 使用的入口模板
+          template: path.resolve(__dirname, '../index.template.html'),
+          filename: 'index.template.html',
+          inject: 'body'
+      })
   ]),
   optimization: {
-    // 通过设置 optimization.runtimeChunk: true 来为每一个入口默认添加一个只包含 runtime 的 chunk
-    runtimeChunk: true,
     splitChunks: {
-      // 通过设置 optimization.splitChunks.chunks: "all" 来启动默认的代码分割配置项
+      // 针对所有模块
       chunks: 'all',
+      // 拆分出的模块最小体积
+      minSize: 30000,
+      // 最少引用一次
+      minChunks: 1,
+      // 同一个页同时最大异步请求的模块数量不超过5个
+      maxAsyncRequests: 5,
+      // 入口同时请求同步模块数量
+      maxInitialRequests: 3,
       cacheGroups: {
-        libs: {
-          // 基础类库
-          name: 'chunk-libs',
+        // 抽离node_modules中的第三方模块
+        vendors: {
           test: /[\\/]node_modules[\\/]/,
-          priority: 10,
-          chunks: 'initial' // 只打包初始时依赖的第三方
-        },
-        elementUI: {
-          // elementui单独打包
-          name: 'chunk-elementUI',
-          priority: 20,
-          test: /[\\/]node_modules[\\/]element-ui[\\/]/
-        },
-        commons: {
-          // 其他公用业务代码
-          name: 'vendors',
-          chunks: 'initial',
-          minChunks: 2,
-          maxInitialRequests: 5,
-          minSize: 2,
-          name: 'common',
-          priority: 5
+          // node_modules中引用了一次即作为第三方库提取，减少入口包体积
+          minChunks: 1,
+          priority: -10
         }
       }
-    }
+    },
+    runtimeChunk: {
+      name: 'manifest'
+    },
+    moduleIds: isProd ? 'hashed' : false
   }
 })
 
@@ -70,6 +67,26 @@ if(process.env.NODE_ENV === 'production'){
     //     name: 'dll'
     //   })
     // )
+    const seen = new Set()
+    const nameLength = 4
+    const hash = require('hash-sum')
+
+    clientConfig.plugins.push(
+      // 自定义chunkIdHash规则
+      new webpack.NamedChunksPlugin(chunk => {
+        if (chunk.name) {
+          return chunk.name
+        }
+        const modules = Array.from(chunk.modulesIterable)
+        let len = nameLength
+        let padStr = 'chunk-'
+        let joinedHash
+        joinedHash = hash(modules.map(m => m.id).join(modules.length > 1 ? '_' : '-'))
+        while (seen.has(joinedHash.substr(0, len))) len++
+        seen.add(joinedHash.substr(0, len))
+        return joinedHash.substr(0, len).padStart(len + padStr.length, padStr)
+      })
+    )
 }
 
 module.exports = clientConfig

@@ -1,4 +1,4 @@
-import api from '../setup'
+import api from '../../api/setup'
 
 // 用户登录
 export const getLogin = query => {

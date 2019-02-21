@@ -10,7 +10,7 @@ export default {
           if (route.path === location.pathname) return
           router.push({ path: url })
         } catch (err) {
-          console.log(err)
+          console.error(err)
         }
       }
     }

@@ -9,10 +9,7 @@
         :rules="loginRules"
         status-icon
       >
-        <el-form-item class="page-login--title">
-          <h2>{{ yiyan.source }}<span>{{ yiyan.author }}</span></h2>
-          <p>{{ yiyan.text }}</p>
-        </el-form-item>
+        <yi-yan :yiyan="yiyan"></yi-yan>
         <el-form-item label="username" prop="admin">
           <el-input v-model="formLabelAlign.admin"></el-input>
         </el-form-item>
@@ -32,11 +29,15 @@ import { mapGetters } from 'vuex'
 import * as user from '@/store/modules/user'
 import api from '../../api'
 import { getQueryString } from '../../util/get-param.js'
+import YiYan from './component/yiyan'
 export default {
   asyncData ({ store, route, context }) {
     return Promise.all([
-      store.dispatch('user/GET_YIYAN_TXT', { context })
+      // store.dispatch('user/GET_YIYAN_TXT', { context })
     ])
+  },
+  components: {
+    YiYan
   },
   computed: {
     ...mapGetters(user.name, [
@@ -113,8 +114,5 @@ export default {
 .page-login--main {
   margin: 30% auto;
   max-width: 375px;
-  .page-login--title {
-    text-align: center;
-  }
 }
 </style>

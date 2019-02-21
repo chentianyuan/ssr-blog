@@ -31,7 +31,7 @@ export default {
   computed: {
     ...mapGetters(speech.name, [
       'speechList'
-    ])
+    ]).reverse()
   }
 }
 </script>
