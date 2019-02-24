@@ -11,7 +11,7 @@ export function createRouter () {
     routes: [
       ...routerModules,
       {
-        path: '/*',
+        path: '*',
         name: 'Not-Found',
         meta: {
           needAuth: false

@@ -1,7 +1,7 @@
 
 // log4js预配置
-require('./log4js')
 const isProd = process.env.NODE_ENV === 'production'
+isProd && require('./log4js')
 const fs = require('fs')
 const path = require('path')
 const express = require('express')
@@ -11,8 +11,8 @@ const cookieParser = require('cookie-parser')
 const resolve = file => path.resolve(__dirname, file)
 const app = express()
 const generateLog = require('./util/generateLog')
-
 const injectCookies = require('./util/injectCookies')
+
 let renderer
 let readyPromise
 const templatePath = resolve('../index.template.html')
@@ -53,7 +53,7 @@ if (isProd) {
 } else {
 	// 开发模式下，资源缓存在根目录内存中，不用再指向dist，由webpack-middle-ware提供
 	// favicon接收一段buffer或者String
-	app.use(favicon(resolve('../src/static/avatar.png')))
+	app.use(favicon(resolve('../src/static/imgs/common/avatar.png')))
 	app.use('/static', serve('./dist/static', false))
 }
 

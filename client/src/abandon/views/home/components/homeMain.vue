@@ -23,7 +23,7 @@
       <div class="page-home--main-comment" v-for="(item, index) in speechList" :key="index">
         <el-row class="comment-header">
           <div class="header-avatar">
-            <img :src="require('@/static/avatar.png?resize=42x46')">
+            <img :src="require('@/static/imgs/common/avatar.png?resize=42x46')">
           </div>
           <div class="header-content">
             <div class="user-name">

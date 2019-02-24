@@ -48,7 +48,7 @@ let baseConfig = {
       }, 
       {
 				// 图片打包
-				test: /\.(?:jpg|png|gif)$/,
+				test: /\.(jpg|png|gif|eot|woff|ttf)$/,
 				// 此时的name决定图片打包后的路径,使用相对路径
         loader: 'url-loader',
         options: {
@@ -56,10 +56,10 @@ let baseConfig = {
           name: '[name].[ext]?[hash]'
         }
       },
-      {
-        test: /\.(eot|woff|ttf)$/,
-        loader: 'file-loader'
-      },
+      // {
+      //   test: /\.(eot|woff|ttf)$/,
+      //   loader: 'file-loader'
+      // },
       ...utils.styleLoaders({
         sourceMap: true,
         extract: false,
@@ -98,7 +98,7 @@ let baseConfig = {
 			'vue$': 'vue/dist/vue.min.js'
 		}
 	},
-	devtool: isProd ? false : '#eval-source-map'
+	devtool: isProd ? false : '#eval-cheap-module-source-map'
 }
 
 module.exports = baseConfig

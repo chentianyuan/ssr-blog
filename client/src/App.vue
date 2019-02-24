@@ -11,12 +11,11 @@ export default {
 </script>
 
 <style lang="less">
-@import "./style/base.less";
 body {
   overflow: hidden;
 }
 .root {
-  background-color: #f4f5f5;
+  background-color: #fff;
   min-height: 100vh;
   overflow: hidden;
   font-family: -apple-system,PingFang SC,Hiragino Sans GB,Microsoft YaHei,Helvetica Neue,Arial,sans-serif;
