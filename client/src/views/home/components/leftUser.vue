@@ -9,7 +9,7 @@
         </h1>
       </div>
       <div class="part-contact">
-        <a class="icon-font"></a>
+        <slot name="icon" />
       </div>
     </div>
   </div>
@@ -42,9 +42,7 @@ export default {
     transform: translate(-50%, -50%);
     .part-head {
       --fontColor: #5e5e5e;
-      .flex-column();
-      justify-content: center;
-      align-items: center;
+      .flex-column(center, center);
       img {
         height: 100px;
         width: 100px;
@@ -71,6 +69,24 @@ export default {
         .motto {
           font-size: 12px;
         }
+      }
+    }
+    .part-contact {
+      margin: 20px 0;
+      .flex-initial(center, center);
+      a {
+        height: 34px;
+        width: 34px;
+        color: #fff;
+        .flex-initial(center, center);
+        background-color: #5e5e5e;
+        transition: background-color .3s;
+        border-radius: 2px;
+        margin: 0 10px;
+        cursor: pointer;
+      }
+      a:hover {
+        background-color: transparent;
       }
     }
   }

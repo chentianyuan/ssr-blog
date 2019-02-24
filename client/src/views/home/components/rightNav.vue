@@ -4,7 +4,8 @@
       <blockquote
       @mouseover="handleChange('enter', key)"
       @mouseout="handleChange('out', key)"
-      v-for="(nav, key) in navItem" :key="key">{{nav.text}}</blockquote>
+      v-for="(nav, key) in navItem" :key="key"
+      @click.stop="linkTo(nav)">{{nav.text}}</blockquote>
     </div>
   </div>
 </template>
@@ -14,14 +15,17 @@ export default {
   data () {
     return {
       navItem: [
-        { text: '文章', navLink: '', enText: 'articles' },
-        { text: '其他', navLink: '', enText: 'music' },
-        { text: '项目', navLink: '', enText: 'project' },
-        { text: '关于', navLink: '', enText: 'about' }
+        { text: '文章', navLink: '/article', enText: 'articles' },
+        { text: '其他', navLink: '/other', enText: 'music' },
+        { text: '项目', navLink: '/project', enText: 'project' },
+        { text: '关于', navLink: '/about', enText: 'about' }
       ]
     }
   },
   methods: {
+    linkTo ({ navLink }) {
+      this.$router.push({ path: navLink })
+    },
     handleChange (event, key) {
       let temp = this.navItem[key].text
       this.navItem[key].text = this.navItem[key].enText
@@ -42,9 +46,7 @@ export default {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    .flex-initial();
-    justify-content: center;
-    align-content: center;
+    .flex-initial(center, center);
     flex-wrap: wrap;
     blockquote {
       margin: 20px;

@@ -1,16 +1,22 @@
 <template>
   <div id="app" class="root">
+    <blog-header></blog-header>
     <router-view></router-view>
   </div>
 </template>
 
 <script>
+import blogHeader from './components/blogHeader.vue'
 export default {
-  name: 'app'
+  name: 'app',
+  components: {
+    blogHeader
+  }
 }
 </script>
 
 <style lang="less">
+@import "~@/styles/font.less";
 body {
   overflow: hidden;
 }

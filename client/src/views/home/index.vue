@@ -1,6 +1,11 @@
 <template>
   <section class="page-home--wrap">
-    <left-user></left-user>
+    <left-user>
+      <template slot="icon">
+        <a><i class="iconfont">&#xe64a;</i></a>
+        <a><i class="iconfont">&#xe602;</i></a>
+      </template>
+    </left-user>
     <right-nav></right-nav>
   </section>
 </template>
@@ -19,7 +24,7 @@ export default {
 .page-home--wrap {
   width: 100%;
   height: -webkit-fill-available;
-  .flex-initial();
+  .flex-initial(initial, initial);
   background-color: #fff;
 }
 </style>
