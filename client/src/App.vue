@@ -1,6 +1,6 @@
 <template>
   <div id="app" class="root">
-    <blog-header></blog-header>
+    <blog-header v-if="!isHomePage"></blog-header>
     <router-view></router-view>
   </div>
 </template>
@@ -11,6 +11,13 @@ export default {
   name: 'app',
   components: {
     blogHeader
+  },
+  computed: {
+    isHomePage () {
+      const whiteList = ['app', 'Not-Found']
+      let path = this.$route.name
+      return whiteList.includes(path)
+    }
   }
 }
 </script>

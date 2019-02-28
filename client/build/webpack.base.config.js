@@ -14,12 +14,9 @@ let baseConfig = {
 	mode: isProd ? 'production' : 'development',
 	output: {
 		path: path.resolve(__dirname, '../dist'),
-		filename: '[name]-[chunkhash].js', // 防缓存
+		filename: 'js/[name].[chunkhash].js', // 防缓存
 		// publicPath处理静态资源时转为绝对路径
-		publicPath: '/dist/',
-		// 或者使用clean-webpack-plugin,处理生成的[hash].hot-update.js/json文件
-		// hotUpdateChunkFilename: 'hot/hot-update.js',
-		// hotUpdateMainFilename: 'hot/hot-update.json'
+		publicPath: '/dist/'
 	},
 	module: {
     // noParse: /es6-promise\.js$/, // avoid webpack shimming process
@@ -56,10 +53,6 @@ let baseConfig = {
           name: '[name].[ext]?[hash]'
         }
       },
-      // {
-      //   test: /\.(eot|woff|ttf)$/,
-      //   loader: 'file-loader'
-      // },
       ...utils.styleLoaders({
         sourceMap: true,
         extract: false,
@@ -67,14 +60,7 @@ let baseConfig = {
       })
 		]
   },
-  stats: isProd ? {
-    chunks: false,
-    chunkGroups: false,
-    chunkModules: false,
-    cachedAssets: false,
-    modules: false,
-    maxModules: 0
-  } : 'errors-only',
+  stats: isProd ? {} : 'errors-only',
   plugins: isProd ? [
     new MiniCssExtractPlugin({
       filename: `styles/[name].css`
@@ -98,7 +84,7 @@ let baseConfig = {
 			'vue$': 'vue/dist/vue.min.js'
 		}
 	},
-	devtool: isProd ? false : '#eval-cheap-module-source-map'
+  devtool: '#eval-cheap-module-source-map'
 }
 
 module.exports = baseConfig

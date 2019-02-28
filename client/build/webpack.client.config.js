@@ -16,18 +16,18 @@ const clientConfig = merge(base, {
       // 默认为客户端入口
       index: './src/entry-client.js'
   },
-  plugins: (base.plugins || []).concat([
+  plugins: [
       new webpack.DefinePlugin({
-          'process.env.VUE_ENV': '"client"'
+        'process.env.VUE_ENV': '"client"'
       }),
       new VueSSRClientPlugin(),
       new HtmlWebpackPlugin({
-          // 使用的入口模板
-          template: path.resolve(__dirname, '../index.template.html'),
-          filename: 'index.template.html',
-          inject: 'body'
+        // 使用的入口模板
+        template: path.resolve(__dirname, '../index.template.html'),
+        filename: 'index.template.html',
+        inject: 'body'
       })
-  ]),
+  ],
   optimization: {
     splitChunks: {
       // 针对所有模块
@@ -58,35 +58,26 @@ const clientConfig = merge(base, {
 })
 
 if(process.env.NODE_ENV === 'production'){
-    // webpack4中配置一些生产环境特打包的优化常用方式
-    // clientConfig.plugins.push(
-    //   new webpack.DllReferencePlugin({
-    //     manifest: require('../public/dll/vendor-manifest.json')
-    //   }),    //将dll插入到VueSSRClientPlugin中
-    //   new InsertWebpackPlugin({
-    //     name: 'dll'
-    //   })
-    // )
-    const seen = new Set()
-    const nameLength = 4
-    const hash = require('hash-sum')
+  const seen = new Set()
+  const nameLength = 4
+  const hash = require('hash-sum')
 
-    clientConfig.plugins.push(
-      // 自定义chunkIdHash规则
-      new webpack.NamedChunksPlugin(chunk => {
-        if (chunk.name) {
-          return chunk.name
-        }
-        const modules = Array.from(chunk.modulesIterable)
-        let len = nameLength
-        let padStr = 'chunk-'
-        let joinedHash
-        joinedHash = hash(modules.map(m => m.id).join(modules.length > 1 ? '_' : '-'))
-        while (seen.has(joinedHash.substr(0, len))) len++
-        seen.add(joinedHash.substr(0, len))
-        return joinedHash.substr(0, len).padStart(len + padStr.length, padStr)
-      })
-    )
+  clientConfig.plugins.push(
+    // 自定义chunkIdHash规则
+    new webpack.NamedChunksPlugin(chunk => {
+      if (chunk.name) {
+        return chunk.name
+      }
+      const modules = Array.from(chunk.modulesIterable)
+      let len = nameLength
+      let padStr = 'chunk-'
+      let joinedHash
+      joinedHash = hash(modules.map(m => m.id).join(modules.length > 1 ? '_' : '-'))
+      while (seen.has(joinedHash.substr(0, len))) len++
+      seen.add(joinedHash.substr(0, len))
+      return joinedHash.substr(0, len).padStart(len + padStr.length, padStr)
+    })
+  )
 }
 
 module.exports = clientConfig
