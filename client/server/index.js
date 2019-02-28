@@ -51,7 +51,7 @@ const serve = (path, cache) => express.static(resolve(path), {
 
 // 开发模式下，资源缓存在根目录内存中，不用再指向dist，由webpack-middle-ware提供
 // favicon接收一段buffer或者String
-app.use(favicon(resolve('../src/static/imgs/common/avatar.png')))
+app.use(favicon(resolve('../favicon.ico')))
 app.use('/dist', serve('../dist', false))
 
 const render = (req, res) => {
