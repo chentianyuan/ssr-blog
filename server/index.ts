@@ -53,7 +53,6 @@ createConnection().then(async connection => {
 
   // 404
   app.use(function (req, res, next) {
-    console.log(req, res)
     const err: any = new Error('Not Found')
     err.status = 404
     // 额外传入的参数会在下一个中间件被发现

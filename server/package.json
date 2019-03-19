@@ -25,6 +25,7 @@
     "cookie-parser": "^1.4.3",
     "express": "^4.16.3",
     "express-session": "^1.15.6",
+    "ioredis": "^4.6.2",
     "mongodb": "^3.1.4",
     "reflect-metadata": "^0.1.12",
     "typeorm": "^0.2.7"

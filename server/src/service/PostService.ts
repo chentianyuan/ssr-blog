@@ -4,18 +4,22 @@
 // controller属于服务端路由生成项目api
 
 import { Injectable } from '@decorators/di'
-import AdminDao from '../dao/AdminDao'
+import PostDao from '../dao/PostDao'
 
 @Injectable()
-export default class AdminService {
-  constructor(private adminDao: AdminDao) {
+export default class PostService {
+  constructor(private postDao: PostDao) {
     // 每生成一个该类的对象，就会自动为其注入参数中的属性
     // 该类也可以看做一个默认的由自身创建的对象
   }
 
-  // 登录检测
-  login (username: string, password: string) {
-    // password = 
-    return this.adminDao.findUserAcountByNameAndPwd(username, password)
+  // 插入数据
+  insertPost ({ admin, postText, insterTime }) {
+    return this.postDao.insertPost({ admin, postText, insterTime })
+  }
+
+  // 返回所有
+  findAllPost () {
+    return this.postDao.getAllPost()
   }
 }

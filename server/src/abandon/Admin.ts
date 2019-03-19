@@ -1,7 +1,7 @@
 // admin实体
 // 所谓实体其实就是用装饰器@Table装饰的一个model。
 import { ObjectIdColumn, ObjectID, Column, Entity  } from 'typeorm'
-import Speech from './Speech'
+import Speech from '../entities/Post'
 
 // 装饰器模式
 @Entity()

@@ -1,6 +1,6 @@
 import { Injectable } from '@decorators/di'
 import { Controller, Response, Body, Post, Get, Request } from '@decorators/express'
-import AdminService from '../service/AdminService'
+import AdminService from './AdminService'
 import { SuccessMsg, FailedMsg } from '../model/message'
 import { resolve } from 'url';
 import axios from 'axios'

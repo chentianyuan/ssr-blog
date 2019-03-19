@@ -5,6 +5,7 @@
   "username": "",
   "password": "",
   "database": "blog_test",
+  "useNewUrlParser": true,
   "synchronize": true,
   "logging": false,
   "extra": {

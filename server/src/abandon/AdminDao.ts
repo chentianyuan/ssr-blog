@@ -2,7 +2,7 @@
 
 import { Injectable } from '@decorators/di'
 import { getMongoRepository as getRep } from 'typeorm'
-import Admin from '../entities/Admin'
+import Admin from './Admin'
 
 @Injectable()
 export default class AdminDao {

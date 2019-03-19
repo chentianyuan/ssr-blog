@@ -2,24 +2,24 @@
 
 import { Injectable } from '@decorators/di'
 import { getMongoRepository as getRep } from 'typeorm'
-import Speech from '../entities/Speech'
+import Post from '../entities/Post'
 
 @Injectable()
-export default class SpeechDao {
+export default class PostDao {
   // 插入一条数据
-  async insertSpeech ({ admin, speechText, insterTime }) {
-    // 先通过getRepository方法获取到Speech实体
-    return await getRep(Speech)
+  async insertPost ({ admin, postText, insterTime }) {
+    // 先通过getRepository方法获取到Post实体
+    return await getRep(Post)
     .insertOne({
-      text: speechText,
+      text: postText,
       admin: admin,
       time: insterTime
     })
   }
 
   // 获取集合所有信息 
-  async getAllSpeech () {
-    return await getRep(Speech)
+  async getAllPost () {
+    return await getRep(Post)
     // 或者只使用find()查询
     // findAndCount返回[ 所有查询结果， 结果数量 ]
     .find()
