@@ -62,6 +62,7 @@
     "cross-env": "^5.1.4",
     "css-loader": "^0.28.11",
     "happypack": "^5.0.0",
+    "inline-manifest-webpack-plugin": "^4.0.2",
     "js-cookie": "^2.2.0",
     "less-loader": "^4.1.0",
     "log4js": "^3.0.5",

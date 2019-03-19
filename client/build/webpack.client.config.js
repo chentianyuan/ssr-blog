@@ -4,6 +4,7 @@ const base = require('./webpack.base.config')
 const merge = require('webpack-merge')
 const VueSSRClientPlugin = require('vue-server-renderer/client-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const InlineManifestWebpackPlugin = require('inline-manifest-webpack-plugin')
 
 // const InsertWebpackPlugin = require('./insert-webpack-plugin')
 
@@ -26,7 +27,8 @@ const clientConfig = merge(base, {
         template: path.resolve(__dirname, '../index.template.html'),
         filename: 'index.template.html',
         inject: 'body'
-      })
+      }),
+      new InlineManifestWebpackPlugin('runtime')
   ],
   optimization: {
     splitChunks: {
@@ -51,7 +53,7 @@ const clientConfig = merge(base, {
       }
     },
     runtimeChunk: {
-      name: 'manifest'
+      name: 'runtime'
     },
     moduleIds: isProd ? 'hashed' : false
   }
