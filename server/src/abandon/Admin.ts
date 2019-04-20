@@ -11,7 +11,6 @@ export default class Admin {
   // primaryColumn生成的主键类型不限
   // Defining entities and columns is almost the same as in relational databases,
   // the main difference is that you must use @ObjectIdColumn instead of @PrimaryColumn or @PrimaryGeneratedColumn.
-  // mongodb的collection必须声明ObjectIdColumn
   @ObjectIdColumn()
   id: ObjectID
 

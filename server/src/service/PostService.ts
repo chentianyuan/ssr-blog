@@ -14,8 +14,8 @@ export default class PostService {
   }
 
   // 插入数据
-  insertPost ({ admin, postText, insterTime }) {
-    return this.postDao.insertPost({ admin, postText, insterTime })
+  insertPost (params) {
+    return this.postDao.insertPost(params)
   }
 
   // 返回所有

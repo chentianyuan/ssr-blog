@@ -1,3 +1,4 @@
+// Model可以作为实体的更下层，
 // import { Injectable } from '@decorators/di'
 
 class MsgTemplate {

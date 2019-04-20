@@ -4,7 +4,7 @@ import { createConnection } from 'typeorm'
 import * as bodyParser from 'body-parser'
 import * as cookieParse from 'cookie-parser'
 import session = require('express-session') // 这个...???
-import { attachControllers } from '@decorators/express'
+import { attachControllers } from '@decorators/express/lib'
 
 // test
 // import AdminController from './src/controller/AdminController'
@@ -53,7 +53,7 @@ createConnection().then(async connection => {
 
   // 404
   app.use(function (req, res, next) {
-    const err: any = new Error('Not Found')
+    const err: any = new Error('Not Found!')
     err.status = 404
     // 额外传入的参数会在下一个中间件被发现
     next(err)
@@ -68,8 +68,8 @@ createConnection().then(async connection => {
     })
   })
 
-  app.listen(3000)
-
-  console.log("Express application is up and running on port 3000")
+  app.listen(3001, '0.0.0.0', function () {
+    console.log("Express application is up and running on port 3001")
+  })
 
 }).catch(error => console.log("TypeORM connection error: ", error))
