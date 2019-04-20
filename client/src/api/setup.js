@@ -24,10 +24,10 @@ let options = {
 // 这种方式需要改善，当runInNewContext设置为false时，每个用户共用同一个global上下文，会共用同一个cookie
 // options.headers['Cookie'] = '_blogSid_=' + global.__VUE_SSR_CONTEXT__.req.cookies._blogSid_ || ''
 
-const api = $http.create(options)
+const commonAPI = $http.create(options)
 
 // 请求拦截
-api.interceptors.request.use(config => {
+commonAPI.interceptors.request.use(config => {
   if (isServer && !config.context) {
     throw new Error('服务端请求必须传入context参数，用于鉴权')
   }
@@ -41,8 +41,8 @@ api.interceptors.request.use(config => {
 }, err => Promise.reject(err))
 
 // 响应拦截
-api.interceptors.response.use(config => {
+commonAPI.interceptors.response.use(config => {
   return config
 }, err => Promise.reject(err))
 
-export default api
+export default commonAPI
