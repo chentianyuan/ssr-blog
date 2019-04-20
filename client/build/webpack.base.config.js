@@ -80,6 +80,7 @@ let baseConfig = {
 		// vuejs包含两种使用方式，standalone和runtime-only，runtime-only不包含template编译
 		// NPM包默认导出的是runtime-only build.因此为了要使用独立构建，在webpack配置中需要添加下面的代码
 		alias: {
+      '~': path.resolve(__dirname, '../'),
 			'@': path.resolve(__dirname, '../src'),
 			'vue$': 'vue/dist/vue.min.js'
 		}

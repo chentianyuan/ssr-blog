@@ -6,6 +6,9 @@ module.exports = {
   // 使用standard提供的规范
   // 使用eslint-plugin-vue插件检测
   extends: [ 'plugin:vue/essential', 'standard' ],
+  env: {
+    browser: true
+  },
   rules: {
     // 在这里可以添加自定义规则
     // 'no-console': process.env.NODE_ENV === 'production' ? 'on' : 'off',
@@ -13,6 +16,7 @@ module.exports = {
     'generator-star-spacing': 'off',
     // allow debugger during development
     'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
-    'prefer-promise-reject-errors': 'off'
+    'prefer-promise-reject-errors': 'off',
+    "generator-star-spacing": ["error", "after"]
   }
 }
