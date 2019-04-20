@@ -1,9 +1,9 @@
 {
-  "type": "mongodb",
+  "type": "mysql",
   "host": "localhost",
-  "port": 27017,
-  "username": "",
-  "password": "",
+  "port": 3306,
+  "username": "root",
+  "password": "123456",
   "database": "blog_test",
   "useNewUrlParser": true,
   "synchronize": true,
