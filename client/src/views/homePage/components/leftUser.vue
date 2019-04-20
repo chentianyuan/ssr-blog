@@ -1,14 +1,14 @@
 <template>
   <div class="page-home--left-user">
-    <div class="part">
-      <div class="part-head">
+    <div class="page-home--part">
+      <div class="page-home--part-head">
         <img :src="require('@/static/imgs/common/avatar.png')">
-        <h1 class="title">
-          <a class="name">{{userInfo.name}}</a>
-          <p class="motto">{{userInfo.motto}}</p>
+        <h1 class="page-home--title">
+          <a class="page-home--name">{{userInfo.name}}</a>
+          <p class="page-home--motto">{{userInfo.motto}}</p>
         </h1>
       </div>
-      <div class="part-contact">
+      <div class="page-home--part-contact">
         <slot name="icon" />
       </div>
     </div>
@@ -33,14 +33,14 @@ export default {
   position: relative;
   flex-basis: 50%;
   background: url('../../../static/imgs/common/bk-home.png');
-  .part {
+  .page-home--part {
     position: absolute;
     height: 400px;
     width: 400px;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    .part-head {
+    .page-home--part-head {
       --fontColor: #5e5e5e;
       .flex-column(center, center);
       img {
@@ -55,23 +55,23 @@ export default {
         transform: rotate(360deg);
         box-shadow: 0 0 20px #fff;
       }
-      .title {
+      .page-home--title {
         text-align: center;
         .name, .motto {
           padding-top: 10px;
           padding-bottom: 10px;
           color: var(--fontColor);
         }
-        .name {
+        .page-home--name {
           font-size: 22px;
           font-weight: bold;
         }
-        .motto {
+        .page-home--motto {
           font-size: 12px;
         }
       }
     }
-    .part-contact {
+    .page-home--part-contact {
       margin: 20px 0;
       .flex-initial(center, center);
       a {

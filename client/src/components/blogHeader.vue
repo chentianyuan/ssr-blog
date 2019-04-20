@@ -16,10 +16,10 @@
 <script>
 const defaultNav = [
   { title: '首页', link: '/' },
-  { title: '文章', link: '/article' },
-  { title: '其他', link: '/other' },
-  { title: '项目', link: '/project' },
-  { title: '关于', link: '/about' }
+  { title: '文章', link: '/articlePage' },
+  { title: '其他', link: '/otherPage' },
+  { title: '项目', link: '/projectPage' },
+  { title: '关于', link: '/aboutPage' }
 ]
 export default {
   data () {

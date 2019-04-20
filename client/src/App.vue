@@ -1,7 +1,9 @@
 <template>
   <div id="app" class="root">
     <blog-header v-if="!isHomePage"></blog-header>
-    <router-view></router-view>
+    <keep-alive>
+      <router-view></router-view>
+    </keep-alive>
   </div>
 </template>
 
@@ -24,8 +26,10 @@ export default {
 
 <style lang="less">
 @import "~@/styles/font.less";
-body {
+@import "~@/styles/common.less";
+html, body, #app {
   overflow: hidden;
+  height: 100%;
 }
 .root {
   background-color: #fff;

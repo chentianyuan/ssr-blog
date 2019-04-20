@@ -12,6 +12,7 @@ const resolve = file => path.resolve(__dirname, file)
 const app = express()
 const generateLog = require('./util/generateLog')
 const injectCookies = require('./util/injectCookies')
+const config = require('../config/index')
 
 let renderer
 let readyPromise
@@ -75,7 +76,7 @@ const render = (req, res) => {
     }
 
     // 在控制台和日志文件中输出日志，正常服务可以使用log4js中间件输出日志
-    generateLog(context)
+    !config.disableLog && generateLog(context)
 
     // 这里就是所有路由重定向到根页面的地方了，history模式在ssr中的提供静态资源的处理
 		res.type('html').send(html)

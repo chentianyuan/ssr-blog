@@ -1,9 +1,40 @@
 <template>
-  <div class="page-article--wrap">文章页</div>
+  <section class="article-main hack-padding">
+    <div class="markdown article-main-wrap" v-html="markdown"></div>
+  </section>
 </template>
 
 <script>
+import marked from 'marked'
+import md from '~/data/article/01.js'
 export default {
-
+  name: 'article',
+  data () {
+    return {
+      // markdown: marked('# Marked in the browser\n\nRendered by **marked**.')
+      markdown: marked(md)
+    }
+  }
 }
 </script>
+
+<style lang='less'>
+@import "~@/styles/markdown.css";
+.article-main {
+  height: 100%;
+  width: 900px;
+  margin: 0 auto;
+  padding-bottom: 20px;
+  box-sizing: border-box;
+  &-wrap {
+    height: 100%;
+    overflow: auto;
+    box-sizing: border-box;
+    padding: 20px;
+    margin: 10px auto 0;
+    background: #fff;
+    color: #333;
+    border: 1px solid #f6f6f6;
+  }
+}
+</style>
