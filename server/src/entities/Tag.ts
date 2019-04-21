@@ -7,7 +7,7 @@ export default class Tag {
   @PrimaryGeneratedColumn()
   id: number
 
-  @Column('char')
+  @Column('varchar', {length: 100})
   tagName: string
 
   // @Column({default: 0})

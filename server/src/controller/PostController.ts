@@ -30,9 +30,10 @@ export default class PostController {
 
   @Post('/post/insert')
   async insertNewPost <T>(@Request() req, @Response() res, @Body() body): Promise<void> {
-    let { title, descript = '', content, meta, tags } = body
+    let { title, descript, content, meta, tags = '' } = body
     try {
-      console.log(123)
+      // 处理tags
+      tags = tags.split(',').map(tag => ({tagName: tag}))
       await this.postService.insertPost({ title, descript, content, meta, tags })
       res.send(new SuccessMsg('插入成功', null))
     } catch (e) {
