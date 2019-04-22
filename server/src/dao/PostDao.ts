@@ -15,19 +15,18 @@ export default class PostDao {
     postInstance = Object.assign(postInstance, post)
     postInstance.tags = []
     // ManyToMany先插入Tag表
-    for (let item of post.tags) {
-      let tag = new Tag()
-      tag.tagName = item.tagName
+    let tag: Tag
+    for (tag of post.tags) {
+      // let tag = new Tag()
+      // tag.tagName = item.tagName
       postInstance.tags.push(tag)
-      await this.insertTag(tag)
+      // await this.insertTag(tag)
+      // await getRep(Tag).manager.save(tag)
     }
+    console.log(postInstance.tags, '==========')
     // 插入Post表
     // 会生成一张中间表，以关系所属者的id为主键
     return await getRep(Post).manager.save(postInstance)
-  }
-
-  async insertTag (tag) {
-    return await getRep(Tag).manager.save(tag)
   }
 
   // 获取一篇文章
@@ -49,9 +48,4 @@ export default class PostDao {
     .leftJoinAndSelect('post.tags', 'tags')
     .getMany()
   }
-
-  // 获取文章对应tags
-  // async getPostTags (): Promise<any> {
-  //   return await getRep
-  // }
 }

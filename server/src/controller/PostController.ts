@@ -1,6 +1,8 @@
 import { Injectable } from '@decorators/di'
 import { Controller, Response, Body, Post, Request, Get } from '@decorators/express/lib'
 import PostService from '../service/PostService'
+import TagService from '../service/TagService'
+import Tag from '../entities/Tag'
 import { SuccessMsg, FailedMsg } from '../model/message'
 
 // 注入功能支持
@@ -9,7 +11,7 @@ import { SuccessMsg, FailedMsg } from '../model/message'
 @Controller('/api')
 // 控制器实现
 export default class PostController {
-  constructor (private postService: PostService) {
+  constructor (private postService: PostService, private tagService: TagService) {
     // 注入了PostServer便于使用
   }
 
@@ -32,9 +34,24 @@ export default class PostController {
   async insertNewPost <T>(@Request() req, @Response() res, @Body() body): Promise<void> {
     let { title, descript, content, meta, tags = '' } = body
     try {
+      let tagStore = []
       // 处理tags
-      tags = tags.split(',').map(tag => ({tagName: tag}))
-      await this.postService.insertPost({ title, descript, content, meta, tags })
+      tags = tags.split(',').map(tag => 
+        Object.assign(new Tag(), {'tagName': tag})
+      )
+      let tag: Tag
+      for (tag of tags) {
+        let currentTag: Tag = await this.tagService.findOneTag(tag)
+        if (currentTag) {
+          tagStore.push(currentTag)
+          await this.tagService.updateTag(currentTag)
+        } else {
+          tagStore.push(tag)
+          await this.tagService.insertTag(tag)
+        }
+      }
+      // tagStore必须要有tagId与之对应，否则中间表不会插入新数据
+      await this.postService.insertPost({ title, descript, content, meta, tags: tagStore })
       res.send(new SuccessMsg('插入成功', null))
     } catch (e) {
       console.log(e)
