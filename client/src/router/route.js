@@ -10,6 +10,11 @@ export function createRouter () {
     mode: 'history',
     routes: [
       ...routerModules,
+      // {
+      //   path: '/test',
+      //   name: 'test',
+      //   component: () => import('@/components/canvas-bg.vue')
+      // },
       {
         path: '*',
         name: 'Not-Found',

@@ -1,10 +1,10 @@
 <template>
-  <div class="article-list--wrap">
-    <ul class="article-list--list">
-      <li class="item" v-for="(article, key) in articles" :key="key" @click="$router.push({path: `/article/${123}`})">
-        <nav class="article-title">标题标题标题标题标题标题</nav>
-        <h6 class="article-desc">descript descript descript</h6>
-        <div class="article-info">
+  <div class="page-article-list--wrap">
+    <ul class="page-article-list--list">
+      <li class="page-article-list--item" v-for="(article, key) in articles" :key="key" @click="$router.push({path: `/article/${123}`})">
+        <nav class="page-article-list--article-title">标题标题标题标题标题标题</nav>
+        <h6 class="page-article-list--article-desc">descript descript descript</h6>
+        <div class="page-article-list--article-info">
           <span>article.meta.views</span>
           <span>article.meta.comments</span>
           <span>article.meta.like</span>
@@ -26,15 +26,16 @@ export default {
 </script>
 
 <style lang="less">
-.article-list--wrap {
+.page-article-list--wrap {
   float: left;
-  .article-list--list {
+  .page-article-list--list {
     list-style: none;
-    .item {
-      padding: 24px 18px;
+    .page-article-list--item {
+      padding: 24px 18px 24px 0;
+      margin-left: 18px;
       overflow: hidden;
       position: relative;
-      .article-title {
+      .page-article-list--article-title {
         font-weight: 400;
         font-size: 20px;
         display: inline-block;
@@ -58,11 +59,11 @@ export default {
           transform: scaleX(1);
         }
       }
-      .article-desc {
+      .page-article-list--article-desc {
         line-height: 24px;
         color: #777;
       }
-      .article-info {
+      .page-article-list--article-info {
         margin-top: 20px;
         color: #8c8c8c;
         font-size: 12px;

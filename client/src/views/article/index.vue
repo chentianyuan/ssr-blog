@@ -11,7 +11,6 @@ export default {
   name: 'article',
   data () {
     return {
-      // markdown: marked('# Marked in the browser\n\nRendered by **marked**.')
       markdown: marked(md)
     }
   }
@@ -32,7 +31,6 @@ export default {
     box-sizing: border-box;
     padding: 20px;
     margin: 10px auto 0;
-    background: #fff;
     color: #333;
     border: 1px solid #f6f6f6;
   }

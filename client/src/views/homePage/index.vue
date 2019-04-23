@@ -25,6 +25,5 @@ export default {
   width: 100%;
   height: -webkit-fill-available;
   .flex-initial(initial, initial);
-  background-color: #fff;
 }
 </style>

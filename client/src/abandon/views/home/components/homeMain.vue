@@ -137,7 +137,6 @@ export default {
   .page-home--main-content-wrap {
     .page-home--main-comment {
       width: 100%;
-      background-color: #fff;
       box-shadow: 0 1px 2px 0 rgba(0, 0, 0, .05);
       margin-bottom: .08rem;
       .comment-header {
