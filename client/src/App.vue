@@ -1,6 +1,6 @@
 <template>
-  <div id="app" class="root">
-    <blog-header v-show="!hideHeader"></blog-header>
+  <div id="app" class="root" ref="root" @scroll="scrollHandler">
+    <blog-header :classList="[isDone ? 'hide-header' : '']" v-show="!hideHeader"></blog-header>
     <canvas-bg></canvas-bg>
     <keep-alive>
       <router-view></router-view>
@@ -11,10 +11,29 @@
 <script>
 import blogHeader from './components/blog-header.vue'
 import canvasBg from './components/canvas-bg'
+
+// 新增节流函数
+let timer = null
+let throttle = function (fn, ms = 300) {
+  timer = null
+  return function () {
+    if (timer) return
+    timer = setTimeout(() => {
+      fn.call(this)
+      timer = null
+    }, ms)
+  }
+}
 export default {
   name: 'app',
   components: {
     blogHeader, canvasBg
+  },
+  data () {
+    return {
+      isDone: false,
+      preLoc: 0
+    }
   },
   computed: {
     hideHeader () {
@@ -22,6 +41,17 @@ export default {
       let path = this.$route.name
       return whiteList.includes(path)
     }
+  },
+  methods: {
+    scrollHandler: throttle(function (e) {
+      const root = this.$refs.root
+      if (root.scrollTop > 60) {
+        this.isDone = root.scrollTop > this.preLoc
+      } else {
+        this.isDone = false
+      }
+      this.preLoc = root.scrollTop
+    }, 100)
   }
 }
 </script>
@@ -30,7 +60,7 @@ export default {
 @import "~@/styles/font.less";
 @import "~@/styles/common.less";
 html, body, #app {
-  overflow: hidden;
+  overflow: auto;
   height: 100%;
 }
 .root {

@@ -1,9 +1,9 @@
 <template>
-  <header class="component--blog-header">
+  <header :class="['component--blog-header', ...classList]">
     <section class="box">
       <nav>
         <router-link
-        :class="['title', currentRoute === nav.link ? 'actived-title' : '']"
+        :class="['title', currentRoute === nav.link ? 'active-title' : '']"
         v-for="(nav, key) in defaultNav"
         :key="key"
         :to="{path: nav.link}">{{nav.title}}</router-link>
@@ -22,10 +22,17 @@ const defaultNav = [
   { title: '关于', link: '/aboutPage' }
 ]
 export default {
+  props: {
+    classList: Array
+  },
   data () {
     return {
-      defaultNav,
-      currentRoute: this.$route.path
+      defaultNav
+    }
+  },
+  computed: {
+    currentRoute () {
+      return this.$route.path
     }
   }
 }
@@ -41,7 +48,8 @@ export default {
   width: 100%;
   position: fixed;
   z-index: 2;
-  transition: .3s;
+  // transition: .3s;
+  transition: all .5s;
   .box {
     width: 900px;
     margin: 0 auto;
@@ -57,6 +65,12 @@ export default {
       line-height: 59px;
       font-size: 20px;
     }
+    .active-title {
+      color: #3fb76c;
+    }
   }
+}
+.hide-header {
+  transform: translateY(-100%);
 }
 </style>

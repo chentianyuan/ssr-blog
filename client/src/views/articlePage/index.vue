@@ -1,8 +1,8 @@
 <template>
-  <div class="page-article hack-padding">
+  <div :class="['page-article', 'hack-padding']" ref="scrollWrap">
     <main class="page-article--main">
       <!-- 文章列表 -->
-      <article-list></article-list>
+      <article-list :articles="articleArray"></article-list>
       <section class="page-article--slide">
 
         <!-- <div class="hot-title">热门文章</div>
@@ -14,8 +14,9 @@
 
         <div class="page-article--tag-title">标签</div>
         <div class="page-article--tag-list">
-          <a  v-for="(tag, key) in tags" :key="key">
-            <route-link>{{ tag }}</route-link>
+          <a v-for="(tag, key) in tags" :key="key" @click="changeList">
+            {{ tag.tagName }}
+            <i>({{tag.tagCount}})</i>
           </a>
         </div>
       </section>
@@ -31,8 +32,25 @@ export default {
   },
   data () {
     return {
+      isDone: false,
       hotArticles: [],
-      tags: ['vue', 'react', 'webpack', 'pwa'].map(str => String.prototype.toUpperCase.call(str[0]) + str.slice(1))
+      articleArray: new Array(10).fill(1)
+      // tags: ['vue', 'react', 'webpack', 'pwa'].map(str => String.prototype.toUpperCase.call(str[0]) + str.slice(1))
+    }
+  },
+  methods: {
+    changeList () {},
+    scrollHandler (e) {
+      let wrap = this.$refs.scrollWrap
+      console.log(wrap.scrollTop)
+    }
+  },
+  computed: {
+    tags () {
+      return ['vue', 'react', 'webpack', 'pwa'].map(str => ({
+        tagName: String.prototype.toUpperCase.call(str[0]) + str.slice(1),
+        tagCount: Math.floor(Math.random() * 20)
+      }))
     }
   },
   mounted () {
@@ -53,6 +71,7 @@ export default {
 <style lang="less">
 @prefix: page-article;
 .@{prefix} {
+  box-sizing: border-box;
   &--main {
     display: flex;
     width: 900px;
@@ -63,6 +82,7 @@ export default {
     flex-basis: 250px;
     box-sizing: border-box;
     padding-top: 24px;
+    flex-shrink: 0;
   }
   &--tag-title {
     font-size: 16px;
