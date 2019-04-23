@@ -5,7 +5,7 @@ class MsgTemplate {
   hasError: Boolean
   // msg属于私有参数，但是又应当可以在子类中被修改，所以声明为protected
   // public / private / protected
-  constructor (protected msg?: String, protected data?: any) {
+  constructor (protected data?: any, protected msg?: String) {
     this.msg = msg || ''
     this.setData(data)
   }
@@ -21,15 +21,15 @@ class MsgTemplate {
 }
 
 export class SuccessMsg extends MsgTemplate{
-  constructor (protected msg?: String, protected data?: any) {
-    super(msg, data)
+  constructor (protected data?: any, protected msg?: String) {
+    super(msg = '成功', data)
     this.hasError = false
   }
 }
 
 export class FailedMsg extends MsgTemplate{
-  constructor (protected msg?: String, protected data?: any) {
-    super(msg, data)
+  constructor (protected data?: any, protected msg?: String) {
+    super(msg = '失败', data)
     this.hasError = true
   }
 }

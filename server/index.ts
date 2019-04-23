@@ -6,32 +6,13 @@ import * as cookieParse from 'cookie-parser'
 import session = require('express-session') // 这个...???
 import { attachControllers } from '@decorators/express/lib'
 
-// test
-// import AdminController from './src/controller/AdminController'
-
 // 导入所有控制器数组
 import controllers from './src/controller/index'
-// import Post from './src/entities/Post';
-// import Tag from './src/entities/Tag';
 
 // createConnection会自动搜寻根目录下的ormconfig.json配置文件，进行数据库连接和建表
 createConnection().then(async connection => {
   // 这里可以写实体操作相关的代码
   const app = express()
-
-  // let tag1 = new Tag()
-  // tag1.tagName = '标签1'
-  // await connection.manager.save(tag1)
-
-  // let tag2 = new Tag()
-  // tag2.tagName = '标签2'
-  // await connection.manager.save(tag2)
-
-  // let post = new Post()
-  // post.title = '默认title'
-  // post.content = '默认content'
-  // post.tags = [tag1, tag2]
-  // await connection.manager.save(post)
 
   // CORS跨域配置，不安全，使用nginx代理client请求
   // app.all('*',(req,res,next)=>{

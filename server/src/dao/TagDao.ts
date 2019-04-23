@@ -6,8 +6,17 @@ import Tag from "../entities/Tag"
 export default class TagDao {
   // 获取所有Tag
   async getAllTags () {
-    getRep(Tag)
-    .createQueryBuilder()
+    return await getRep(Tag)
+    .createQueryBuilder('tag')
+    .select()
+    .getMany()
+  }
+
+  // 获取所有tag和其对应的文章
+  async getAllTagsWithPosts () {
+    return await getRep(Tag)
+    .createQueryBuilder('tag')
+    .leftJoinAndSelect('tag.posts', 'posts')
     .select()
     .getMany()
   }
@@ -22,12 +31,13 @@ export default class TagDao {
     return await getRep(Tag).manager.increment(Tag, {tagName: tag.tagName}, 'count', 1)
   }
 
+  // 单个标签查找
   async findOneTag (tag) {
-    let tagName = tag.tagName
+    let tagId = tag.tagId
     return await getRep(Tag)
     .createQueryBuilder()
     .select()
-    .where('tagName = :tagName', { tagName })
+    .where('id = :tagId', { tagId })
     .getOne()
   }
 }

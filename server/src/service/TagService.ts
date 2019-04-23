@@ -5,6 +5,7 @@
 
 import { Injectable } from '@decorators/di'
 import TagDao from '../dao/TagDao'
+import Tag from '../entities/Tag'
 
 @Injectable()
 export default class TagService {
@@ -30,5 +31,29 @@ export default class TagService {
 
   updateTag (tag) {
     return this.tagDao.updateTag(tag)
+  }
+  
+  // 新增文章时文章tag的处理
+  async insertOrUpdateTag (tags) {
+    // 处理tags
+    tags = tags.split(',').map(tag => 
+      Object.assign(new Tag(), {'tagName': tag})
+    )
+    if (!tags.length) {
+      return []
+    }
+    let tagStore = []
+    let tag: Tag
+    for (tag of tags) {
+      let currentTag: Tag = await this.findOneTag(tag)
+      if (currentTag) {
+        tagStore.push(currentTag)
+        await this.updateTag(currentTag)
+      } else {
+        tagStore.push(tag)
+        await this.insertTag(tag)
+      }
+    }
+    return tagStore
   }
 }

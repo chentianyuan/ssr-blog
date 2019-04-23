@@ -17,24 +17,21 @@ export default class PostDao {
     // ManyToMany先插入Tag表
     let tag: Tag
     for (tag of post.tags) {
-      // let tag = new Tag()
-      // tag.tagName = item.tagName
       postInstance.tags.push(tag)
-      // await this.insertTag(tag)
-      // await getRep(Tag).manager.save(tag)
     }
-    console.log(postInstance.tags, '==========')
     // 插入Post表
     // 会生成一张中间表，以关系所属者的id为主键
     return await getRep(Post).manager.save(postInstance)
   }
 
   // 获取一篇文章
-  async getPostById ({ postId }): Promise<any> {
+  async getPostById (id: String | Number): Promise<any> {
     return await getRep(Post)
-    .createQueryBuilder()
+    .createQueryBuilder('post')
+    .leftJoinAndSelect('post.tags', 'tags')
+    // 需要select()收尾
     .select()
-    .where('id = :postId', { postId })
+    .where('post.id = :postId', {postId: id})
     .getOne()
   }
 
@@ -46,6 +43,19 @@ export default class PostDao {
     .createQueryBuilder('post')
     // 左连接查询
     .leftJoinAndSelect('post.tags', 'tags')
+    .getMany()
+  }
+
+  // 文章分页查询
+  async getPaginationPost (pageIndex: number, pageSize: number): Promise<any> {
+    return await getRep(Post)
+    .createQueryBuilder('post')
+    .leftJoinAndSelect('post.tags', 'tags')
+    .select()
+    .skip(pageIndex * pageSize)
+    .take(pageSize)
+    // descend 降序 asc升序
+    .orderBy('post.created_at', 'DESC')
     .getMany()
   }
 }

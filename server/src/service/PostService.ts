@@ -22,4 +22,14 @@ export default class PostService {
   findAllPost () {
     return this.postDao.getAllPost()
   }
+
+  // 文章查询
+  getPostById (id: String | Number) {
+    return this.postDao.getPostById(id)
+  }
+  
+  // 文章分页查询
+  getPaginationPost (pageIndex: number, pageSize: number) {
+    return this.postDao.getPaginationPost(pageIndex, pageSize)
+  }
 }

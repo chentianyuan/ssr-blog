@@ -16,10 +16,4 @@ export default class Tag {
 
   @ManyToMany(type => Post, post => post.tags)
   posts: Post[]
-  
-  // @CreateDateColumn()
-  // create_at: Date
-
-  // @UpdateDateColumn()
-  // update_at: Date
 }
