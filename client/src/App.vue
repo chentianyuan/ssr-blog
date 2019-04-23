@@ -1,6 +1,7 @@
 <template>
   <div id="app" class="root">
-    <blog-header v-if="!isHomePage"></blog-header>
+    <blog-header v-show="!hideHeader"></blog-header>
+    <canvas-bg></canvas-bg>
     <keep-alive>
       <router-view></router-view>
     </keep-alive>
@@ -8,14 +9,15 @@
 </template>
 
 <script>
-import blogHeader from './components/blogHeader.vue'
+import blogHeader from './components/blog-header.vue'
+import canvasBg from './components/canvas-bg'
 export default {
   name: 'app',
   components: {
-    blogHeader
+    blogHeader, canvasBg
   },
   computed: {
-    isHomePage () {
+    hideHeader () {
       const whiteList = ['app', 'Not-Found']
       let path = this.$route.name
       return whiteList.includes(path)
@@ -32,7 +34,6 @@ html, body, #app {
   height: 100%;
 }
 .root {
-  background-color: #fff;
   min-height: 100vh;
   overflow: hidden;
   font-family: -apple-system,PingFang SC,Hiragino Sans GB,Microsoft YaHei,Helvetica Neue,Arial,sans-serif;
