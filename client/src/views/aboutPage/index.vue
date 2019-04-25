@@ -1,0 +1,142 @@
+<template>
+  <div class="about-page hack-padding">
+    <div class="userInfo">
+      <div class="info">
+        <p>
+          <i class="iconfont icon">&#xe7ae;</i>
+          <span>个人简介</span>
+        </p>
+        <p>
+          <i class="iconfont icon">&#xe7c6;</i>
+          <span>计算机科学与技术专业</span>
+        </p>
+        <p>
+          <i class="iconfont icon">&#xe849;</i>
+          <span>爱好</span>
+        </p>
+        <p>
+          <i class="iconfont icon">&#xe783;</i>
+          <span>other</span>
+        </p>
+        <p>
+          <i class="iconfont icon">&#xe7de;</i>
+          <span>
+            <a href>
+              <i class="iconfont like">&#xe602;</i>
+            </a>
+            <a href="https://github.com/naihe138" target="_blank">
+              <i class="iconfont like">&#xe64a;</i>
+            </a>
+            <a href>
+              <i class="iconfont like">&#xe87c;</i>
+            </a>
+            <a href>
+              <i class="iconfont like">&#xe882;</i>
+            </a>
+          </span>
+        </p>
+        <p>
+          <i class="iconfont icon">&#xe7fc;</i>
+          <span>很多事情不是因为有希望才去坚持，而是坚持了才有希望。</span>
+        </p>
+      </div>
+      <div class="user">
+        <div class="bg stage"></div>
+        <div class="name">
+          <h2 class="title">Ytc</h2>
+          <p class="disc">JS stack developer</p>
+          <p class="friend">Friend me</p>
+        </div>
+        <img class="avatar" :src="require('@/static/imgs/common/avatar.png')">
+        <!-- <img class="averter" :src="require('@/static/imgs/common/avatar.png')"> -->
+      </div>
+    </div>
+  </div>
+</template>
+
+<style lang="less">
+.about-page {
+  width: 900px;
+  margin: 0 auto;
+  color: #555;
+  overflow: hidden;
+  .userInfo {
+    margin-top: 10px;
+    clear: both;
+    overflow: hidden;
+    height: 382px;
+    display: flex;
+    justify-content: space-between;
+    .info {
+      width: 630px;
+      border: 1px solid #f1f1f1;
+      box-sizing: border-box;
+      padding: 20px;
+      height: 380px;
+      p {
+        line-height: 54px;
+        color: #555;
+        transition: color 0.3s;
+      }
+      .icon {
+        font-size: 16px;
+        padding-right: 15px;
+        color: #ccc;
+      }
+      .like {
+        color: #555;
+        display: inline-block;
+        padding-right: 15px;
+      }
+    }
+    .user {
+      width: 250px;
+      height: 380px;
+      position: relative;
+      cursor: pointer;
+      .stage {
+        width: 250px;
+        height: 110px;
+        background-color: #ccc;
+      }
+      .name {
+        text-align: center;
+        border-left: 1px solid #f1f1f1;
+        border-bottom: 1px solid #f1f1f1;
+        border-right: 1px solid #f1f1f1;
+        overflow: hidden;
+        position: relative;
+        box-sizing: border-box;
+        height: 270px;
+        .title {
+          font-weight: 400;
+          margin-top: 80px;
+        }
+        .disc {
+          margin-top: 10px;
+        }
+        .friend {
+          display: inline-block;
+          padding: 5px 20px;
+          border: 1px dashed #3fb76c;
+          margin-top: 20px;
+        }
+      }
+      .avatar {
+        position: absolute;
+        width: 80px;
+        height: 80px;
+        border-radius: 50px;
+        z-index: 1;
+        left: 85px;
+        top: 70px;
+        border: 4px solid hsla(0, 0%, 100%, 0.5);
+        transition: 0.3s;
+      }
+      .avatar:hover {
+        transform: rotate(360deg);
+      }
+    }
+  }
+}
+</style>
