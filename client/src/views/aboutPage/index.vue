@@ -51,8 +51,42 @@
         <!-- <img class="averter" :src="require('@/static/imgs/common/avatar.png')"> -->
       </div>
     </div>
+    <div id="map" class="map"></div>
   </div>
 </template>
+
+<script>
+/* eslint-disable */
+import { map } from './util/map.js'
+function initialize () {
+  // 百度地图API功能
+  let BMap = window.BMap
+  let map = new BMap.Map('map') // 创建Map实例
+  let point = new BMap.Point(120.254125, 30.210784)
+  let marker = new BMap.Marker(point)
+  let infoWindow = new BMap.InfoWindow('sixsixsix')
+  map.addOverlay(marker)
+  map.centerAndZoom(point, 16) // 初始化地图,设置中心点坐标和地图级别
+  //添加地图类型控件
+  map.addControl(
+    new BMap.MapTypeControl({
+      mapTypes: [BMAP_NORMAL_MAP, BMAP_HYBRID_MAP]
+    })
+  )
+  map.setCurrentCity('浙江') // 设置地图显示的城市 此项是必须设置的
+  map.enableScrollWheelZoom(true) // 开启鼠标滚轮缩放
+  marker.addEventListener('click', function () {
+    map.openInfoWindow(infoWindow, point)
+  })
+}
+export default {
+  mounted () {
+    if (!window.BMap) {
+      map('9sFypaCX7Idv33zycVShV5nK3l9e1bLm').then(BMap => initialize(BMap)).catch(e => console.log(e))
+    }
+  }
+}
+</script>
 
 <style lang="less">
 .about-page {
@@ -136,6 +170,16 @@
       .avatar:hover {
         transform: rotate(360deg);
       }
+    }
+  }
+  .map {
+    width: 900px;
+    border: 1px solid #f1f1f1;
+    height: 200px;
+    margin-top: 20px;
+    padding: 10px;
+    .BMap_cpyCtrl, .anchorBL {
+      display: none;
     }
   }
 }
