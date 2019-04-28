@@ -45,12 +45,20 @@ export default {
       console.log(wrap.scrollTop)
     }
   },
+  watch: {
+    'global.loadMoreFlag': function () {
+      console.log('加载更多')
+    }
+  },
   computed: {
     tags () {
       return ['vue', 'react', 'webpack', 'pwa'].map(str => ({
         tagName: String.prototype.toUpperCase.call(str[0]) + str.slice(1),
         tagCount: Math.floor(Math.random() * 20)
       }))
+    },
+    global () {
+      return this.$store.state.global
     }
   },
   mounted () {

@@ -40,6 +40,14 @@ export default {
       const whiteList = ['app', 'Not-Found']
       let path = this.$route.name
       return whiteList.includes(path)
+    },
+    loadMoreFlag: {
+      get () {
+        return this.$store.getters.getloadMoreFlag
+      },
+      set (n) {
+        return this.$store.commit('LOADMOREFLAG', n)
+      }
     }
   },
   methods: {
@@ -51,6 +59,12 @@ export default {
         this.isDone = false
       }
       this.preLoc = root.scrollTop
+      // scrollHeight 获取元素内容高度 最大
+      // scrollTop 获取元素滚动的距离
+      // clientHeight 获取可见高度
+      if (root.scrollHeight - root.scrollTop < root.clientHeight + 5 && !this.loadMoreFlag) {
+        this.loadMoreFlag = true
+      }
     }, 100)
   }
 }
