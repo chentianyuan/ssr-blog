@@ -68,7 +68,9 @@ let baseConfig = {
   ] : [
     new styleLintPlugin({
       cache: true,
-      files: ['src/style/*.l?(e|c)ss', 'src/views/**/*.vue', 'src/components/**/*.vue']
+      cacheLocation: path.resolve(__dirname, '../node_modules/.cache'),
+      files: ['src/style/*.l?(e|c)ss', 'src/views/**/*.vue', 'src/components/**/*.vue'],
+
     })
   ],
   performance: {
