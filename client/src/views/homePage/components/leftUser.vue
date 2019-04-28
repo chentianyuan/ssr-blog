@@ -32,7 +32,7 @@ export default {
 .page-home--left-user {
   position: relative;
   flex-basis: 50%;
-  background: url('../../../static/imgs/common/bk-home.png');
+  // background: url('../../../static/imgs/common/bk-home.png');
   .page-home--part {
     position: absolute;
     height: 400px;
