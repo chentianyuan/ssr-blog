@@ -15,18 +15,18 @@ createConnection().then(async connection => {
   const app = express()
 
   // CORS跨域配置，不安全，使用nginx代理client请求
-  // app.all('*',(req,res,next)=>{
-  //   res.header('Access-Control-Allow-Origin', '*');
-  //   res.header('Access-Control-Allow-Headers', 'Content-Type, Content-Length, Authorization, Accept, X-Requested-With , yourHeaderFeild');
-  //   res.header('Access-Control-Allow-Methods', 'PUT, POST, GET, DELETE, OPTIONS');
-  //   if (req.method == 'OPTIONS'){
-  //     // 让option请求快速返回
-  //     res.sendStatus(200)
-  //   }
-  //   else {
-  //     next()
-  //   }
-  // })
+  app.all('*',(req,res,next)=>{
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Headers', 'Content-Type, Content-Length, Authorization, Accept, X-Requested-With , yourHeaderFeild');
+    res.header('Access-Control-Allow-Methods', 'PUT, POST, GET, DELETE, OPTIONS');
+    if (req.method == 'OPTIONS'){
+      // 让option请求快速返回
+      res.sendStatus(200)
+    }
+    else {
+      next()
+    }
+  })
 
   app.use(bodyParser.json())
   app.use(bodyParser.urlencoded({ extended: false }))

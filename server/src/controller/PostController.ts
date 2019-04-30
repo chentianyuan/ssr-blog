@@ -62,8 +62,10 @@ export default class PostController {
   async getPaginationPost (@Response() res, @Body() body): Promise<void> {
     let { pageSize, pageIndex } = body
     try {
-      let result = await this.postService.getPaginationPost(pageIndex, pageSize)
-      result ? res.send(new SuccessMsg(result.reverse())) : res.send(new FailedMsg())
+      // pageIndex从0开始
+      let result = await this.postService.getPaginationPost(pageIndex - 1, pageSize)
+      let count = await this.postService.getPostCount();
+      (result && count) ? res.send(new SuccessMsg(Object.assign({count}, {postList: result.reverse()}))) : res.send(new FailedMsg())        
     } catch (e) {}
     return
   }

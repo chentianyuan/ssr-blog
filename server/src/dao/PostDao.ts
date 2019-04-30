@@ -6,7 +6,6 @@ import { Injectable } from '@decorators/di'
 import { getRepository as getRep, getConnection } from 'typeorm'
 import Post from '../entities/Post'
 import Tag from '../entities/Tag'
-import { Meta } from '../model/postModel'
 
 @Injectable()
 export default class PostDao {
@@ -58,6 +57,13 @@ export default class PostDao {
     // descend 降序 asc升序
     .orderBy('post.created_at', 'DESC')
     .getMany()
+  }
+
+  async getPostCount (): Promise<any> {
+    return await getRep(Post)
+    .createQueryBuilder()
+    .select()
+    .getCount()
   }
 
   // 添加浏览记录

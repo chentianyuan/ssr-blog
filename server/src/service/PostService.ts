@@ -28,6 +28,11 @@ export default class PostService {
     return this.postDao.getPostById(id)
   }
   
+  // 查询文章数量
+  getPostCount () {
+    return this.postDao.getPostCount()
+  }
+
   // 文章分页查询
   getPaginationPost (pageIndex: number, pageSize: number) {
     return this.postDao.getPaginationPost(pageIndex, pageSize)
