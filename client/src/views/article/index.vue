@@ -20,14 +20,11 @@ export default {
 <style lang='less'>
 @import "~@/styles/markdown.css";
 .article-main {
-  height: 100%;
   width: 900px;
   margin: 0 auto;
   padding-bottom: 20px;
   box-sizing: border-box;
   &-wrap {
-    height: 100%;
-    overflow: auto;
     box-sizing: border-box;
     padding: 20px;
     margin: 10px auto 0;

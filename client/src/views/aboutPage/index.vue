@@ -64,7 +64,7 @@ function initialize () {
   let map = new BMap.Map('map') // 创建Map实例
   let point = new BMap.Point(120.254125, 30.210784)
   let marker = new BMap.Marker(point)
-  let infoWindow = new BMap.InfoWindow('sixsixsix')
+  let infoWindow = new BMap.InfoWindow('where i am')
   map.addOverlay(marker)
   map.centerAndZoom(point, 16) // 初始化地图,设置中心点坐标和地图级别
   //添加地图类型控件

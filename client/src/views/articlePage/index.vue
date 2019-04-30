@@ -26,6 +26,7 @@
 
 <script>
 import articleList from './component/artivle-list'
+import { PATHS, request } from '@/api'
 export default {
   components: {
     articleList
@@ -34,7 +35,7 @@ export default {
     return {
       isDone: false,
       hotArticles: [],
-      articleArray: new Array(10).fill(1)
+      articleArray: []
       // tags: ['vue', 'react', 'webpack', 'pwa'].map(str => String.prototype.toUpperCase.call(str[0]) + str.slice(1))
     }
   },
@@ -62,7 +63,9 @@ export default {
     }
   },
   mounted () {
-    console.log('mounted钩子')
+    request.get(PATHS.article.getAllarticles).then(res => {
+      console.log(res)
+    })
   },
   activated () {
     console.log('触发activited钩子')

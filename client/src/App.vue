@@ -1,16 +1,18 @@
 <template>
   <div id="app" class="root" ref="root" @scroll="scrollHandler">
-    <blog-header :classList="[isDone ? 'hide-header' : '']" v-show="!hideHeader"></blog-header>
+    <guide-header :classList="[isDone ? 'hide-header' : '']" v-show="!hideHeader"></guide-header>
     <canvas-bg></canvas-bg>
     <keep-alive>
       <router-view></router-view>
     </keep-alive>
+    <common-footer />
   </div>
 </template>
 
 <script>
-import blogHeader from './components/blog-header.vue'
+import guideHeader from './components/guide-header.vue'
 import canvasBg from './components/canvas-bg'
+import commonFooter from './components/common-footer'
 
 // 新增节流函数
 let timer = null
@@ -27,7 +29,7 @@ let throttle = function (fn, ms = 300) {
 export default {
   name: 'app',
   components: {
-    blogHeader, canvasBg
+    guideHeader, canvasBg, commonFooter
   },
   data () {
     return {
