@@ -7,7 +7,7 @@ const $http = axios
 const isServer = process.env.VUE_ENV === 'server'
 let options = {
   baseURL: isServer ? `${config.RESTfulprefix}/api` : '/api',
-  timeout: 2000,
+  timeout: 5000,
   headers: {
     'Accept': 'application/json',
     'Content-Type': 'application/json'

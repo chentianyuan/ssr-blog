@@ -5,7 +5,6 @@ import modules from './modules'
 Vue.use(Vuex)
 const { Store } = Vuex
 
-console.log(modules, '---------')
 export default function createStore () {
   return new Store({
     modules

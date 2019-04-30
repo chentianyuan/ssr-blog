@@ -82,6 +82,5 @@ html, body, #app {
 .root {
   min-height: 100vh;
   overflow: hidden;
-  font-family: -apple-system,PingFang SC,Hiragino Sans GB,Microsoft YaHei,Helvetica Neue,Arial,sans-serif;
 }
 </style>

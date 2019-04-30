@@ -6,13 +6,20 @@
 
 <script>
 import marked from 'marked'
-import md from '~/data/article/01.js'
+// import md from '~/data/article/01.js'
+import { PATHS, request } from '@/api'
 export default {
   name: 'article',
   data () {
     return {
-      markdown: marked(md)
+      markdown: ''
     }
+  },
+  mounted () {
+    let postId = this.$route.params.id
+    request.post(PATHS.article.getOnearticle, { postId }).then(res => {
+      this.markdown = marked(res.data.content)
+    })
   }
 }
 </script>

@@ -11,7 +11,7 @@
             github
           </a>
           <a>
-            <i class="iconfont icon"></i>
+            <i class="iconfont icon">&#xe7fc;</i>
             view
           </a>
         </div>
@@ -108,6 +108,15 @@ export default {
           i {
             margin-right: 5px;
           }
+        }
+        a:first-child::before {
+          content: '';
+          position: absolute;
+          right: 0;
+          top: 15%;
+          width: 1px;
+          height: 70%;
+          background-color: #eee;
         }
         a:hover {
           color: #8ed53c;

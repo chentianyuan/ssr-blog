@@ -14,48 +14,53 @@
 
         <div class="page-article--tag-title">标签</div>
         <div class="page-article--tag-list">
-          <a v-for="(tag, key) in tags" :key="key" @click="changeList">
+          <a v-for="(tag, key) in tags" :key="key">
             {{ tag.tagName }}
             <i>({{tag.tagCount}})</i>
           </a>
         </div>
       </section>
     </main>
+    <load-more-footer :loadMore="this.global.loadMoreFlag" :noMoreData="noMoreData" />
   </div>
 </template>
 
 <script>
 import articleList from './component/artivle-list'
+import loadMoreFooter from './component/load-more'
 import { PATHS, request } from '@/api'
+
+const pageSize = 8
 export default {
   components: {
-    articleList
+    articleList, loadMoreFooter
   },
   data () {
     return {
       isDone: false,
       hotArticles: [],
-      articleArray: []
-      // tags: ['vue', 'react', 'webpack', 'pwa'].map(str => String.prototype.toUpperCase.call(str[0]) + str.slice(1))
-    }
-  },
-  methods: {
-    changeList () {},
-    scrollHandler (e) {
-      let wrap = this.$refs.scrollWrap
-      console.log(wrap.scrollTop)
+      articleArray: [],
+      tagsList: [],
+      loadMore: false,
+      noMoreData: false,
+      pageIndex: 1
     }
   },
   watch: {
-    'global.loadMoreFlag': function () {
-      console.log('加载更多')
+    'global.loadMoreFlag': {
+      handler (n, o) {
+        if (n) {
+          this.pageIndex += 1
+          this.loadPost()
+        }
+      }
     }
   },
   computed: {
     tags () {
-      return ['vue', 'react', 'webpack', 'pwa'].map(str => ({
-        tagName: String.prototype.toUpperCase.call(str[0]) + str.slice(1),
-        tagCount: Math.floor(Math.random() * 20)
+      return this.tagsList.map(({ tagName, count }) => ({
+        tagName: String.prototype.toUpperCase.call(tagName[0]) + tagName.slice(1),
+        tagCount: count
       }))
     },
     global () {
@@ -63,9 +68,10 @@ export default {
     }
   },
   mounted () {
-    request.get(PATHS.article.getAllarticles).then(res => {
-      console.log(res)
+    request.get(PATHS.tag.getAlltags).then(res => {
+      this.tagsList = res.data
     })
+    this.loadPost()
   },
   activated () {
     console.log('触发activited钩子')
@@ -75,6 +81,21 @@ export default {
   },
   beforeDestroy () {
     console.log('触发beforeDestroy钩子')
+  },
+  methods: {
+    loadPost () {
+      request.post(PATHS.article.getArticleByPagination, {
+        pageIndex: this.pageIndex,
+        pageSize
+      }).then(res => {
+        this.articleArray = this.articleArray.concat(res.data.postList)
+        if (this.pageIndex * pageSize < res.data.count) {
+          this.$store.commit('LOADMOREFLAG', false)
+        } else {
+          this.noMoreData = true
+        }
+      })
+    }
   }
 }
 </script>

@@ -20,9 +20,7 @@ WORKDIR /usr/src/dockFileProject
 # 复制文件到工作目录
 COPY . /usr/src/dockFileProject
 
-RUN npm config set strict-ssl false
-
-RUN npm config set registry http://r.cnpmjs.org/
+RUN npm config set strict-ssl false && npm config set registry http://r.cnpmjs.org/
 
 # RUN npm install
 

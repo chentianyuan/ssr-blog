@@ -1,5 +1,5 @@
 <script>
-let desc = '© 2018 - ytc的博客 - Powered by SSR & express'
+let desc = '© 2018 - ytc的博客 - Powered by SSR & Express'
 export default {
   name: 'common-footer',
   functional: true,

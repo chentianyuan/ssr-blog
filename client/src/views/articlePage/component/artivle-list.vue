@@ -2,12 +2,16 @@
   <div class="page-article-list--wrap">
     <ul class="page-article-list--list">
       <li class="page-article-list--item" v-for="(article, key) in articles" :key="key">
-        <nav class="page-article-list--article-title" @click="$router.push({path: `/article/${123}`})">标题标题标题标题标题标题</nav>
-        <h6 class="page-article-list--article-desc">descript descript descript descript descript descript descript descript descript descript descript descript descript descript descript descript descript descript descript descript descript</h6>
+        <nav class="page-article-list--article-title" @click="$router.push({path: `/article/${article.id}`})">{{article.title}}</nav>
+        <h6 class="page-article-list--article-desc">{{article.descript}}</h6>
         <div class="page-article-list--article-info">
-          <span>article.meta.views</span>
-          <span>article.meta.comments</span>
-          <span>article.meta.like</span>
+          <span>{{article.created_at | getLocalTime}}</span>
+          <i class="iconfont">&#xe60b;</i>
+          <span>{{article.meta.views}}次阅读</span>
+          <i class="iconfont">&#xe60b;</i>
+          <span>{{article.meta.likes}}人喜欢</span>
+          <i class="iconfont">&#xe60b;</i>
+          <span>{{article.meta.comments}}条评论</span>
         </div>
       </li>
     </ul>
@@ -17,9 +21,11 @@
 <script>
 export default {
   props: {
-    articles: {
-      type: Array,
-      default: () => [1, 2, 3]
+    articles: Array
+  },
+  filters: {
+    getLocalTime (nS) {
+      if (/(.*)T(.*)/.test(nS)) return RegExp.$1.replace(/-/g, '.')
     }
   }
 }
@@ -65,6 +71,8 @@ export default {
         color: #777;
       }
       .@{prefix}--article-info {
+        display: flex;
+        align-items: center;
         margin-top: 20px;
         color: #8c8c8c;
         font-size: 12px;
