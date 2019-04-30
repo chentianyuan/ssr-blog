@@ -1,4 +1,5 @@
 module.exports = {
   disableCache: true,
-  disableLog: true
+  disableLog: true,
+  RESTfulprefix: ''
 }

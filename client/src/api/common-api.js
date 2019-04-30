@@ -1,11 +1,12 @@
 import axios from 'axios'
 // 有其他包依赖了http包，所以虽然没有主动去下载这里也可以拿到
 import http from 'http'
+import config from '~/config'
 
 const $http = axios
 const isServer = process.env.VUE_ENV === 'server'
 let options = {
-  baseURL: isServer ? 'http://localhost:8088/api' : '/api',
+  baseURL: isServer ? `${config.RESTfulprefix}/api` : '/api',
   timeout: 2000,
   headers: {
     'Accept': 'application/json',
