@@ -30,6 +30,6 @@
     "mysql": "^2.17.1",
     "redis": "^2.8.0",
     "reflect-metadata": "^0.1.12",
-    "typeorm": "^0.2.7"
+    "typeorm": "^0.2.16"
   }
 }

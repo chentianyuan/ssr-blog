@@ -24,12 +24,27 @@ export default class PostService {
   }
 
   // 文章查询
-  getPostById (id: String | Number) {
+  getPostById (id: string | number) {
     return this.postDao.getPostById(id)
   }
   
   // 文章分页查询
   getPaginationPost (pageIndex: number, pageSize: number) {
     return this.postDao.getPaginationPost(pageIndex, pageSize)
+  }
+
+  // 增加阅读量
+  viewsCountAdd (id: number) {
+    return this.postDao.viewsCountAdd(id)
+  }
+
+  // 增加点赞数
+  likesCountAdd (id: number) {
+    return this.postDao.likesCountAdd(id)
+  }
+
+  // 增加评论数
+  commentsCountAdd (id: number) {
+    return this.postDao.commentsCountAdd(id)
   }
 }

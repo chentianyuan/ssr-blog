@@ -67,4 +67,30 @@ export default class PostController {
     } catch (e) {}
     return
   }
+
+  @Post('/post/views')
+  async addPostViewsCount (@Response() res, @Body() body): Promise<void> {
+    let { postId } = body
+    try {
+      if (postId) {
+        let result = await this.postService.viewsCountAdd(postId)
+        result ? res.send(new SuccessMsg(result)) : res.send(new FailedMsg())
+      } else {
+        res.send(new FailedMsg('参数错误'))
+      }
+    } catch (e) {}
+  }
+
+  @Post('/post/likes')
+  async addPostLikesCount (@Response() res, @Body() body): Promise<void> {
+    let { postId } = body
+    try {
+      if (postId) {
+        let result = await this.postService.likesCountAdd(postId)
+        result ? res.send(new SuccessMsg(result)) : res.send(new FailedMsg())
+      } else {
+        res.send(new FailedMsg('参数错误'))
+      }
+    } catch (e) {}
+  }
 }

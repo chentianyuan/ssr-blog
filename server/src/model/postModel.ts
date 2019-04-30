@@ -2,13 +2,13 @@ import { Column } from "typeorm"
 
 // meta作为附加属性，不会通过meta查询表数据，所以meta无需单独建表
 export class Meta {
-  @Column({default: 0})
+  @Column('int', {default: 0})
   views: number
 
-  @Column({default: 0})
+  @Column('int', {default: 0})
   likes: number
 
-  @Column({default: 0})
+  @Column('int', {default: 0})
   comments: number
 }
 

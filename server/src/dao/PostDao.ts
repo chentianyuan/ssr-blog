@@ -3,9 +3,10 @@
 // service中处理返回的数据
 
 import { Injectable } from '@decorators/di'
-import { getRepository as getRep } from 'typeorm'
+import { getRepository as getRep, getConnection } from 'typeorm'
 import Post from '../entities/Post'
 import Tag from '../entities/Tag'
+import { Meta } from '../model/postModel'
 
 @Injectable()
 export default class PostDao {
@@ -57,5 +58,38 @@ export default class PostDao {
     // descend 降序 asc升序
     .orderBy('post.created_at', 'DESC')
     .getMany()
+  }
+
+  // 添加浏览记录
+  async viewsCountAdd (postId: number): Promise<any> {
+    // wtffffffffff佛慈悲
+    return await getRep(Post).manager.query(`UPDATE post SET metaViews= metaViews + 1 WHERE id = ${postId}`)
+    // return await getRep(Post).manager.update(Meta, {id: postId}, {views: 1})
+    // return await getRep(Tag).manager.increment(Tag, {id: 54}, 'count', 1)
+    // return await getRep(Post).manager.increment(Meta, {views: 0}, 'views', 1)
+    // return await getRep(Post)
+    // .createQueryBuilder()
+    // .update(Meta)
+    // .where('id = :id', {id: postId})
+    // .createQueryBuilder()
+    // .set({
+    //   views: 1
+    // })
+    // .execute()
+    // return await getRep(Post)
+    // .createQueryBuilder()
+    // .relation(Post, 'meta')
+    // .of({id: postId})
+    // .set({metaViews: 1})
+  }
+
+  // 点赞数
+  async likesCountAdd (postId: number): Promise<any> {
+    return await getRep(Post).manager.query(`UPDATE post SET metaLikes = metaLikes + 1 WHERE id = ${postId}`)
+  }
+
+  // 评论数
+  async commentsCountAdd (postId: number): Promise<any> {
+    return await getRep(Post).manager.query(`UPDATE post SET metaComments = metaComments + 1 WHERE id = ${postId}`)
   }
 }
