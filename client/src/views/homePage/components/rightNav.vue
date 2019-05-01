@@ -15,7 +15,7 @@ export default {
   data () {
     return {
       navItem: [
-        { text: '文章', navLink: '/articlePAge', enText: 'articles' },
+        { text: '文章', navLink: '/articlePage', enText: 'articles' },
         { text: '其他', navLink: '/otherPage', enText: 'music' },
         { text: '项目', navLink: '/projectPage', enText: 'project' },
         { text: '关于', navLink: '/aboutPage', enText: 'about' }

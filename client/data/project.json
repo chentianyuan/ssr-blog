@@ -1,8 +1,46 @@
 {
   "projectItems": [
     {
-      "name": "asd",
-      "desc": "testsetsetsetset"
+      "name": "SSR博客项目",
+      "desc": "参考hackerNews搭建的服务端渲染博客",
+      "link": "",
+      "view": "",
+      "icontype": "icon-vue"
+    },
+    {
+      "name": "CSR单页应用",
+      "desc": "普通的vue单页SPA项目",
+      "link": "",
+      "view": "",
+      "icontype": "icon-vue"
+    },
+    {
+      "name": "陪你去看流星雨",
+      "desc": "canvas实现流星特效",
+      "link": "",
+      "view": "",
+      "icontype": "icon-es6"
+    },
+    {
+      "name": "-",
+      "desc": "常见的数据结构和算法",
+      "link": "",
+      "view": "",
+      "icontype": "icon-algorithm"
+    },
+    {
+      "name": "Axbg",
+      "desc": "记录纪念日的nodejs命令行",
+      "link": "",
+      "view": "",
+      "icontype": "icon-es6"
+    },
+    {
+      "name": "react五子棋",
+      "desc": "单页react五子棋实现",
+      "link": "",
+      "view": "",
+      "icontype": "icon-react"
     }
   ]
 }

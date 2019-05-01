@@ -2,7 +2,7 @@
   <div class="project-page hack-padding">
     <section class="project-page-projectBox">
       <div class="project-page-projectBox-item" v-for="(project, key) in projectItems" :key="key">
-        <div class="project-page-projectBox-item-icon iconfont icon">&#xe64a;</div>
+        <div :class="['project-page-projectBox-item-icon', 'iconfont', 'icon', project.icontype]"></div>
         <h3 class="project-page-projectBox-item-title">{{project.name}}</h3>
         <p class="project-page-projectBox-item-desc">{{project.desc}}</p>
         <div class="project-page-projectBox-item-btn">
@@ -49,7 +49,7 @@ export default {
     margin: 0 auto;
     overflow: hidden;
     &-item {
-      width: 217px;
+      width: 215px;
       height: 280px;
       background: rgba(0, 0, 0, .02);
       border: 1px solid #f1f1f1;

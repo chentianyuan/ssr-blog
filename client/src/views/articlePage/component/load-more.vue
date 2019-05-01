@@ -4,7 +4,11 @@ export default {
   name: 'loadMore',
   render (createElement) {
     let desc = this.noMoreData ? descs[1] : descs[0]
-    return this.$props.loadMore ? createElement('div', {
+    return this.noMoreData ? createElement('div', {
+      attrs: {
+        class: 'page-article--loadMore'
+      }
+    }, desc) : this.$props.loadMore ? createElement('div', {
       attrs: {
         class: 'page-article--loadMore'
       }
