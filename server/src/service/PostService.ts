@@ -29,8 +29,8 @@ export default class PostService {
   }
   
   // 查询文章数量
-  getPostCount () {
-    return this.postDao.getPostCount()
+  getPostCount (tagId?: number) {
+    return this.postDao.getPostCount(tagId)
   }
 
   // 文章分页查询
@@ -51,5 +51,9 @@ export default class PostService {
   // 增加评论数
   commentsCountAdd (id: number) {
     return this.postDao.commentsCountAdd(id)
+  }
+
+  findPostByTag (pageIndex: number, pageSize: number, tagId: number) {
+    return this.postDao.findPostByTag(pageIndex, pageSize, tagId)
   }
 }

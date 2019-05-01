@@ -4,7 +4,8 @@ export const PATHS = {
   article: {
     getAllarticles: '/post/list',
     getOnearticle: '/post/onepost',
-    getArticleByPagination: '/post/pagination'
+    getArticleByPagination: '/post/pagination',
+    getArticleByPaginationWithTag: '/post/pagination/withtag'
   },
   tag: {
     getAlltags: '/tag/list'

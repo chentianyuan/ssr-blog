@@ -5,7 +5,7 @@
       @mouseover="handleChange('enter', key)"
       @mouseout="handleChange('out', key)"
       v-for="(nav, key) in navItem" :key="key"
-      @click.stop="linkTo(nav)">{{nav.text}}</blockquote>
+      @click.stop="linkTo(nav)">{{nav.enText}}</blockquote>
     </div>
   </div>
 </template>
@@ -15,10 +15,10 @@ export default {
   data () {
     return {
       navItem: [
-        { text: '文章', navLink: '/article', enText: 'articles' },
-        { text: '其他', navLink: '/other', enText: 'music' },
-        { text: '项目', navLink: '/project', enText: 'project' },
-        { text: '关于', navLink: '/about', enText: 'about' }
+        { text: '文章', navLink: '/articlePAge', enText: 'articles' },
+        { text: '其他', navLink: '/otherPage', enText: 'music' },
+        { text: '项目', navLink: '/projectPage', enText: 'project' },
+        { text: '关于', navLink: '/aboutPage', enText: 'about' }
       ]
     }
   },

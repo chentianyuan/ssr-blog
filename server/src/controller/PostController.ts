@@ -70,6 +70,18 @@ export default class PostController {
     return
   }
 
+  @Post('/post/pagination/withtag')
+  async findPostByTag (@Response() res, @Body() body): Promise<void> {
+    let { pageSize, pageIndex, tagId } = body
+    try {
+      // pageIndex从0开始
+      let result = await this.postService.findPostByTag(pageIndex - 1, ~~pageSize, Number(tagId))
+      let count = await this.postService.getPostCount(Number(tagId));
+      (result && count) ? res.send(new SuccessMsg(Object.assign({count}, {postList: result.reverse()}))) : res.send(new FailedMsg())        
+    } catch (e) {}
+    return
+  }
+
   @Post('/post/views')
   async addPostViewsCount (@Response() res, @Body() body): Promise<void> {
     let { postId } = body

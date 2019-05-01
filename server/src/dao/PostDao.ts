@@ -59,8 +59,21 @@ export default class PostDao {
     .getMany()
   }
 
-  async getPostCount (): Promise<any> {
+  // 根据标签查找
+  async findPostByTag (pageIndex: number, pageSize: number, tagId: number) {
     return await getRep(Post)
+    .createQueryBuilder('post')
+    // innerJoinAndSelect内联查询和左查询的区别是，左查询无论连接的查询后面条件是否成立都会返回所有结果
+    // 内联查询只会返回连接的查询条件成立的结果
+    .innerJoinAndSelect('post.tags', 'tag', 'tag.id = :tagId', { tagId })
+    .getMany()
+  }
+
+  async getPostCount (tagId?: number): Promise<any> {
+    return tagId ? await getRep(Post)
+    .createQueryBuilder('post')
+    .innerJoinAndSelect('post.tags', 'tag', 'tag.id = :tagId', { tagId })
+    .getCount() : await getRep(Post)
     .createQueryBuilder()
     .select()
     .getCount()

@@ -14,7 +14,7 @@
 
         <div class="page-article--tag-title">标签</div>
         <div class="page-article--tag-list">
-          <a v-for="(tag, key) in tags" :key="key">
+          <a v-for="(tag, key) in tags" :key="key" @click.stop="relatedArticle(tag)">
             {{ tag.tagName }}
             <i>({{tag.tagCount}})</i>
           </a>
@@ -26,14 +26,14 @@
 </template>
 
 <script>
-import articleList from './component/artivle-list'
-import loadMoreFooter from './component/load-more'
+import ArticleList from './component/artivle-list'
+import LoadMoreFooter from './component/load-more'
 import { PATHS, request } from '@/api'
 
 const pageSize = 8
 export default {
   components: {
-    articleList, loadMoreFooter
+    ArticleList, LoadMoreFooter
   },
   data () {
     return {
@@ -54,14 +54,25 @@ export default {
           this.loadPost()
         }
       }
+    },
+    '$route': function (n, o) {
+      console.log(n, o, '====')
+      this.refresh()
     }
   },
   computed: {
+    loadType () {
+      return this.$route.query.tag ? 'byTag' : 'byPost'
+    },
     tags () {
-      return this.tagsList.map(({ tagName, count }) => ({
+      return this.tagsList.map(({ tagName, count, id }) => ({
         tagName: String.prototype.toUpperCase.call(tagName[0]) + tagName.slice(1),
-        tagCount: count
+        tagCount: count,
+        id
       }))
+    },
+    tagId () {
+      return this.$route.query.tag
     },
     global () {
       return this.$store.state.global
@@ -84,10 +95,14 @@ export default {
   },
   methods: {
     loadPost () {
-      request.post(PATHS.article.getArticleByPagination, {
+      let paths = {
+        'byTag': PATHS.article.getArticleByPaginationWithTag,
+        'byPost': PATHS.article.getArticleByPagination
+      }
+      request.post(paths[this.loadType], Object.assign({
         pageIndex: this.pageIndex,
         pageSize
-      }).then(res => {
+      }, this.tagId ? { tagId: this.tagId } : {})).then(res => {
         this.articleArray = this.articleArray.concat(res.data.postList)
         if (this.pageIndex * pageSize < res.data.count) {
           this.$store.commit('LOADMOREFLAG', false)
@@ -95,6 +110,15 @@ export default {
           this.noMoreData = true
         }
       })
+    },
+    relatedArticle (tag) {
+      this.$router.push(`${this.$route.path}?tag=${tag.id}`)
+    },
+    refresh () {
+      this.noMoreData = false
+      this.$store.commit('LOADMOREFLAG', false)
+      this.articleArray = []
+      this.loadPost()
     }
   }
 }
