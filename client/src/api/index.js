@@ -13,10 +13,9 @@ export const PATHS = {
 }
 
 let commonFn = function (path, params = {}) {
-  console.log(params)
   return commonApi[this.method](path, params).then(res => {
     let data = res.data
-    console.log('源头', res)
+    // console.log('源头', res)
     if (res.status === 200 && data && !data.hasError) {
       return data
     } else {

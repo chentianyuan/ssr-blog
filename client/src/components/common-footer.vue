@@ -2,13 +2,20 @@
 let desc = '© 2019 - ytc的博客 - Powered by SSR & Express'
 export default {
   name: 'common-footer',
+  // 定义无状态组件，没有响应式数据
   functional: true,
   render (createElement, context) {
-    return createElement('div', {
+    return context.props.hide ? '' : createElement('div', {
       attrs: {
         class: 'component--common-footer'
       }
     }, desc)
+  },
+  props: {
+    hide: {
+      type: Boolean,
+      require: true
+    }
   }
 }
 </script>

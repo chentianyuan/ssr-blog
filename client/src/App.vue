@@ -2,10 +2,10 @@
   <div id="app" class="root" ref="root" @scroll="scrollHandler">
     <guide-header :classList="[isDone ? 'hide-header' : '']" v-show="!hideHeader"></guide-header>
     <canvas-bg></canvas-bg>
-    <keep-alive>
+    <keep-alive :exclude="['article']">
       <router-view></router-view>
     </keep-alive>
-    <common-footer />
+    <common-footer :hide="hideFooter"/>
   </div>
 </template>
 
@@ -39,8 +39,14 @@ export default {
   },
   computed: {
     hideHeader () {
-      const whiteList = ['app', 'Not-Found']
+      const whiteList = ['Home', 'Not-Found']
       let path = this.$route.name
+      return whiteList.includes(path)
+    },
+    hideFooter () {
+      const whiteList = ['Home']
+      let path = this.$route.name
+      console.log('----------1-------', whiteList.includes(path))
       return whiteList.includes(path)
     },
     loadMoreFlag: {

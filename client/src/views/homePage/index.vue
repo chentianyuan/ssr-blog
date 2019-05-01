@@ -23,7 +23,9 @@ export default {
 <style lang="less">
 .page-home--wrap {
   width: 100%;
+  // height: calc(100% - 52px);
   height: -webkit-fill-available;
+  box-sizing: border-box;
   .flex-initial(initial, initial);
 }
 </style>

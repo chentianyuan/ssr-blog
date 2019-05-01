@@ -32,7 +32,8 @@ export default {
 .page-home--left-user {
   position: relative;
   flex-basis: 50%;
-  // background: url('../../../static/imgs/common/bk-home.png');
+  background-image: url('../../../static/imgs/common/bk-home2.jpg');
+  background-repeat: round;
   .page-home--part {
     position: absolute;
     height: 400px;
@@ -40,6 +41,7 @@ export default {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    z-index: 2;
     .page-home--part-head {
       --fontColor: #5e5e5e;
       .flex-column(center, center);
@@ -57,6 +59,8 @@ export default {
       }
       .page-home--title {
         text-align: center;
+        padding-top: 16px;
+        padding-bottom: 30px;
         .name, .motto {
           padding-top: 10px;
           padding-bottom: 10px;
@@ -89,6 +93,14 @@ export default {
         background-color: transparent;
       }
     }
+  }
+  &::after {
+    content: '';
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    background: hsla(0, 0%, 0, 0.5);
+    z-index: 1;
   }
 }
 </style>

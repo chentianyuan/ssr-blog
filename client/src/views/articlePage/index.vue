@@ -32,6 +32,8 @@ import { PATHS, request } from '@/api'
 
 const pageSize = 8
 export default {
+  // 不可省略，keep-alive忽略需要
+  name: 'article',
   components: {
     ArticleList, LoadMoreFooter
   },
@@ -56,8 +58,11 @@ export default {
       }
     },
     '$route': function (n, o) {
-      console.log(n, o, '====')
-      this.refresh()
+      console.log(123)
+      if (/articlePage/.test(n.fullPath)) {
+        // 缓存组件不会被销毁
+        this.refresh()
+      }
     }
   },
   computed: {
@@ -85,6 +90,7 @@ export default {
     this.loadPost()
   },
   activated () {
+    this.refresh()
     console.log('触发activited钩子')
   },
   deactivated () {

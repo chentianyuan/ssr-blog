@@ -80,6 +80,7 @@ function initialize () {
   })
 }
 export default {
+  name: 'about',
   mounted () {
     if (!window.BMap) {
       map('9sFypaCX7Idv33zycVShV5nK3l9e1bLm').then(BMap => initialize(BMap)).catch(e => console.log(e))
