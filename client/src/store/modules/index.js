@@ -2,11 +2,14 @@
 // 负责state Getter和Mutations的自动生成
 
 import global from './globalModule'
+import leaveMessage from './leaveMessageModule'
 
 let allTheModule = new Set([
-  { global }
+  { global },
+  { leaveMessage }
 ])
 
+// 组装
 export default [...allTheModule].reduce((previous, current, currentIndex, arr) => {
   let name = Object.getOwnPropertyNames(current)[0]
   let Module = current[name]

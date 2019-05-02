@@ -9,19 +9,32 @@ export const PATHS = {
   },
   tag: {
     getAlltags: '/tag/list'
+  },
+  comment: {
+    insertLeaveMessage: '/comment/insertComment',
+    getLeaveMessageList: '/comment/getleaveComment'
   }
 }
 
-let commonFn = function (path, params = {}) {
-  return commonApi[this.method](path, params).then(res => {
+/**
+ * 公有请求方法
+ * @param {*} path url地址
+ * @param {*} params 请求参数
+ */
+let commonFn = function (path, params = {}, headerParams = {}) {
+  return commonApi[this.method](path, params, headerParams).then(res => {
     let data = res.data
-    // console.log('源头', res)
     if (res.status === 200 && data && !data.hasError) {
       return data
     } else {
       throw JSON.stringify(data.msg || '接口异常')
     }
-  }).catch(alert)
+  }).catch(Log)
+}
+
+// TODO: 打点方便错误排查
+function Log (params) {
+  console.log(params)
 }
 
 export const request = {

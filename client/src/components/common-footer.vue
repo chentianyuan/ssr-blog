@@ -27,7 +27,7 @@ export default {
   color: #666;
   font-size: 12px;
   line-height: 50px;
-  border: solid #f1f1f1 1px;
+  border-top: solid #f1f1f1 1px;
   background-color: #fff;
 }
 </style>

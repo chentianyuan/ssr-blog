@@ -46,7 +46,6 @@ export default {
     hideFooter () {
       const whiteList = ['Home']
       let path = this.$route.name
-      console.log('----------1-------', whiteList.includes(path))
       return whiteList.includes(path)
     },
     loadMoreFlag: {

@@ -4,6 +4,7 @@ import createStore from './store/index'
 import customPlugin from './plugins/index'
 import { createRouter } from './router/route'
 import Cookies from 'js-cookie'
+import mixins from './mixins'
 
 const isServer = process.env.VUE_ENV === 'server'
 
@@ -14,6 +15,7 @@ export default function createApp (context) {
 
   Vue.use(customPlugin, { router })
 
+  Vue.mixin(mixins)
   // 设置路由前置钩子
   router.beforeEach((to, from, next) => {
     if (isServer) {

@@ -72,6 +72,8 @@ export default {
         }
         .page-home--motto {
           font-size: 12px;
+          padding-top: 10px;
+          padding-bottom: 10px;
         }
       }
     }

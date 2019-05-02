@@ -5,7 +5,7 @@ html {
   -webkit-text-size-adjust: 100%;
   -moz-osx-font-smoothing: grayscale;
   color: #555;
-  letter-spacing: .5px;
+  letter-spacing: 1px;
   font-family: Futura,-apple-system,SF UI Text,Arial,PingFang SC,Hiragino Sans GB,Microsoft YaHei,WenQuanYi Micro Hei,sans-serif;
   -webkit-font-smoothing: antialiased;
 }
@@ -21,4 +21,11 @@ a {
   padding-top: 60px;
   box-sizing: border-box;
   padding-bottom: 20px;
+}
+
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .5s;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0;
 }

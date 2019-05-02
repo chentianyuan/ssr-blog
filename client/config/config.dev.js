@@ -1,5 +1,5 @@
 module.exports = {
   disableCache: true,
   disableLog: true,
-  RESTfulprefix: ''
+  RESTfulprefix: 'http://127.0.0.1:3001'
 }
