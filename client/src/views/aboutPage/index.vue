@@ -4,33 +4,33 @@
       <div class="info">
         <p>
           <i class="iconfont icon">&#xe7ae;</i>
-          <span>个人简介</span>
+          <span></span>
         </p>
         <p>
           <i class="iconfont icon">&#xe7c6;</i>
-          <span>计算机科学与技术专业</span>
+          <span>江南大学 · 计算机科学与技术专业</span>
         </p>
         <p>
           <i class="iconfont icon">&#xe849;</i>
-          <span>爱好</span>
+          <span>唱，跳，rap，篮球，😂</span>
         </p>
         <p>
           <i class="iconfont icon">&#xe783;</i>
-          <span>other</span>
+          <span>为了爱与世界和平而努力</span>
         </p>
         <p>
           <i class="iconfont icon">&#xe7de;</i>
           <span>
-            <a href>
+            <a href="https://www.jianshu.com/u/933ffe49535e" target="_blank">
               <i class="iconfont like">&#xe602;</i>
             </a>
-            <a href="https://github.com/naihe138" target="_blank">
+            <a href="https://github.com/chentianyuan" target="_blank">
               <i class="iconfont like">&#xe64a;</i>
             </a>
-            <a href>
+            <a href="https://www.zhihu.com/people/chen-xiao-sa-30/activities" target="_blank">
               <i class="iconfont like">&#xe87c;</i>
             </a>
-            <a href>
+            <a href="https://weibo.com/5321922711/profile?topnav=1&wvr=6" target="_blank">
               <i class="iconfont like">&#xe882;</i>
             </a>
           </span>
@@ -41,11 +41,14 @@
         </p>
       </div>
       <div class="user">
-        <div class="bg stage"></div>
+        <div class="bg stage">
+          <canvas id="canvas"></canvas>
+        </div>
         <div class="name">
           <h2 class="title">Ytc</h2>
           <p class="disc">JS stack developer</p>
           <p class="friend">Friend me</p>
+          <div class="weixin"></div>
         </div>
         <img class="avatar" :src="require('@/static/imgs/common/avatar.png')">
         <!-- <img class="averter" :src="require('@/static/imgs/common/avatar.png')"> -->
@@ -168,8 +171,26 @@ export default {
         border: 4px solid hsla(0, 0%, 100%, 0.5);
         transition: 0.3s;
       }
-      .avatar:hover {
+      .weixin {
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        width: 100%;
+        height: 100%;
+        background-image: url('~@/static/imgs/weixin.jpg');
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: top;
+        opacity: 0;
+        z-index: 2;
+      }
+      &:hover .avatar {
         transform: rotate(360deg);
+      }
+      &:hover .weixin {
+        opacity: 1;
       }
     }
   }

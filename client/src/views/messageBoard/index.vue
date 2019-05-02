@@ -53,7 +53,6 @@ export default {
     },
     submit (params) {
       isValid(params).then(vaildRes => {
-        console.log(vaildRes)
         return request.post(PATHS.comment.insertLeaveMessage, vaildRes)
       }).then(res => {
         if (!res.hasError) {

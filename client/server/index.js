@@ -71,7 +71,7 @@ const render = (req, res) => {
 	renderer.renderToString(context, (err, html) => {
 		if (err) {
 			console.error(err, 'x')
-			res.status(err.code).end(`<blockquote>${err.code} error</blockquote>`)
+			res.status(err.code).send(`<blockquote>${err.code} error</blockquote>`)
 			return
     }
 

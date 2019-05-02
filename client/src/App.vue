@@ -1,11 +1,15 @@
 <template>
   <div id="app" class="root" ref="root" @scroll="scrollHandler">
+    <!-- 顶部导航 -->
     <guide-header :classList="[isDone ? 'hide-header' : '']" v-show="!hideHeader"></guide-header>
+    <!-- canvas背景 -->
     <canvas-bg></canvas-bg>
+    <!-- 路由导航 -->
     <keep-alive :exclude="['article']">
       <router-view></router-view>
     </keep-alive>
-    <common-footer :hide="hideFooter"/>
+    <!-- 站脚 -->
+    <common-footer :hide="hideFooter"></common-footer>
   </div>
 </template>
 

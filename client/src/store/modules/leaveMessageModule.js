@@ -6,12 +6,11 @@ const leaveMessageModule = {
     messageItems: []
   },
   actions: {
-    getLeaveMessageList ({ commit, state }, headerParams) {
+    getLeaveMessageList ({ commit }, headerParams) {
       return request.get(PATHS.comment.getLeaveMessageList, {
         context: headerParams.context
       }).then(res => {
-        console.log(state.messageItems.concat(res.data))
-        commit('MESSAGEITEMS', state.messageItems.concat(res.data))
+        res && commit('MESSAGEITEMS', res.data)
       })
     }
   }

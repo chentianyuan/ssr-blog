@@ -1,13 +1,13 @@
 <template>
   <header :class="['component--blog-header', ...classList]">
     <section class="box">
-      <nav>
+      <div>
         <router-link
         :class="['title', currentRoute === nav.link ? 'active-title' : '']"
         v-for="(nav, key) in defaultNav"
         :key="key"
         :to="{path: nav.link}">{{nav.title}}</router-link>
-      </nav>
+      </div>
       <div class="searchBox" v-if="false"></div>
     </section>
   </header>
@@ -19,7 +19,7 @@ const defaultNav = [
   { title: '文章', link: '/articlePage' },
   { title: '项目', link: '/projectPage' },
   { title: '关于', link: '/aboutPage' },
-  { title: '其他', link: '/otherPage' }
+  { title: '留言板', link: '/leaveBoard' }
 ]
 export default {
   props: {

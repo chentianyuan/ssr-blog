@@ -22,6 +22,8 @@ export const PATHS = {
  * @param {*} params 请求参数
  */
 let commonFn = function (path, params = {}, headerParams = {}) {
+  // axios.get {url, {headers, params, context}}
+  // axios.post {url, {params}, {headers}}
   return commonApi[this.method](path, params, headerParams).then(res => {
     let data = res.data
     if (res.status === 200 && data && !data.hasError) {
@@ -32,7 +34,7 @@ let commonFn = function (path, params = {}, headerParams = {}) {
   }).catch(Log)
 }
 
-// TODO: 打点方便错误排查
+// TODO: 扩展打点方便错误排查
 function Log (params) {
   console.log(params)
 }

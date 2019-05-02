@@ -5,7 +5,8 @@ export default {
   // 定义无状态组件，没有响应式数据
   functional: true,
   render (createElement, context) {
-    return context.props.hide ? '' : createElement('div', {
+    // ssr初始渲染render返回一个空串会导致无法渲染，这里返回一个空div
+    return context.props.hide ? createElement('div') : createElement('div', {
       attrs: {
         class: 'component--common-footer'
       }
