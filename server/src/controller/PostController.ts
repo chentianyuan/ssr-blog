@@ -3,7 +3,6 @@ import { Controller, Response, Body, Post, Request, Get } from '@decorators/expr
 import PostService from '../service/PostService'
 import TagService from '../service/TagService'
 import { SuccessMsg, FailedMsg } from '../model/message'
-import { resolve } from 'path';
 
 // 注入功能支持
 @Injectable()

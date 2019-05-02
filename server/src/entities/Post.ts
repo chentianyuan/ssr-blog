@@ -1,8 +1,9 @@
 // Post实体
 // 所谓实体其实就是用装饰器@Table装饰的一个model。
-import { Column, CreateDateColumn, Entity, UpdateDateColumn, PrimaryGeneratedColumn, ManyToMany, JoinTable } from 'typeorm'
+import { Column, CreateDateColumn, Entity, UpdateDateColumn, PrimaryGeneratedColumn, ManyToMany, JoinTable, OneToMany } from 'typeorm'
 import { Meta } from '../model/postModel'
 import Tag from './Tag'
+import Comment from './Comment'
 
 // 装饰器模式
 @Entity()
@@ -25,6 +26,10 @@ export default class Post {
   @ManyToMany(type => Tag, tag => tag.posts)
   @JoinTable()
   tags: Tag[]
+
+
+  @OneToMany(type => Comment, comment => comment.post)
+  comment: Comment
 
   // 文章内容
   @Column('longtext')
