@@ -56,4 +56,8 @@ export default class PostService {
   findPostByTag (pageIndex: number, pageSize: number, tagId: number) {
     return this.postDao.findPostByTag(pageIndex, pageSize, tagId)
   }
+
+  deletePostById (id: number) {
+    return this.postDao.deletePostById(id)
+  }
 }

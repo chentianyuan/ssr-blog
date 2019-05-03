@@ -34,10 +34,12 @@ export default class TagDao {
   // 单个标签查找
   async findOneTag (tag) {
     let tagId = tag.tagId
+    let tagName = tag.tagName
     return await getRep(Tag)
     .createQueryBuilder()
     .select()
     .where('id = :tagId', { tagId })
+    .orWhere('tagName = :tagName', { tagName })
     .getOne()
   }
 }

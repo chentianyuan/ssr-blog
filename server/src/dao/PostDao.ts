@@ -111,4 +111,17 @@ export default class PostDao {
   async commentsCountAdd (postId: number): Promise<any> {
     return await getRep(Post).manager.query(`UPDATE post SET metaComments = metaComments + 1 WHERE id = ${postId}`)
   }
+
+  // TODO: 当post和comment有约束关系时，会导致删除失败
+  async deletePostById (postId: number): Promise<any> {
+    console.log(postId)
+    return await getRep(Post)
+    .createQueryBuilder()
+    // .relation(Post, 'tags')
+    // .of(postId)
+    // .remove()
+    .delete()
+    .where('post.id = :postId', { postId })
+    .execute()
+  }
 }

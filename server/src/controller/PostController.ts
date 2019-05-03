@@ -106,4 +106,20 @@ export default class PostController {
       }
     } catch (e) {}
   }
+
+  @Post('/post/deleteArticle')
+  async deletePostById (@Response() res, @Body() body): Promise<void> {
+    let { postId } = body
+    console.log('来删除了')
+    try {
+      if (postId) {
+        let result = await this.postService.deletePostById(postId)
+        console.log('返回了')
+        result ? res.send(new SuccessMsg(result)) : res.send(new FailedMsg())
+      } else {
+        res.send(new FailedMsg('参数错误'))
+      }
+    } catch (e) {}
+  }
 }
+
