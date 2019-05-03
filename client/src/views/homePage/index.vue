@@ -2,8 +2,8 @@
   <section class="page-home--wrap">
     <left-user>
       <template slot="icon">
-        <a><i class="iconfont">&#xe64a;</i></a>
-        <a><i class="iconfont">&#xe602;</i></a>
+        <a href="https://github.com/chentianyuan" target="_blank"><i class="iconfont">&#xe64a;</i></a>
+        <a href="https://www.jianshu.com/u/933ffe49535e" target="_blank"><i class="iconfont">&#xe602;</i></a>
       </template>
     </left-user>
     <right-nav></right-nav>

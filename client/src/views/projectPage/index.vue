@@ -6,11 +6,11 @@
         <h3 class="project-page-projectBox-item-title">{{project.name}}</h3>
         <p class="project-page-projectBox-item-desc">{{project.desc}}</p>
         <div class="project-page-projectBox-item-btn">
-          <a>
+          <a :href="project.link" target="_blank">
             <i class="iconfont icon">&#xe64a;</i>
             github
           </a>
-          <a>
+          <a :href="project.view">
             <i class="iconfont icon">&#xe7fc;</i>
             view
           </a>

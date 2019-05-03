@@ -58,7 +58,6 @@ export default {
       }
     },
     '$route': function (n, o) {
-      console.log(123)
       if (/articlePage/.test(n.fullPath)) {
         // 缓存组件不会被销毁
         this.refresh()

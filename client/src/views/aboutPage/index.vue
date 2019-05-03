@@ -1,6 +1,6 @@
 <template>
   <div class="about-page hack-padding">
-    <div class="userInfo">
+    <div class="about-page-userInfo">
       <div class="info">
         <p>
           <i class="iconfont icon">&#xe7ae;</i>
@@ -98,7 +98,7 @@ export default {
   margin: 0 auto;
   color: #555;
   overflow: hidden;
-  .userInfo {
+  &-userInfo {
     margin-top: 10px;
     clear: both;
     overflow: hidden;
