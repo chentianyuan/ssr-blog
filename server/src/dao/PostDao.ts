@@ -6,6 +6,7 @@ import { Injectable } from '@decorators/di'
 import { getRepository as getRep, getConnection } from 'typeorm'
 import Post from '../entities/Post'
 import Tag from '../entities/Tag'
+import Comment from '../entities/Comment';
 
 @Injectable()
 export default class PostDao {

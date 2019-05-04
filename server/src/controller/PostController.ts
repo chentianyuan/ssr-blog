@@ -2,6 +2,7 @@ import { Injectable } from '@decorators/di'
 import { Controller, Response, Body, Post, Request, Get } from '@decorators/express/lib'
 import PostService from '../service/PostService'
 import TagService from '../service/TagService'
+import CommentService from '../service/CommentService'
 import { SuccessMsg, FailedMsg } from '../model/message'
 
 // 注入功能支持
@@ -10,7 +11,7 @@ import { SuccessMsg, FailedMsg } from '../model/message'
 @Controller('/api')
 // 控制器实现
 export default class PostController {
-  constructor (private postService: PostService, private tagService: TagService) {
+  constructor (private postService: PostService, private tagService: TagService, private commentService: CommentService) {
     // 注入了PostServer便于使用
   }
 
@@ -110,11 +111,10 @@ export default class PostController {
   @Post('/post/deleteArticle')
   async deletePostById (@Response() res, @Body() body): Promise<void> {
     let { postId } = body
-    console.log('来删除了')
     try {
       if (postId) {
+        await this.commentService.deleteCommentById(postId)
         let result = await this.postService.deletePostById(postId)
-        console.log('返回了')
         result ? res.send(new SuccessMsg(result)) : res.send(new FailedMsg())
       } else {
         res.send(new FailedMsg('参数错误'))

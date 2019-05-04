@@ -24,4 +24,14 @@ export default class CommentDao {
     .select()
     .getMany()
   }
+
+
+  // 删除某篇文章的所有评论
+  async deleteCommentById (postId: number): Promise<any> {
+    return await getRepository(Comment)
+    .createQueryBuilder()
+    .delete()
+    .where('postId = :id', {id: postId})
+    .execute()
+  }
 }
