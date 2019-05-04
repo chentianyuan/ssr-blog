@@ -36,12 +36,26 @@ export default class PostController {
     try {
       let tagStore = await this.tagService.insertOrUpdateTag(tags)
       // tagStore必须要有tagId与之对应，否则中间表不会插入新数据
-      await this.postService.insertPost({ title, descript, content, meta, tags: tagStore })
-      res.send(new SuccessMsg(null, '插入成功'))
+      let result = await this.postService.insertPost({ title, descript, content, meta, tags: tagStore })
+      res.send(new SuccessMsg(result, '插入成功'))
     } catch (e) {
-      res.send(new FailedMsg(null, '插入失败'))
+      res.send(new FailedMsg('插入失败'))
     }
     return
+  }
+
+  @Post('/post/updateArticle')
+  async updatePostById (@Response() res, @Body() body): Promise<void> {
+    let { postId, title, descript, content, tags = '' } = body
+    try {
+      if (body.postId) {
+        let tagStore = await this.tagService.insertOrUpdateTag(tags)
+        let result = await this.postService.updatePostById({ id: Number(postId), title, descript, content, tags: tagStore })
+        result ? res.send(new SuccessMsg(result)) : res.send(new FailedMsg())
+      } else {
+        res.send(new FailedMsg('参数错误'))
+      }
+    } catch (e) {}
   }
 
   @Post('/post/onepost')

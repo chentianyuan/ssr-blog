@@ -60,4 +60,8 @@ export default class PostService {
   deletePostById (id: number) {
     return this.postDao.deletePostById(id)
   }
+
+  updatePostById (post) {
+    return this.postDao.UpdatePost(post)
+  }
 }

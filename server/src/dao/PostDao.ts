@@ -125,4 +125,20 @@ export default class PostDao {
     .where('post.id = :postId', { postId })
     .execute()
   }
+
+  // 更新文章内容
+  async UpdatePost (post): Promise<any> {
+    // 类型可以直接使用实体类型，不用再定义interface
+    let postInstance = await this.getPostById(post.id)
+    postInstance = Object.assign(postInstance, post)
+    postInstance.tags = []
+    // ManyToMany先插入Tag表
+    let tag: Tag
+    for (tag of post.tags) {
+      if (tag.tagName) { postInstance.tags.push(tag) }
+    }
+    // 插入Post表
+    // 会生成一张中间表，以关系所属者的id为主键
+    return await getRep(Post).manager.save(postInstance)
+  }
 }
