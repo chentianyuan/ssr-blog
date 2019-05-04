@@ -79,7 +79,7 @@ export default class PostController {
       // pageIndex从0开始
       let result = await this.postService.getPaginationPost(pageIndex - 1, pageSize)
       let count = await this.postService.getPostCount();
-      (result && count) ? res.send(new SuccessMsg(Object.assign({count}, {postList: result.reverse()}))) : res.send(new FailedMsg())        
+      result ? res.send(new SuccessMsg(Object.assign({count: count || 0}, {postList: result.reverse()}))) : res.send(new FailedMsg())        
     } catch (e) {}
     return
   }
