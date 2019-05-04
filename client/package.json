@@ -1,6 +1,6 @@
 {
-  "name": "prerendertest",
-  "version": "1.0.0",
+  "name": "blog",
+  "version": "2.0.0",
   "description": "SSR/blog",
   "main": "index.js",
   "scripts": {
