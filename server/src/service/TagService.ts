@@ -15,8 +15,9 @@ export default class TagService {
   }
 
   // 插入数据
-  insertTag (params) {
-    return this.tagDao.insertTag(params)
+  insertTag (tag) {
+    tag = tag.id ? tag : Object.assign(new Tag(), tag)
+    return this.tagDao.insertTag(tag)
   }
 
   // 返回所有
@@ -31,6 +32,14 @@ export default class TagService {
 
   updateTag (tag) {
     return this.tagDao.updateTag(tag)
+  }
+
+  deleteTag (tagId) {
+    return this.tagDao.deleteTag(tagId)
+  }
+
+  renameTag (tag) {
+    return this.tagDao.renameTag(tag)
   }
   
   // 新增文章时文章tag的处理

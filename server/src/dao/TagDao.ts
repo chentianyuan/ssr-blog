@@ -1,5 +1,5 @@
 import { Injectable } from "@decorators/di"
-import { getRepository as getRep } from "typeorm"
+import { getRepository as getRep, AdvancedConsoleLogger } from "typeorm"
 import Tag from "../entities/Tag"
 
 @Injectable()
@@ -23,6 +23,7 @@ export default class TagDao {
 
   // 插入一条tag
   async insertTag (tag: Tag) {
+    console.log(tag)
     return await getRep(Tag).manager.save(tag)
   }
 
@@ -41,5 +42,26 @@ export default class TagDao {
     .where('id = :tagId', { tagId })
     .orWhere('tagName = :tagName', { tagName })
     .getOne()
+  }
+
+  // 删除标签
+  async deleteTag (tagId) {
+    return await getRep(Tag)
+    .createQueryBuilder()
+    .delete()
+    .where('id = :tagId', { tagId })
+    .execute()
+  }
+
+  // 更新标签
+  async renameTag (tag) {
+    console.log(tag)
+    return await getRep(Tag)
+    .createQueryBuilder()
+    .update()
+    .set({tagName: tag.tagName})
+    .where("id = :tagId", {tagId: tag.id})
+    .orWhere("tagName = :tagName", {tagName: tag.tagName})
+    .execute()
   }
 }

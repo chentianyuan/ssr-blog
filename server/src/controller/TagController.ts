@@ -27,4 +27,29 @@ export default class TagController {
       result ? res.send(new SuccessMsg(result)) : res.send(new FailedMsg())
     } catch (e) {}
   }
+
+  @Post('/tag/delete')
+  async deleteOneTag (@Response() res, @Body() body): Promise<void> {
+    let { tagId } = body
+    try {
+      let result: any = await this.tagService.deleteTag(tagId)
+      result ? res.send(new SuccessMsg(result)) : res.send(new FailedMsg())
+    } catch (e) {}
+  }
+
+  @Post('/tag/rename')
+  async renameTag (@Response() res, @Body() body): Promise<void> {
+    try {
+      let result: any = await this.tagService.renameTag(body)
+      result ? res.send(new SuccessMsg(result)) : res.send(new FailedMsg())
+    } catch (e) {}
+  }
+
+  @Post('/tag/insert')
+  async insertTag (@Response() res, @Body() body): Promise<void> {
+    try {
+      let result: any = await this.tagService.insertTag(body)
+      result ? res.send(new SuccessMsg(result)) : res.send(new FailedMsg())
+    } catch (e) {}
+  }
 }
