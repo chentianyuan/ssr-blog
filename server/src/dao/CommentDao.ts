@@ -1,6 +1,7 @@
 import { Injectable } from "@decorators/di"
 import { getRepository } from "typeorm"
 import Comment from "../entities/Comment"
+import Post from "../entities/Post"
 
 @Injectable()
 export default class CommentDao {

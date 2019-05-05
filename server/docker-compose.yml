@@ -1,5 +1,6 @@
-# docker-compose build
-# docker-compose up
+# docker-compose build 重新构建服务
+# docker-compose up 启动一个服务相关的容器
+# docker-compose start 启动一个已经存在的服务容器
 
 version: '3'
 

@@ -5,7 +5,8 @@ export const PATHS = {
     getAllarticles: '/post/list',
     getOnearticle: '/post/onepost',
     getArticleByPagination: '/post/pagination',
-    getArticleByPaginationWithTag: '/post/pagination/withtag'
+    getArticleByPaginationWithTag: '/post/pagination/withtag',
+    viewsAdd: '/post/views'
   },
   tag: {
     getAlltags: '/tag/list'

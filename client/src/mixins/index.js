@@ -1,7 +1,8 @@
 export default {
   filters: {
     getLocalTime (nS) {
-      if (/(.*)T(.*)/.test(nS)) return RegExp.$1.replace(/-/g, '.')
+      nS = new Date(nS).toLocaleString()
+      if (/(.*)(上午|下午)(.*)/.test(nS)) return RegExp.$1.replace(/\//g, '.')
     }
   }
 }

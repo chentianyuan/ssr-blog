@@ -3,7 +3,7 @@ interface Comment {
   email: string | undefined,
   content: string,
   link: string | undefined,
-  postId: number | undefined
+  post: number | undefined
 }
 
 export {

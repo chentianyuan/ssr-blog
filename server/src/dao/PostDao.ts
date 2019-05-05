@@ -30,6 +30,7 @@ export default class PostDao {
     return await getRep(Post)
     .createQueryBuilder('post')
     .leftJoinAndSelect('post.tags', 'tags')
+    .leftJoinAndSelect('post.comment', 'comments')
     // 需要select()收尾
     .select()
     .where('post.id = :postId', {postId: id})

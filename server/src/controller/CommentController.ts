@@ -16,7 +16,8 @@ export default class CommentController {
       email: body.email,
       link: body.link,
       content: body.content,
-      postId: body.postId
+      // 实体名是什么，入参需对应
+      post: body.post
     }
     let result: any = await this.commentService.insertComment(comment)
     if (result) {
