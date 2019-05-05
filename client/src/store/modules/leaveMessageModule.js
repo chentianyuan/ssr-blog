@@ -10,7 +10,7 @@ const leaveMessageModule = {
       return request.get(PATHS.comment.getLeaveMessageList, {
         context: headerParams.context
       }).then(res => {
-        res && commit('MESSAGEITEMS', res.data)
+        res && commit('MESSAGEITEMS', res.data.reverse())
       })
     }
   }

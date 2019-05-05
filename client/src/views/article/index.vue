@@ -7,7 +7,7 @@
       <p>本文于{{new Date(post.created_at).toLocaleString()}}发布，浏览量{{post.metaViews}}</p>
       <p v-if="post.tags && post.tags.length">标签：<router-link :to="{path: `/article?tag=${tag.id}`}" v-for="(tag, key) in post.tags" :key="key">{{tag.tagName}}</router-link></p>
       <p>作者：ytc</p>
-      <p>链接：xxx</p>
+      <p>链接：{{href}}</p>
       <p>著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。</p>
     </div>
     <!-- 华丽丽的分割线 -->
@@ -69,6 +69,7 @@ export default {
         email: '',
         link: ''
       },
+      href: '',
       commentList: []
     }
   },
@@ -95,6 +96,7 @@ export default {
     }
   },
   mounted () {
+    this.href = location.href
     let postId = this.$route.params.id
     request.post(PATHS.article.getOnearticle, { postId }).then(res => {
       this.post = res.data

@@ -56,9 +56,11 @@ export default {
         return request.post(PATHS.comment.insertLeaveMessage, vaildRes)
       }).then(res => {
         if (!res.hasError) {
-          this.MESSAGEITEMS(this.getmessageItems.concat([Object.assign(params, {
+          let arr = this.getmessageItems
+          arr.unshift(Object.assign(params, {
             created_at: new Date().toISOString()
-          })]))
+          }))
+          this.MESSAGEITEMS(arr)
         }
       }).catch(alert).finally(() => {
         this.boardShow = false
