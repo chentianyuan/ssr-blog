@@ -23,7 +23,6 @@ export default class TagDao {
 
   // 插入一条tag
   async insertTag (tag: Tag) {
-    console.log(tag)
     return await getRep(Tag).manager.save(tag)
   }
 
@@ -55,7 +54,6 @@ export default class TagDao {
 
   // 更新标签
   async renameTag (tag) {
-    console.log(tag)
     return await getRep(Tag)
     .createQueryBuilder()
     .update()

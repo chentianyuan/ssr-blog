@@ -22,14 +22,14 @@ class MsgTemplate {
 
 export class SuccessMsg extends MsgTemplate{
   constructor (protected data?: any, protected msg?: String) {
-    super(msg = '成功', data)
+    super(msg, data)
     this.hasError = false
   }
 }
 
 export class FailedMsg extends MsgTemplate{
   constructor (protected data?: any, protected msg?: String) {
-    super(msg = '失败', data)
+    super(msg, data)
     this.hasError = true
   }
 }

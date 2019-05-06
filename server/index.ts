@@ -3,8 +3,10 @@ import * as express from 'express'
 import { createConnection } from 'typeorm'
 import * as bodyParser from 'body-parser'
 import * as cookieParse from 'cookie-parser'
-import session = require('express-session') // 这个...???
+// 对commonjs导出的包做导入兼容
+import session = require('express-session')
 import { attachControllers } from '@decorators/express/lib'
+import verfiryToken from './src/verifyRealize'
 
 // 导入所有控制器数组
 import controllers from './src/controller/index'
@@ -44,6 +46,8 @@ createConnection().then(async connection => {
       maxAge: 1000 * 60 * 30 // 有效时间三十分钟
     }
   }))
+
+  app.use(verfiryToken) // token认证
 
   // 注册所有控制器，实现路由控制
   attachControllers(app, controllers)

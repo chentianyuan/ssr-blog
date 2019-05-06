@@ -3,6 +3,7 @@ import createApp from './index.js'
 const { app, store, router } = createApp()
 
 if (window.__INITIAL_STATE__) {
+  console.log('执行替换', window.__INITIAL_STATE__)
   // 将store替换为context.initialState
   store.replaceState(window.__INITIAL_STATE__)
 }
@@ -10,7 +11,9 @@ if (window.__INITIAL_STATE__) {
 router.onReady(() => {
   // 路由已经resolve
   // 组件跳转
+  console.log('onReady每次服务端渲染完成后执行一次')
   router.beforeResolve((to, from, next) => {
+    console.log('beforeResolve页面跳转时执行')
     // 返回目标位置或是当前路由匹配的组件数组,会匹配同个路由下的多个组件
     const matched = router.getMatchedComponents(to)
     const prevMatched = router.getMatchedComponents(from)

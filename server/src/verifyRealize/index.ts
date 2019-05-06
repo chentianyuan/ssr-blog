@@ -1,0 +1,37 @@
+// commonjs导出的包兼容
+import jwt = require('jsonwebtoken')
+
+const needLoginMethod = ['post']
+const whiteApiList = ['/api/user/verify']
+export default function (req, res, next) {
+  let method = req.method.toLowerCase()
+  let path = req.path
+
+  if (!needLoginMethod[method] || whiteApiList.includes(path)) {
+    // 跳过身份验证
+    next()
+  } else {
+    const token = req.headers.authorization
+    if (!token) {
+      res.json({
+        code: 401,
+        hasError: true,
+        msg: '用户未登录'
+      })
+    } else {
+      jwt.verify(token, 'zw', (err, decoded) => {
+        console.log('进入验证')
+        if (err) {
+          res.json({
+            code: 401,
+            hasError: true,
+            msg: '身份验证过期，请重新登录'
+          })
+        } else {
+          req.decoded = decoded
+          next()
+        }
+      })
+    }
+  }
+}

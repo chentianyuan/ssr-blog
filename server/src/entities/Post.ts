@@ -17,7 +17,7 @@ export default class Post {
   title: string
 
   // 描述
-  @Column({ default: 'aaa' })
+  @Column({ default: '' })
   descript: string
 
   @Column(type => Meta)
