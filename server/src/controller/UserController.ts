@@ -19,7 +19,8 @@ export default class UserController {
         loginAt: new Date().toLocaleString()
       }
       // 签发token
-      const token = jwt.sign(userToken, 'zw', { expiresIn: 60 * 3 })
+      // 过期时间48个小时
+      const token = jwt.sign(userToken, 'ssh', { expiresIn: '7d' })
       res.send(new SuccessMsg(Object.assign(result, { token }), '登录成功'))
     } else {
       res.send(new FailedMsg(null, '登录失败'))

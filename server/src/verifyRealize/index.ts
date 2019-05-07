@@ -1,8 +1,10 @@
 // commonjs导出的包兼容
 import jwt = require('jsonwebtoken')
 
-const needLoginMethod = ['post']
-const whiteApiList = ['/api/user/verify']
+const needLoginMethod = {
+  'post': true
+}
+const whiteApiList = ['/api/user/verify', '/api/post/pagination', '/api/post/onepost']
 export default function (req, res, next) {
   let method = req.method.toLowerCase()
   let path = req.path
@@ -19,8 +21,8 @@ export default function (req, res, next) {
         msg: '用户未登录'
       })
     } else {
-      jwt.verify(token, 'zw', (err, decoded) => {
-        console.log('进入验证')
+      jwt.verify(token, 'ssh', (err, decoded) => {
+        console.log('进入验证', err)
         if (err) {
           res.json({
             code: 401,
