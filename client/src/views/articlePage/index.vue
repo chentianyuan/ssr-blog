@@ -5,19 +5,35 @@
       <article-list :articles="articleArray"></article-list>
       <section class="page-article--slide">
 
-        <!-- <div class="hot-title">热门文章</div>
-        <div class="hot-article">
-          <h3 v-for="(hot, key) in hotArticles" :key="key">
-            <route-link>article.title</route-link>
-          </h3>
-        </div> -->
+        <div>
+          <h3 class="page-article--article-title">热门文章</h3>
+          <div class="page-article--article-list">
+            <p v-for="(article, key) in gethotArticles" :key="key">
+              <router-link :to="{path: `/article/${article.id}`}">{{ article.descript }}</router-link>
+            </p>
+          </div>
+        </div>
 
-        <div class="page-article--tag-title">标签</div>
-        <div class="page-article--tag-list">
-          <a v-for="(tag, key) in tags" :key="key" @click.stop="relatedArticle(tag)">
-            {{ tag.tagName }}
-            <i>({{tag.tagCount}})</i>
-          </a>
+        <div class="stickyWrap" ref="tagWrap" :style="{'margin-top': '15px'}">
+
+          <h3 class="page-article--tag-title">标签</h3>
+          <div class="page-article--tag-list">
+            <a class="tag-a" v-for="(tag, key) in tags" :key="key" @click.stop="relatedArticle(tag)">
+              {{ tag.tagName }}
+              <i>({{tag.tagCount}})</i>
+            </a>
+          </div>
+
+          <div class="page-article--small-nav">
+            <div class="dash"></div>
+            <div>
+              <router-link to="/aboutPage">我</router-link>
+              <i>•</i>
+              <router-link to="/leaveBoard">留言墙</router-link>
+              <i>•</i>
+              <router-link to="/">归档</router-link>
+            </div>
+          </div>
         </div>
       </section>
     </main>
@@ -26,6 +42,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import ArticleList from './component/artivle-list'
 import LoadMoreFooter from './component/load-more'
 import { PATHS, request } from '@/api'
@@ -34,13 +51,19 @@ const pageSize = 8
 export default {
   // 不可省略，keep-alive忽略需要
   name: 'article',
+  asyncData ({ context, store, route }) {
+    let headerParams = {
+      params: { num: 7 },
+      context
+    }
+    return store.dispatch('getHotPosts', headerParams)
+  },
   components: {
     ArticleList, LoadMoreFooter
   },
   data () {
     return {
       isDone: false,
-      hotArticles: [],
       articleArray: [],
       tagsList: [],
       loadMore: false,
@@ -65,6 +88,9 @@ export default {
     }
   },
   computed: {
+    ...mapGetters([
+      'gethotArticles'
+    ]),
     loadType () {
       return this.$route.query.tag ? 'byTag' : 'byPost'
     },
@@ -83,6 +109,7 @@ export default {
     }
   },
   mounted () {
+    console.log(this.$refs.tagWrap.getBoundingClientRect())
     request.get(PATHS.tag.getAlltags).then(res => {
       this.tagsList = res.data
     })
@@ -145,21 +172,49 @@ export default {
     padding-top: 24px;
     flex-shrink: 0;
   }
-  &--tag-title {
+  &--tag-title, &--article-title {
     font-size: 16px;
   }
-  &--tag-list {
+  &--tag-list, &--article-list {
     margin-top: 10px;
     width: 100%;
     box-sizing: border-box;
     padding-left: 6px;
-    a {
+    .tag-a {
       display: inline-block;
       padding: 10px;
     }
     a:hover {
       text-decoration: underline;
     }
+    p {
+      font-weight: 400;
+      line-height: 40px;
+      width: 100%;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
   }
+  &--small-nav {
+    margin-top: 20px;
+    width: 100%;
+    position: relative;
+    color: #797979;
+    .dash {
+      width: 35%;
+      height: 1px;
+      background: #f1f1f1;
+      margin-bottom: 20px;
+    }
+    a {
+      padding: 0 5px;
+      color: #797979;
+    }
+  }
+}
+.stickyWrap {
+  position: sticky;
+  top: 60px;
 }
 </style>

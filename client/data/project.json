@@ -8,8 +8,15 @@
       "icontype": "icon-vue"
     },
     {
+      "name": "博客后台管理",
+      "desc": "React全家桶 + Ant + jsonwebtoken实现登录验证",
+      "link": "https://github.com/chentianyuan/ant_blog",
+      "view": "https://github.com/chentianyuan/ant_blog",
+      "icontype": "icon-react"
+    },
+    {
       "name": "CSR单页应用",
-      "desc": "普通的vue单页SPA项目",
+      "desc": "Vue单页SPA项目",
       "link": "https://github.com/chentianyuan/CMS",
       "view": "https://github.com/chentianyuan/CMS",
       "icontype": "icon-vue"

@@ -142,4 +142,12 @@ export default class PostDao {
     // 会生成一张中间表，以关系所属者的id为主键
     return await getRep(Post).manager.save(postInstance)
   }
+
+  async GetHotPosts (num: number = 3): Promise<any> {
+    return await getRep(Post)
+    .createQueryBuilder('post')
+    .orderBy('post.metaViews', 'DESC')
+    .take(num)
+    .getMany()
+  }
 }

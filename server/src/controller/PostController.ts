@@ -135,5 +135,14 @@ export default class PostController {
       }
     } catch (e) {}
   }
+
+  @Get('/post/hotposts')
+  async getHotArticle (@Response() res, @Request() req): Promise<void> {
+    let num = req.query.num || undefined
+    try {
+      let result = await this.postService.GetHotPosts(num)
+      result ? res.send(new SuccessMsg(result)) : res.send(new FailedMsg())
+    } catch (e) {}
+  }
 }
 

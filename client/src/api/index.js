@@ -6,7 +6,8 @@ export const PATHS = {
     getOnearticle: '/post/onepost',
     getArticleByPagination: '/post/pagination',
     getArticleByPaginationWithTag: '/post/pagination/withtag',
-    viewsAdd: '/post/views'
+    viewsAdd: '/post/views',
+    getHotPosts: '/post/hotposts'
   },
   tag: {
     getAlltags: '/tag/list'
@@ -24,7 +25,7 @@ export const PATHS = {
  */
 let commonFn = function (path, params = {}, headerParams = {}) {
   // axios.get {url, {headers, params, context}}
-  // axios.post {url, {params}, {headers}}
+  // axios.post {url, {params: {}}, {headers}}
   return commonApi[this.method](path, params, headerParams).then(res => {
     let data = res.data
     if (res.status === 200 && data && !data.hasError) {

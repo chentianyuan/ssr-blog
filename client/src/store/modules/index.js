@@ -3,10 +3,12 @@
 
 import global from './globalModule'
 import leaveMessage from './leaveMessageModule'
+import postModules from './postModule'
 
 let allTheModule = new Set([
   { global },
-  { leaveMessage }
+  { leaveMessage },
+  { postModules }
 ])
 
 // 组装

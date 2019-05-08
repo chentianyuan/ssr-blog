@@ -64,4 +64,8 @@ export default class PostService {
   updatePostById (post) {
     return this.postDao.UpdatePost(post)
   }
+
+  GetHotPosts (num?: number) {
+    return this.postDao.GetHotPosts(num)
+  }
 }
