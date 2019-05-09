@@ -10,7 +10,7 @@ const cookieParser = require('cookie-parser')
 
 const resolve = file => path.resolve(__dirname, file)
 const app = express()
-const generateLog = require('./util/generateLog')
+const { generateLog } = require('./util/generateLog')
 const injectCookies = require('./util/injectCookies')
 const config = require('../config/index')
 
@@ -64,7 +64,8 @@ const render = (req, res) => {
 		req,
     res,
     cookies: req.cookies
-	}
+  }
+  
 	// context注入
 	// const App = createApp(context)
 	// res.setHeader('Content-Type', 'text/html')

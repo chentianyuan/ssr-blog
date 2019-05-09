@@ -7,7 +7,7 @@ log4js.configure({
   // 附加器，有了等级和类别之后决定日志输出到哪里，相当于不同logger的配置options
   appenders: {
     // 默认appender是type: 'console'
-    httpLog: {
+    ordinaryLog: {
       type: 'dateFile',
       // 设置此日志类型,日志类型有类型限制的，以下是几种核心的附加器类型，他们有自己的默认配置
       // coreAppenders.set('console', require('./console'));
@@ -18,7 +18,7 @@ log4js.configure({
       level: 'trace', // 设置此类日志输出的最低级别
       maxLevel: 'error', // 设置此类日志输出的最高级别
       // appender: 'infoLog', // 附加另一附加器的所有属性
-      filename: 'log/default.log', // 生成的日志文件名
+      filename: `log/${new Date().toLocaleDateString().replace(/\//, '-')}.default.log`, // 生成的日志文件名
       // 生成日志的格式，若想自定义格式加上type: pattern属性
       layout: {
         // 在 basic 的基础上给日志加上颜色，appender Console 默认使用的就是这个 layout
@@ -26,10 +26,10 @@ log4js.configure({
         type: 'pattern',
         // %d 应该是解析符 ？
         // %p 为日志等级
-        // %c 为分类所属类别
+        // %c 为日志名
         // %m 为日志真实内容
-        // %m 为换行
-        pattern: '%d{yyyy-MM-dd hh:mm:ss} %p %c ###start###%m###end###%n'
+        // %n 为换行
+        pattern: '%d{yyyy-MM-dd hh:mm:ss} %p %c %n###start###%n%m%n###end###%n'
       },
       maxLogSize: 31457280 // 最大文件大小
     }
@@ -38,11 +38,11 @@ log4js.configure({
   categories: {
     // 默认类别，必填，当获取log4js.getLogger()时，使用的就是默认类别
     default: {
-      // 默认使用http类型的附加器
-      appenders: ['httpLog'],
+      // 默认类型的附加器
+      appenders: ['ordinaryLog'],
       level: 'trace'
     },
-    'other-catetory': { appenders: ['httpLog'], level: 'off' }
+    'other-catetory': { appenders: ['ordinaryLog'], level: 'off' }
   }
 })
 // 获取日志输出器
