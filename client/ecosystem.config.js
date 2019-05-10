@@ -1,7 +1,7 @@
 module.exports = {
   apps : [{
     name: 'blog',
-    script: '/server/index.js',
+    script: './server/index.js',
 
     // Options reference: https://pm2.io/doc/en/runtime/reference/ecosystem-file/
     // 远程服务器上的PM2参数配置
