@@ -25,7 +25,7 @@ module.exports = {
       ref  : 'origin/master', // 远程git上要部署的分支
       repo : 'https://github.com/chentianyuan/ssr-blog.git',
       path : '/usr/project',
-      'post-deploy' : 'npm install && pm2 reload ecosystem.config.js --env production'
+      'post-deploy' : 'cd client && npm install && pm2 reload ecosystem.config.js --env production'
     }
   }
 };
