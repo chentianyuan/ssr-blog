@@ -21,9 +21,9 @@ module.exports = {
   deploy : {
     production : {
       user : 'root',
-      host : '49.97.110.222',
+      host : '47.97.110.222',
       ref  : 'origin/master', // 远程git上要部署的分支
-      repo : 'https://github.com/chentianyuan/prerender.git',
+      repo : 'https://github.com/chentianyuan/ssr-blog.git',
       path : '/usr/project',
       'post-deploy' : 'npm install && pm2 reload ecosystem.config.js --env production'
     }
