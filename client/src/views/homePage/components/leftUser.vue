@@ -20,8 +20,8 @@ export default {
   data () {
     return {
       userInfo: {
-        name: 'Tacker',
-        motto: '死亡如风 常伴吾身'
+        name: 'Ytccc',
+        motto: '和喜欢的人一起浪迹天涯'
       }
     }
   }

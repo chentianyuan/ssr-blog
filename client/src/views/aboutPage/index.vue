@@ -4,7 +4,7 @@
       <div class="info">
         <p>
           <i class="iconfont icon">&#xe7ae;</i>
-          <span></span>
+          <span>手短星人</span>
         </p>
         <p>
           <i class="iconfont icon">&#xe7c6;</i>
@@ -12,7 +12,7 @@
         </p>
         <p>
           <i class="iconfont icon">&#xe849;</i>
-          <span>唱，跳，rap，篮球，😂</span>
+          <span>早期篮球玩家，隐形守护者，慢热型选手</span>
         </p>
         <p>
           <i class="iconfont icon">&#xe783;</i>
@@ -37,7 +37,7 @@
         </p>
         <p>
           <i class="iconfont icon">&#xe7fc;</i>
-          <span>很多事情不是因为有希望才去坚持，而是坚持了才有希望。</span>
+          <span>逍遥奈何途，遇上方知敏。难顾君自如，路望云卷舒</span>
         </p>
       </div>
       <div class="user">
@@ -135,7 +135,7 @@ export default {
       .stage {
         width: 250px;
         height: 110px;
-        background-color: #ccc;
+        background-color: #555;
       }
       .name {
         text-align: center;
