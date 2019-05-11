@@ -9,7 +9,8 @@ const whiteApiList = [
   '/api/post/pagination',
   '/api/post/onepost',
   '/api/comment/insertComment',
-  '/api/post/views'
+  '/api/post/views',
+  '/api/post/pagination/withtag'
 ]
 export default function (req, res, next) {
   let method = req.method.toLowerCase()
