@@ -4,7 +4,7 @@ import jwt = require('jsonwebtoken')
 const needLoginMethod = {
   'post': true
 }
-const whiteApiList = ['/api/user/verify', '/api/post/pagination', '/api/post/onepost']
+const whiteApiList = ['/api/user/verify', '/api/post/pagination', '/api/post/onepost', '/api/comment/insertComment']
 export default function (req, res, next) {
   let method = req.method.toLowerCase()
   let path = req.path
