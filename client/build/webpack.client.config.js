@@ -4,6 +4,7 @@ const base = require('./webpack.base.config')
 const merge = require('webpack-merge')
 const VueSSRClientPlugin = require('vue-server-renderer/client-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const CopyWebpackPlugin = require('copy-webpack-plugin')
 // const InlineManifestWebpackPlugin = require('inline-manifest-webpack-plugin')
 
 // const InsertWebpackPlugin = require('./insert-webpack-plugin')
@@ -22,6 +23,12 @@ const clientConfig = merge(base, {
         'process.env.VUE_ENV': '"client"'
       }),
       new VueSSRClientPlugin(),
+      new webpack.DllReferencePlugin({
+        manifest: path.join(__dirname, '../public/dll/manifest.json')
+      }),
+      new CopyWebpackPlugin([{
+        from: 'public/dll/vendor.*.js', to: 'js/', flatten: true
+      }]),
       new HtmlWebpackPlugin({
         // 使用的入口模板
         template: path.resolve(__dirname, '../index.template.html'),
