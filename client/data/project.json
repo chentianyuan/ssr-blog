@@ -25,7 +25,7 @@
       "name": "陪你去看流星雨",
       "desc": "canvas实现流星特效",
       "link": "https://github.com/chentianyuan/meteor-canvas",
-      "view": "http://chentianyuan.xyz/meteor-canvas/meteor.html",
+      "view": "https://chentianyuan.github.io/meteor-canvas/meteor.html",
       "icontype": "icon-es6"
     },
     {
@@ -48,13 +48,6 @@
       "link": "chentianyuan.xyz",
       "view": "",
       "icontype": "icon-es6"
-    },
-    {
-      "name": "react五子棋",
-      "desc": "单页react五子棋实现",
-      "link": "https://github.com/chentianyuan/react-chess-demo",
-      "view": "https://github.com/chentianyuan/react-chess-demo",
-      "icontype": "icon-react"
     }
   ]
 }
