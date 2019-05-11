@@ -7,6 +7,7 @@ APIserver端数据库联通，新建post表
 
 ### TODO
   丰富主页面内容
-  文章标签
-  文章页完善
   点赞功能
+  接口server层做接口缓存
+  ssrserver层做页面缓存
+  

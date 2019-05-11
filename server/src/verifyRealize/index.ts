@@ -4,7 +4,13 @@ import jwt = require('jsonwebtoken')
 const needLoginMethod = {
   'post': true
 }
-const whiteApiList = ['/api/user/verify', '/api/post/pagination', '/api/post/onepost', '/api/comment/insertComment']
+const whiteApiList = [
+  '/api/user/verify',
+  '/api/post/pagination',
+  '/api/post/onepost',
+  '/api/comment/insertComment',
+  '/api/post/views'
+]
 export default function (req, res, next) {
   let method = req.method.toLowerCase()
   let path = req.path
@@ -22,7 +28,6 @@ export default function (req, res, next) {
       })
     } else {
       jwt.verify(token, 'ssh', (err, decoded) => {
-        console.log('进入验证', err)
         if (err) {
           res.json({
             code: 401,
