@@ -10,7 +10,8 @@ const cookieParser = require('cookie-parser')
 
 const resolve = file => path.resolve(__dirname, file)
 const app = express()
-const { generateLog } = require('./util/generateLog')
+const { generateLog } = require('./util/generate-log')
+const { cacheMiddleware, cachePage } = require('./util/generate-cache')
 const injectCookies = require('./util/injectCookies')
 const config = require('../config/index')
 
@@ -65,7 +66,9 @@ const render = (req, res) => {
     res,
     cookies: req.cookies
   }
-  
+
+  console.log('render')
+
 	// context注入
 	// const App = createApp(context)
 	// res.setHeader('Content-Type', 'text/html')
@@ -79,12 +82,13 @@ const render = (req, res) => {
     // 在控制台和日志文件中输出日志，正常服务可以使用log4js中间件输出日志
     !config.disableLog && generateLog(context)
 
+    cachePage(html).then(res.type('html').send(html)).catch(err => console.error)
     // 这里就是所有路由重定向到根页面的地方了，history模式在ssr中的提供静态资源的处理
-		res.type('html').send(html)
 	})
 }
 
 app.use(injectCookies)
+app.use(cacheMiddleware)
 
 app.get('*', isProd ? render : (req, res) => {
   readyPromise.then(() => render(req, res))
