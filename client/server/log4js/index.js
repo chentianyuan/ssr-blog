@@ -18,7 +18,7 @@ log4js.configure({
       level: 'trace', // 设置此类日志输出的最低级别
       maxLevel: 'error', // 设置此类日志输出的最高级别
       // appender: 'infoLog', // 附加另一附加器的所有属性
-      filename: `log/${new Date().toLocaleDateString().replace(/\//, '-')}.default.log`, // 生成的日志文件名
+      filename: `log/${new Date().toLocaleDateString().replace(/\//g, '-')}.access.log`, // 生成的日志文件名
       // 生成日志的格式，若想自定义格式加上type: pattern属性
       layout: {
         // 在 basic 的基础上给日志加上颜色，appender Console 默认使用的就是这个 layout

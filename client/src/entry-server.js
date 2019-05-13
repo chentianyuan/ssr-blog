@@ -2,6 +2,7 @@ import createApp from './index.js'
 
 export default function (context) {
   return new Promise((resolve, reject) => {
+    console.log('entry-server')
     const { app, router, store } = createApp()
     // 该方法把一个回调排队，在路由完成初始导航时调用，这意味着它可以解析所有的异步进入钩子和路由初始化相关联的异步组件。
     router.onReady(() => {
