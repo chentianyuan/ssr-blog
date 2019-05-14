@@ -1,0 +1,25 @@
+# docker-compose build 重新构建服务
+# docker-compose up 启动一个服务相关的容器
+# docker-compose start 启动一个已经存在的服务容器
+
+version: '3'
+
+services: 
+
+  server:
+    build: .
+    ports:
+      - "3001:3001"
+    links:
+      - mysql
+
+  mysql:
+    image: "mysql" # 拉取mysql镜像
+    command: --default-authentication-plugin=mysql_native_password
+    restart: on-failure # 只在失败时重启
+    ports:
+      - "3306:3306" # 暴露容器端口
+    volumes:
+      - /usr/mysqlTestOpt:/var/lib/mysql # 数据卷所挂载路径设置（容器本身不存储数据
+    environment:
+      MYSQL_ROOT_PASSWORD: 123456

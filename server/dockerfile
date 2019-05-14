@@ -1,0 +1,31 @@
+# 1，docker从基础镜像运行一个容器
+# 2，执行一条指令并对容器作出修改
+# 3，执行类似docker commit的操作提交一个新的镜像层
+# 4，docker再基于刚提交的镜像运行一个新容器
+# 5，执行dockerfile中的下一条指令直到所有指令都执行完成
+
+# scratch为一个空白的镜像
+# 设置基础镜像,如果本地没有该镜像，会从Docker.io服务器pull镜像
+FROM node
+
+# 将宿主机目录下的文件拷贝进镜像，且ADD命令会自动处理URL和解压tar压缩包
+# ADD ./app
+
+# 创建目录保存代码
+RUN mkdir -p /usr/src/dockFileProject
+
+# 设置工作目录
+WORKDIR /usr/src/dockFileProject
+
+# 复制文件到工作目录
+COPY . /usr/src/dockFileProject
+
+RUN npm config set strict-ssl false && npm config set registry http://r.cnpmjs.org/
+
+# RUN npm install
+
+# 暴露容器端口
+EXPOSE 3001
+
+# 运行命令
+CMD ["sh", "./compile/deploy.sh"]
