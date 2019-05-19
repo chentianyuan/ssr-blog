@@ -86,7 +86,7 @@ let baseConfig = {
 			'vue$': 'vue/dist/vue.min.js'
 		}
 	},
-  devtool: '#eval-cheap-module-source-map'
+  devtool: isProd ? '' : '#eval-cheap-module-source-map'
 }
 
 module.exports = baseConfig

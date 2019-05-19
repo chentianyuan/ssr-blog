@@ -101,7 +101,7 @@ export default {
     width: 100%;
     height: 100%;
     position: absolute;
-    background: hsla(0, 0%, 0, 0.5);
+    background: hsla(0, 0%, 95%, 0.6);
     z-index: 1;
   }
 }

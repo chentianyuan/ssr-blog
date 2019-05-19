@@ -54,10 +54,10 @@ export default class PostDao {
     .createQueryBuilder('post')
     .leftJoinAndSelect('post.tags', 'tags')
     .select()
-    .skip(pageIndex * pageSize)
-    .take(pageSize)
     // descend 降序 asc升序
     .orderBy('post.created_at', 'DESC')
+    .skip(pageIndex * pageSize)
+    .take(pageSize)
     .getMany()
   }
 
