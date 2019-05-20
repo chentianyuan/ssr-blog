@@ -23,6 +23,10 @@ export default {
 
 <style lang="less">
 .component--common-footer {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
   width: 100%;
   text-align: center;
   color: #666;

@@ -12,6 +12,8 @@ let allTheModule = new Set([
 ])
 
 // 组装
+// 给所有的state属性添加getter方法，getter方法以'get' + state名命名
+// 给所有state添加mutation修改方法，mutation方法由大写的state名命名
 export default [...allTheModule].reduce((previous, current, currentIndex, arr) => {
   let name = Object.getOwnPropertyNames(current)[0]
   let Module = current[name]

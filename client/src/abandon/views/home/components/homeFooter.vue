@@ -1,9 +1,7 @@
 <template>
-  <el-footer class="page-home--footer">
-  </el-footer>
+  <el-footer class="page-home--footer"></el-footer>
 </template>
 
 <script>
-export default {
-}
+export default {}
 </script>

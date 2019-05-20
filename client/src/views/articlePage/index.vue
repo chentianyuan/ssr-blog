@@ -31,7 +31,7 @@
               <i>•</i>
               <router-link to="/leaveBoard">留言墙</router-link>
               <i>•</i>
-              <router-link to="/">归档</router-link>
+              <router-link to="/firends">友链</router-link>
             </div>
           </div>
         </div>
