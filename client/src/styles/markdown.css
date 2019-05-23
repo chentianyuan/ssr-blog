@@ -44,7 +44,7 @@
 .markdown a:hover {
   color: #0081ff;
 }
-.markdown p pre {
+.markdown pre {
   background-color: rgba(0, 0, 0, 0.05);
   color: #555;
   border-radius: 3px;
@@ -53,6 +53,7 @@
   border: none;
   font-size: 0.9em;
   line-height: 1.33;
+  overflow: scroll;
 }
 .markdown li{
   margin-left: 24px;
@@ -63,14 +64,14 @@
 .markdown li p {
   text-indent: 0;
 }
-.markdown p pre code {
+.markdown pre code {
   font-size: inherit;
   color: inherit;
   padding: 0;
   background-color: transparent;
   font-style: normal;
 }
-.markdown p code {
+.markdown code {
   color: #d82451;
   background-color: #f6f6f6;
   font-size: 0.9em;

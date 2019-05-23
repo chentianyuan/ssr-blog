@@ -4,7 +4,7 @@
       <div class="info">
         <p>
           <i class="iconfont icon">&#xe7ae;</i>
-          <span>手短星人</span>
+          <span>Sakura</span>
         </p>
         <p>
           <i class="iconfont icon">&#xe7c6;</i>
@@ -37,7 +37,7 @@
         </p>
         <p>
           <i class="iconfont icon">&#xe7fc;</i>
-          <span>逍遥奈何途，遇上方知敏。难顾君自如，路望云卷舒</span>
+          <span>“这不是赢不赢的了的问题，而是身为英雄我必须站在这里战斗！”</span>
         </p>
       </div>
       <div class="user">

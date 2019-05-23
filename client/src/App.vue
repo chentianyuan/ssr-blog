@@ -9,7 +9,9 @@
       <router-view></router-view>
     </keep-alive>
     <!-- 站脚 -->
-    <common-footer :hide="hideFooter"></common-footer>
+    <div class="footer-outer--wrap">
+      <common-footer :hide="hideFooter"></common-footer>
+    </div>
   </div>
 </template>
 
@@ -91,5 +93,8 @@ html, body, #app {
 .root {
   min-height: 100vh;
   overflow: hidden;
+}
+.footer-outer--wrap {
+  height: 50px;
 }
 </style>
