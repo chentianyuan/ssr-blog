@@ -5,6 +5,8 @@ import customPlugin from './plugins/index'
 import { createRouter } from './router/route'
 import Cookies from 'js-cookie'
 import mixins from './mixins'
+import * as Sentry from '@sentry/browser'
+import * as Integrations from '@sentry/integrations'
 
 const isServer = process.env.VUE_ENV === 'server'
 
@@ -57,6 +59,7 @@ export default function createApp (context) {
           }
         }
       })
+      throw new Error('customer error')
     },
     methods: {
       remSet () {
@@ -64,5 +67,18 @@ export default function createApp (context) {
       }
     }
   })
+
+  if (process.env.NODE_ENV === 'production') {
+    Sentry.init({
+      dsn: 'https://ef5cec38578442bc9ed4bebac9fc2112@sentry.io/1245962',
+      integrations: [
+        new Integrations.Vue({
+          Vue,
+          attachProps: true
+        })
+      ]
+    })
+  }
+
   return { app, store, router }
 }
