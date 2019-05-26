@@ -24,7 +24,8 @@ function generateLog (context) {
     clientIP: _.get(req, 'headers.x-forwarded-for', '') || _.get(req, 'ip', ''), // 客户端ip
     userAgent: _.get(req, 'headers.user-agent', ''), // 用户浏览器类别版本
     host: _.get(req, 'headers.host', ''),
-    cookies: JSON.stringify(_.get(req, 'cookies', ''))
+    cookies: JSON.stringify(_.get(req, 'cookies', '')),
+    referer: _.get(req, 'headers.referer', '')
   }
 
   if (context) {

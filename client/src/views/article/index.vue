@@ -4,7 +4,7 @@
     <div class="markdown article-main-wrap" v-html="markdown"></div>
     <!-- 文章detail -->
     <div class="article-main-detail">
-      <p>本文于{{new Date(post.created_at).toLocaleString()}}发布，浏览量{{post.meta.views}}次</p>
+      <p>本文于{{new Date(post.created_at).toLocaleString()}}发布，浏览量{{post.meta ? post.meta.views : 'x'}}次</p>
       <p v-if="post.tags && post.tags.length">标签：<router-link :to="{path: `/article?tag=${tag.id}`}" v-for="(tag, key) in post.tags" :key="key">{{tag.tagName}}</router-link></p>
       <p>作者：ytc</p>
       <p>链接：{{href}}</p>

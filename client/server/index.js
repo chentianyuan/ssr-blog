@@ -1,7 +1,7 @@
 
 // log4js预配置
 const isProd = process.env.NODE_ENV === 'production'
-isProd && require('./log4js')
+require('./log4js')
 const fs = require('fs')
 const path = require('path')
 const express = require('express')
