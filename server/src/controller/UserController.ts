@@ -11,7 +11,7 @@ export default class UserController {
   constructor (private userService: UserService) {}
 
   @Post('/user/verify')
-  async insertComment (@Response() res, @Body() body: User) {
+  async getLoginInfo (@Response() res, @Body() body: User) {
     let result: any = await this.userService.LoginVerify(body.username, body.password)
     if (result) {
       const userToken = {

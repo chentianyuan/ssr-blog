@@ -5,6 +5,11 @@
         }],
         "stage-0"
     ],
+    "env": {
+      "test": {
+        "presets": ["es2015"]
+      }
+    },
     "plugins":[
       [
         "syntax-dynamic-import",

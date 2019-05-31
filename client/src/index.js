@@ -59,7 +59,6 @@ export default function createApp (context) {
           }
         }
       })
-      throw new Error('customer error')
     },
     methods: {
       remSet () {
