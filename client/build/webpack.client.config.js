@@ -22,19 +22,13 @@ const clientConfig = merge(base, {
       new webpack.DefinePlugin({
         'process.env.VUE_ENV': '"client"'
       }),
-      new VueSSRClientPlugin(),
-      new webpack.DllReferencePlugin({
-        manifest: path.join(__dirname, '../public/dll/manifest.json')
-      }),
-      new CopyWebpackPlugin([{
-        from: 'public/dll/vendor.*.js', to: 'js/', flatten: true
-      }]),
       new HtmlWebpackPlugin({
         // 使用的入口模板
         template: path.resolve(__dirname, '../index.template.html'),
         filename: 'index.template.html',
         inject: 'body'
-      })
+      }),
+      new VueSSRClientPlugin()
       // new InlineManifestWebpackPlugin('runtime')
   ],
   optimization: {
@@ -85,7 +79,13 @@ if(process.env.NODE_ENV === 'production'){
       while (seen.has(joinedHash.substr(0, len))) len++
       seen.add(joinedHash.substr(0, len))
       return joinedHash.substr(0, len).padStart(len + padStr.length, padStr)
-    })
+    }),
+    // new webpack.DllReferencePlugin({
+    //   manifest: path.join(__dirname, '../public/dll/manifest.json')
+    // }),
+    new CopyWebpackPlugin([{
+      from: 'public/dll/vendor.*.js', to: 'js/', flatten: true
+    }])
   )
 }
 

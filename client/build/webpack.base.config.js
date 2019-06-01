@@ -10,7 +10,8 @@ const vueLoaderConfig = require('./vue-loader.conf')
 const isProd = process.env.NODE_ENV === 'production'
 
 let baseConfig = {
-	mode: isProd ? 'production' : 'development',
+  mode: isProd ? 'production' : 'development',
+  context: path.resolve(__dirname, '../'),
 	output: {
 		path: path.resolve(__dirname, '../dist'),
 		filename: 'js/[name].[chunkhash].js', // 防缓存
