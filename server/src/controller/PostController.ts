@@ -122,6 +122,19 @@ export default class PostController {
     } catch (e) {}
   }
 
+  @Post('/post/comments')
+  async addPostCommentsCount (@Response() res, @Body() body): Promise<void> {
+    let { postId } = body
+    try {
+      if (postId) {
+        let result = await this.postService.commentsCountAdd(postId)
+        result ? res.send(new SuccessMsg(result)) : res.send(new FailedMsg())
+      } else {
+        res.send(new FailedMsg('参数错误'))
+      }
+    } catch (e) {}
+  }
+
   @Post('/post/deleteArticle')
   async deletePostById (@Response() res, @Body() body): Promise<void> {
     let { postId } = body

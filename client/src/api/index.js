@@ -7,6 +7,8 @@ export const PATHS = {
     getArticleByPagination: '/post/pagination',
     getArticleByPaginationWithTag: '/post/pagination/withtag',
     viewsAdd: '/post/views',
+    likesAdd: '/post/likes',
+    commentsAdd: '/post/comments',
     getHotPosts: '/post/hotposts'
   },
   tag: {
