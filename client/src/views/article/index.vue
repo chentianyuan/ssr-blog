@@ -64,7 +64,6 @@ import marked from 'marked'
 // import md from '~/data/article/01.js'
 import { PATHS, request } from '@/api'
 export default {
-  name: 'article',
   data () {
     return {
       post: {},
@@ -131,7 +130,8 @@ export default {
   mounted () {
     this.href = location.href
     let postId = this.$route.params.id
-    this.isLiked = localStorage.getItem('isLiked').toString() === 'true'
+    let likeStore = localStorage.getItem('isLiked')
+    this.isLiked = likeStore ? likeStore.toString() === 'true' : false
     request.post(PATHS.article.getOnearticle, { postId }).then(res => {
       this.post = res.data
       this.markdown = marked(res.data.content)
