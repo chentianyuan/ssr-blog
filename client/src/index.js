@@ -9,6 +9,8 @@ import mixins from './mixins'
 import * as Sentry from '@sentry/browser'
 import * as Integrations from '@sentry/integrations'
 
+import swimData from '~/data/swim.json'
+
 const isServer = process.env.VUE_ENV === 'server'
 
 export default function createApp (context) {
@@ -51,6 +53,7 @@ export default function createApp (context) {
     mounted () {
       this.$nextTick(() => {
         this.remSet()
+        document.addEventListener('click', this.learnStrongCountry, false)
         window.onresize = () => {
           if (!this.timer) {
             this.timer = setTimeout(() => {
@@ -64,6 +67,35 @@ export default function createApp (context) {
     methods: {
       remSet () {
         document.getElementsByTagName('html')[0].style.fontSize = 100 * window.innerWidth / 375 + 'px'
+      },
+      learnStrongCountry (e) {
+        let timer = null
+        let locX = e.clientX + 'px'
+        let locY = e.clientY + 'px'
+        let span = document.createElement('span')
+        span.setAttribute('class', 'swim-text')
+        for (let [key, val] of Object.entries(this.initialStyle(locX, locY))) {
+          span.style[key] = val
+        }
+        span.innerText = swimData.list[0]
+        swimData.list.push(swimData.list.splice(0, 1))
+        document.body.appendChild(span)
+        timer = setTimeout(() => {
+          document.body.removeChild(span)
+          clearTimeout(timer)
+          timer = null
+        }, 2000)
+      },
+      initialStyle (left, top) {
+        return {
+          position: 'absolute',
+          zIndex: '999',
+          color: 'red',
+          fontSize: '20px',
+          fontWeight: 'bold',
+          left,
+          top
+        }
       }
     }
   })

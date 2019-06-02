@@ -97,4 +97,20 @@ html, body, #app {
 .footer-outer--wrap {
   height: 50px;
 }
+.swim-text {
+  cursor: initial;
+  user-select: none;
+  animation: swim 2s ease-out forwards;
+}
+
+@keyframes swim {
+  from {
+    margin-top: 0px;
+    opacity: 1;
+  }
+  to {
+    margin-top: -100px;
+    opacity: 0;
+  }
+}
 </style>
