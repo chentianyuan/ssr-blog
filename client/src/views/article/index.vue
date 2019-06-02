@@ -64,6 +64,7 @@ import marked from 'marked'
 // import md from '~/data/article/01.js'
 import { PATHS, request } from '@/api'
 export default {
+  name: 'article',
   data () {
     return {
       post: {},
@@ -114,10 +115,12 @@ export default {
     async likeHandler () {
       try {
         if (!this.isLiked) {
-          let result = await request.post(PATHS.article.likesAdd, { postId: this.$route.params.id })
+          let result = await request.post(PATHS.article.likesAdd, { postId: this.post.id })
           if (!result.hasError) {
             // 喜欢接口
-            localStorage.setItem('isLiked', true)
+            let likedMap = JSON.parse(localStorage.getItem('isLiked')) || Object.create(null)
+            likedMap[this.post.id] = true
+            localStorage.setItem('isLiked', JSON.stringify(likedMap))
             this.$set(this.post.meta, 'likes', this.post.meta.likes + 1)
             this.isLiked = true
           }
@@ -128,16 +131,20 @@ export default {
     }
   },
   mounted () {
+    console.log('mounted activated')
     this.href = location.href
     let postId = this.$route.params.id
-    let likeStore = localStorage.getItem('isLiked')
-    this.isLiked = likeStore ? likeStore.toString() === 'true' : false
+    let likeStore = JSON.parse(localStorage.getItem('isLiked'))
+    this.isLiked = likeStore ? likeStore[postId] !== undefined : false
     request.post(PATHS.article.getOnearticle, { postId }).then(res => {
       this.post = res.data
       this.markdown = marked(res.data.content)
       this.commentList = res.data.comment.reverse()
     })
     request.post(PATHS.article.viewsAdd, { postId }).catch(console.log)
+  },
+  activated () {
+    console.log('article activated')
   }
 }
 
