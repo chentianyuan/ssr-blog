@@ -3,7 +3,7 @@ const path = require('path')
 
 module.exports = {
   entry: {
-    vendor: [
+    dll: [
       'vue',
       'vue-router',
       'vuex',

@@ -80,11 +80,11 @@ if(process.env.NODE_ENV === 'production'){
       seen.add(joinedHash.substr(0, len))
       return joinedHash.substr(0, len).padStart(len + padStr.length, padStr)
     }),
-    // new webpack.DllReferencePlugin({
-    //   manifest: path.join(__dirname, '../public/dll/manifest.json')
-    // }),
+    new webpack.DllReferencePlugin({
+      manifest: path.join(__dirname, '../public/dll/manifest.json')
+    }),
     new CopyWebpackPlugin([{
-      from: 'public/dll/vendor.*.js', to: 'js/', flatten: true
+      from: 'public/dll/dll.*.js', to: 'js/', flatten: true
     }])
   )
 }

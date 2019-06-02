@@ -131,7 +131,6 @@ export default {
     }
   },
   mounted () {
-    console.log('mounted activated')
     this.href = location.href
     let postId = this.$route.params.id
     let likeStore = JSON.parse(localStorage.getItem('isLiked'))
