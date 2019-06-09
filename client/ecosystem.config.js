@@ -20,11 +20,11 @@ module.exports = {
 
   deploy : {
     production : {
-      user : 'root',
-      host : '47.97.110.222',
+      user : 'unbuntu',
+      host : '129.28.191.26',
       ref  : 'origin/master', // 远程git上要部署的分支
       repo : 'https://github.com/chentianyuan/ssr-blog.git',
-      path : '/usr/project',
+      path : '/code/blog',
       'post-deploy' : 'cd client && npm install && npm run build && pm2 reload ecosystem.config.js --env production && cd ../server && docker-compose build && docker-compose up -d'
     }
   }

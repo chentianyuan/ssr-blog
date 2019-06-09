@@ -20,6 +20,6 @@ services:
     ports:
       - "3306:3306" # 暴露容器端口
     volumes:
-      - /usr/mysqlTestOpt:/var/lib/mysql # 数据卷所挂载路径设置（容器本身不存储数据
+      - /usr/mysqlLoc:/var/lib/mysql # 数据卷所挂载路径设置（容器本身不存储数据
     environment:
       MYSQL_ROOT_PASSWORD: 123456
