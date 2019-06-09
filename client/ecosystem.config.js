@@ -20,7 +20,7 @@ module.exports = {
 
   deploy : {
     production : {
-      user : 'unbuntu',
+      user : 'ubuntu',
       host : '129.28.191.26',
       ref  : 'origin/master', // 远程git上要部署的分支
       repo : 'https://github.com/chentianyuan/ssr-blog.git',
