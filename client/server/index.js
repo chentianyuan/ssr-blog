@@ -41,7 +41,9 @@ if (isProd) {
     app,
     templatePath,
     (bundle, options) => {
-      renderer = require('vue-server-renderer').createBundleRenderer(bundle, options)
+      renderer = require('vue-server-renderer').createBundleRenderer(bundle, Object.assign(options, {
+        shouldPrefetch: true
+      }))
     }
   )
 }
