@@ -15,6 +15,9 @@ const { cacheMiddleware, cachePage } = require('./util/generate-cache')
 const injectCookies = require('./util/injectCookies')
 const config = require('../config/index')
 
+const getDllfile = require('./util/get-dllfile')
+const dllScript = isProd ? `<script src="/dist/js/${getDllfile()}"></script>` : ''
+
 let renderer
 let readyPromise
 const templatePath = resolve('../index.template.html')
@@ -32,7 +35,10 @@ if (isProd) {
   const template = fs.readFileSync(templatePath, 'utf-8')
   renderer = require('vue-server-renderer').createBundleRenderer(bundle, {
     template,
-    clientManifest
+    clientManifest,
+    shouldPrefetch: function (file) {
+      return /\.js$/.test(file)
+    }
 	})
 } else {
 	// 开发环境
@@ -41,9 +47,7 @@ if (isProd) {
     app,
     templatePath,
     (bundle, options) => {
-      renderer = require('vue-server-renderer').createBundleRenderer(bundle, Object.assign(options, {
-        shouldPrefetch: true
-      }))
+      renderer = require('vue-server-renderer').createBundleRenderer(bundle, options)
     }
   )
 }
@@ -66,6 +70,7 @@ const render = (req, res) => {
 		url: req.url,
 		req,
     res,
+    dllScript,
     cookies: req.cookies
   }
 

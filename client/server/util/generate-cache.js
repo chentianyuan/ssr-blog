@@ -6,7 +6,8 @@ const cacheDir = new LRU({
 })
 const regExp = new RegExp(/[\?\#]/)
 const BlackPageList = [
-  '/leaveBoard'
+  '/leaveBoard',
+  '/'
 ]
 let cacheKey = ''
 
@@ -26,7 +27,7 @@ let cachePage = function (html) {
     if (!regExp.test(cacheKey) && !BlackPageList.includes(cacheKey)) {
       cacheDir.set(cacheKey, html)
     }
-    resolve()
+    resolve(html)
   })
 }
 

@@ -60,7 +60,7 @@ const clientConfig = merge(base, {
   }
 })
 
-if(process.env.NODE_ENV === 'production'){
+if (process.env.NODE_ENV === 'production') {
   const seen = new Set()
   const nameLength = 4
   const hash = require('hash-sum')
