@@ -13,14 +13,24 @@ export default function (context) {
       if (!matchedComponents.length) {
         return reject({ code: 404 })
       }
-      // 对所有匹配的路由组建调用asyncData()
-      Promise.all(matchedComponents.map(({ asyncData }) => {
-        if (asyncData) {
-          return asyncData({ store, route: router.currentRoute, context })
+      // 服务端首屏对所有匹配的路由组件调用asyncData()
+      Promise.all(matchedComponents.map(Component => {
+        if (Component.asyncData) {
+          let data = Component.data ? Component.data.call(this) : {}
+          return Component.asyncData({ store, route: router.currentRoute, context })
+            .then(asyncData => {
+              // 必须替换组件的_Ctor属性上的data才是真实的data，需要深入探索
+              Component._Ctor[0].options.data = function () {
+                return Object.assign({}, data, asyncData)
+              }
+              return asyncData
+            })
         }
-      })).then(() => {
+      })).then(asyncDataList => {
         // 此时的store才是真正需要注入的store，已经不是最初的store
-        context.state = store.state
+        context.state = {}
+        context.state.storeState = store.state
+        context.state.dataState = asyncDataList
         resolve(app)
       }).catch(reject)
     }, reject) // 此处是onReady的reject

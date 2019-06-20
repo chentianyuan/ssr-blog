@@ -17,6 +17,10 @@ export const PATHS = {
   comment: {
     insertLeaveMessage: '/comment/insertComment',
     getLeaveMessageList: '/comment/getleaveComment'
+  },
+  view: {
+    getViewCount: '/view/checkView',
+    addViewCount: '/view/addView'
   }
 }
 
