@@ -6,7 +6,7 @@ module.exports = {
     // Options reference: https://pm2.io/doc/en/runtime/reference/ecosystem-file/
     // 远程服务器上的PM2参数配置
     // args: 'one two', // 参数
-    instances: 2, // 实例数量
+    instances: 1, // 实例数量
     autorestart: true, // 自动启动
     watch: false, // 监视模式
     max_memory_restart: '1G', // 内存占用超过多少后重启实例
