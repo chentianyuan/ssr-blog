@@ -1,5 +1,4 @@
 node_modules/
-dist/
 log/
 .stylelintcache
 /server/ormconfig.json
