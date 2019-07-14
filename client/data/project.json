@@ -4,14 +4,14 @@
       "name": "SSR博客项目",
       "desc": "参考hackerNews搭建的服务端渲染博客",
       "link": "https://github.com/chentianyuan/prerender",
-      "view": "http://47.97.110.222:8088",
+      "view": "http://129.28.191.26:8088",
       "icontype": "icon-vue"
     },
     {
       "name": "博客后台管理",
       "desc": "React全家桶 + Ant + jsonwebtoken实现登录验证",
       "link": "https://github.com/chentianyuan/ant_blog",
-      "view": "http://47.97.110.222:8089",
+      "view": "http://129.28.191.26:8089",
       "icontype": "icon-react"
     },
     {
