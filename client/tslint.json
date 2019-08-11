@@ -1,0 +1,11 @@
+{
+  "extends": "tslint-config-standard",
+  "globals": {
+    "require": false
+  },
+  "linterOptions": {
+    "exclude": [
+      "**/node_modules/**"
+    ]
+  }
+}
