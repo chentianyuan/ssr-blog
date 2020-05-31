@@ -89,7 +89,7 @@ const render = (req, res) => {
     // 在控制台和日志文件中输出日志，正常服务可以使用log4js中间件输出日志
     !config.disableLog && generateLog(context)
 
-    cachePage(html).then(res.type('html').send(html)).catch(err => console.error)
+    cachePage(html).then(res.type('html').send(html)).catch(err => console.error(err))
     // 这里就是所有路由重定向到根页面的地方了，history模式在ssr中的提供静态资源的处理
   })
 }
