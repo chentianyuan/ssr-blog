@@ -25,7 +25,7 @@ module.exports = {
       ref: 'origin/master', // 远程git上要部署的分支
       repo: 'git@github.com:chentianyuan/ssr-blog.git',
       path: '/code/blog',
-      'post-deploy': 'cd client && pm2 reload ecosystem.config.js --env production && cd ../server && docker-compose build && docker-compose up -d'
+      'post-deploy': 'cd client && npm i && npm run build && pm2 reload ecosystem.config.js --env production && cd ../server && npm i && docker-compose build && docker-compose up -d'
     }
   }
 }
