@@ -23,7 +23,7 @@ module.exports = {
       user: 'root',
       host: '129.28.191.26',
       ref: 'origin/master', // 远程git上要部署的分支
-      repo: 'https://github.com/chentianyuan/ssr-blog.git',
+      repo: 'git@github.com:chentianyuan/ssr-blog.git',
       path: '/code/blog',
       'post-deploy': 'cd client && pm2 reload ecosystem.config.js --env production && cd ../server && docker-compose build && docker-compose up -d'
     }

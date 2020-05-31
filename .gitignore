@@ -2,4 +2,3 @@ node_modules/
 log/
 logs/
 .stylelintcache
-/server/ormconfig.json
