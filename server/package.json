@@ -19,7 +19,7 @@
     "@types/express-session": "^1.15.11",
     "@types/mocha": "^5.2.6",
     "@types/mockjs": "^1.0.1",
-    "mocha": "^6.1.4",
+    "mocha": "^10.2.0",
     "mockjs": "^1.0.1-beta3",
     "ts-node": "^7.0.1",
     "typescript": "^3.0.3"
